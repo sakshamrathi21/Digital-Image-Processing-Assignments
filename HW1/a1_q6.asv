@@ -68,16 +68,21 @@ for r = 1:size(im2, 1)
         xOriginal = originalCoords(1);
         yOriginal = originalCoords(2);
         
+        % Apply nearest neighbor interpolation
         xNearest = round(xOriginal);
         yNearest = round(yOriginal);
         
+        % Check if the nearest coordinates are within the image bounds
         if xNearest >= 1 && xNearest <= cols && yNearest >= 1 && yNearest <= rows
+            % Assign the color from the original image to the new position
             warpedImg(r, c, :) = im1(yNearest, xNearest, :);
         end
     end
 end
-
+% Concatenate the images horizontally
 combinedImg = [im1, im2, warpedImg];
+
+% Display the combined image
 imshow(combinedImg);
 title('Original Image (Left), Target Image (Middle), Warped Image (Right)');
 
