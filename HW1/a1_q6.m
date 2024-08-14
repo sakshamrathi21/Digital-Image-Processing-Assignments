@@ -39,21 +39,28 @@ movingPoints = [x1' y1'];
 fixedPoints = [x2' y2'];
 n = size(movingPoints, 1);
 
-A = zeros(2*n, 6);
-b = zeros(2*n, 1);
+A = zeros(3, n);
+b = zeros(3, n);
 
 for i = 1:n
-    A(2*i-1, :) = [movingPoints(i, 1), movingPoints(i, 2), 0, 0, 1, 0];
-    A(2*i, :) = [0, 0, movingPoints(i, 1), movingPoints(i, 2), 0, 1];
-    b(2*i-1) = fixedPoints(i, 1);
-    b(2*i) = fixedPoints(i, 2);
+    A(1, i) = movingPoints(i, 1);
+    A(2, i) = movingPoints(i, 2);
+    A(3, i) = 1;
+    b(1, i) = fixedPoints(i, 1);
+    b(2, i) = fixedPoints(i, 2);
+    b(3, i) = 1;
+    % A(2*i-1, :) = [movingPoints(i, 1), movingPoints(i, 2), 0, 0, 1, 0];
+    % A(2*i, :) = [0, 0, movingPoints(i, 1), movingPoints(i, 2), 0, 1];
+    % b(2*i-1) = fixedPoints(i, 1);
+    % b(2*i) = fixedPoints(i, 2);
 end
 
-x = A\b;
+T = b\A;
+T = zeros(3, 3);
 
-
-T = [x(1), x(2), x(5); x(3), x(4), x(6); 0, 0, 1];
-
+for i = 1:3
+    T(i, :) = b(i, :) / A;
+end
 
 disp('Transformation Matrix:');
 disp(T);
@@ -77,7 +84,7 @@ for r = 1:size(im2, 1)
     end
 end
 warpedImgnear = warpedImg;
-% combinedImg = [im1, im2, warpedImg];
+combinedImg = [im1, im2, warpedImg];
 % imshow(combinedImg);
 % title('Original Image (Left), Target Image (Middle), Warped Image (Right)');
 
@@ -86,24 +93,16 @@ warpedImg = zeros(size(im2), 'uint8');
 % Loop over each pixel in the output image
 for r = 1:size(im2, 1)
     for c = 1:size(im2, 2)
-        
-        % Calculate the original coordinates in the first image
         originalCoords = invT * [c; r; 1];
         xOriginal = originalCoords(1);
         yOriginal = originalCoords(2);
-        
-        % Get the integer part and fractional part of the coordinates
         x1 = floor(xOriginal);
         y1 = floor(yOriginal);
         x2 = x1 + 1;
         y2 = y1 + 1;
         dx = xOriginal - x1;
         dy = yOriginal - y1;
-        
-        % Initialize the pixel value with zero
         pixelValue = zeros(1, channels);
-        
-        % Check bounds and apply bilinear interpolation
         if x1 >= 1 && x1 <= cols && y1 >= 1 && y1 <= rows
             pixelValue = (1-dx)*(1-dy)*double(im1(y1, x1, :));
         end
@@ -116,14 +115,12 @@ for r = 1:size(im2, 1)
         if x2 >= 1 && x2 <= cols && y2 >= 1 && y2 <= rows
             pixelValue = pixelValue + dx*dy*double(im1(y2, x2, :));
         end
-        
-        % Assign the interpolated pixel value to the warped image
         warpedImg(r, c, :) = uint8(pixelValue);
     end
 end
 
 % Concatenate the images horizontally
-combinedImg = [im1, im2, warpedImgnear, warpedImg];
+combinedImg = [im1, im2, warpedImg];
 
 % Display the combined image
 imshow(combinedImg);
