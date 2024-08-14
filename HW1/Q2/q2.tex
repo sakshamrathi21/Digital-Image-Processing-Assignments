@@ -1,0 +1,65 @@
+\documentclass[12pt]{article}
+
+\usepackage{geometry}
+\geometry{a4paper, left=1in, right=1in, top=1in, bottom=1in}
+\usepackage{amsmath}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{floatrow}
+\usepackage{enumitem}
+
+\begin{document}
+
+\section*{Question 2}
+
+\vspace{-10pt}
+
+\subsection*{Relationship between the motion vectors}
+
+\vspace{-5pt}
+
+It can be understood as follows:
+
+Given that the motion is purely translational:
+
+\vspace{-10pt}
+
+\begin{itemize}[itemsep=-0.25em]
+    \item $u_{12}$ represents the motion vector that aligns image $I_2$ with image $I_1$.
+    \item $u_{23}$ represents the motion vector that aligns image $I_3$ with image $I_2$.
+    \item $u_{13}$ represents the motion vector that aligns image $I_3$ with image $I_1$.
+\end{itemize}
+
+\vspace{-9pt}
+
+The relationship between these motion vectors can be described using vector addition:
+
+\vspace{-10pt}
+
+\[
+u_{13} = u_{12} + u_{23}
+\]
+
+This equation means that to align $I_3$ with $I_1$, you can first align $I_3$ with $I_2$ using $u_{23}$, and then align $I_2$ with $I_1$ using $u_{12}$.
+
+\vspace{-10pt}
+
+\subsection*{Practical Consideration}
+
+\vspace{-5pt}
+
+In an ideal scenario (i.e., perfect conditions with no noise, distortion, or errors), this relationship would hold exactly in practice.\ However, in real-world applications, some distorting factor (most likely to be present in practical estimation) may cause this relationship to not hold.
+
+\vspace{-10pt}
+
+\begin{enumerate}[itemsep=-0.25em]
+    \item \textbf{Noise:} Image data is often noisy due to sensor imperfections, lighting variations, or other environmental factors. This noise can lead to inaccuracies in the estimation of the motion vectors.
+    \item \textbf{Numerical Precision:} Computational limitations such as numerical precision and rounding errors can also introduce small deviations from the expected relationship.
+    \item \textbf{Pixels:} This motion between the images isn’t completely continuous i.e. it’s discrete, limited by the pixel size. Hence if the actual motion is having some fractional term (in terms of pixels), we have to round it up/down causing devation from the relationship.
+\end{enumerate}
+
+\end{document}
