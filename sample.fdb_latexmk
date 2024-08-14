@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1723539835.83368 "/Users/sakshamrathi/Desktop/CS663/CS663-Assignments/sample.tex" "sample.pdf" "sample" 1723539836.42515 2
-  "/Users/sakshamrathi/Desktop/CS663/CS663-Assignments/sample.tex" 1723539835.01338 1971 922861b4f966af86936d13ef8d6861b0 ""
+["pdflatex"] 1723652432.41069 "/Users/sakshamrathi/Desktop/CS663/CS663-Assignments/sample.tex" "sample.pdf" "sample" 1723652432.96332 0
+  "/Users/sakshamrathi/Desktop/CS663/CS663-Assignments/sample.tex" 1723652432.22263 1975 893ddb1587d10b1d35f09fac2973fc2c ""
   "/opt/homebrew/Cellar/texlive/20240312/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1710106625 2971 def0b6c1f0b107b3b936def894055589 ""
   "/opt/homebrew/Cellar/texlive/20240312/share/texmf-dist/fonts/map/fontname/texfonts.map" 1710106625 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/opt/homebrew/Cellar/texlive/20240312/share/texmf-dist/fonts/map/pdftex/updmap/pdftex.map" 1710106625 5472554 f7861620179a71a79d4bd86251f559d0 ""
@@ -139,9 +139,9 @@
   "/opt/homebrew/Cellar/texlive/20240312/share/texmf-dist/tex/latex/xcolor/xcolor.sty" 1710106625 55487 80a65caedd3722f4c20a14a69e785d8f ""
   "/opt/homebrew/Cellar/texlive/20240312/share/texmf-dist/web2c/texmf.cnf" 1710106625 41652 e14926ab86fde7902cad99d9eeaa5ca5 ""
   "/opt/homebrew/Cellar/texlive/20240312/share/texmf-var/web2c/pdftex/pdflatex.fmt" 1710106625 8221866 9aed0a1b2ac5e8bec4cefaf91f11118a ""
-  "sample.aux" 1723539836.36768 177 357ed5510bc2b3cb7da24dcc6ac6bf67 "pdflatex"
-  "sample.out" 1723539836.22795 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "sample.tex" 1723539835.01338 1971 922861b4f966af86936d13ef8d6861b0 ""
+  "sample.aux" 1723652432.91019 177 357ed5510bc2b3cb7da24dcc6ac6bf67 "pdflatex"
+  "sample.out" 1723652432.77365 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "sample.tex" 1723652432.22263 1975 893ddb1587d10b1d35f09fac2973fc2c ""
   (generated)
   "sample.aux"
   "sample.log"
