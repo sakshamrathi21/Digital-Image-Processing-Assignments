@@ -76,10 +76,58 @@ for r = 1:size(im2, 1)
         end
     end
 end
+warpedImgnear = warpedImg;
+% combinedImg = [im1, im2, warpedImg];
+% imshow(combinedImg);
+% title('Original Image (Left), Target Image (Middle), Warped Image (Right)');
 
-combinedImg = [im1, im2, warpedImg];
+warpedImg = zeros(size(im2), 'uint8');
+
+% Loop over each pixel in the output image
+for r = 1:size(im2, 1)
+    for c = 1:size(im2, 2)
+        
+        % Calculate the original coordinates in the first image
+        originalCoords = invT * [c; r; 1];
+        xOriginal = originalCoords(1);
+        yOriginal = originalCoords(2);
+        
+        % Get the integer part and fractional part of the coordinates
+        x1 = floor(xOriginal);
+        y1 = floor(yOriginal);
+        x2 = x1 + 1;
+        y2 = y1 + 1;
+        dx = xOriginal - x1;
+        dy = yOriginal - y1;
+        
+        % Initialize the pixel value with zero
+        pixelValue = zeros(1, channels);
+        
+        % Check bounds and apply bilinear interpolation
+        if x1 >= 1 && x1 <= cols && y1 >= 1 && y1 <= rows
+            pixelValue = (1-dx)*(1-dy)*double(im1(y1, x1, :));
+        end
+        if x2 >= 1 && x2 <= cols && y1 >= 1 && y1 <= rows
+            pixelValue = pixelValue + dx*(1-dy)*double(im1(y1, x2, :));
+        end
+        if x1 >= 1 && x1 <= cols && y2 >= 1 && y2 <= rows
+            pixelValue = pixelValue + (1-dx)*dy*double(im1(y2, x1, :));
+        end
+        if x2 >= 1 && x2 <= cols && y2 >= 1 && y2 <= rows
+            pixelValue = pixelValue + dx*dy*double(im1(y2, x2, :));
+        end
+        
+        % Assign the interpolated pixel value to the warped image
+        warpedImg(r, c, :) = uint8(pixelValue);
+    end
+end
+
+% Concatenate the images horizontally
+combinedImg = [im1, im2, warpedImgnear, warpedImg];
+
+% Display the combined image
 imshow(combinedImg);
-title('Original Image (Left), Target Image (Middle), Warped Image (Right)');
+title('Original Image (Left), Target Image (Middle), Warped Image using Bilinear Interpolation (Right)');
 
 % % Compute the affine transformation
 % tform = fitgeotform2d(movingPoints, fixedPoints, 'affine');
