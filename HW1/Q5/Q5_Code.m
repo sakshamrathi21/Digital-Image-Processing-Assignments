@@ -106,6 +106,7 @@ optimal_theta_JE = angles(index);
 J4 = imrotate(J3+1, optimal_theta_JE, 'crop');
 [J1_masked, J4_masked] = get_valid_pixels(J1, J4);
 joint_hist = get_joint_hist(J1_masked, J4_masked, bin_width);
+
 figure(4);
 imagesc(0:bin_width:255, 0:bin_width:255, joint_hist); colorbar;
 xlabel('J4'); ylabel('J1');
