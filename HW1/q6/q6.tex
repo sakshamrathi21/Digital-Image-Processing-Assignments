@@ -126,6 +126,34 @@ end
 Similar to the previous case, the image aligns really well.
 
 \textbf{(e)}
-If the n points which we have chosen happen to be collinear, then A will be rank-deficient (rank = 2 instead of 3). So, the equations represented by $TA = B$ will not have a unique solution. Depending on the consistency of the system, there can be infinitely many solutions or no solutions for the matrix T.
+We already know that A is of the form:
+\[
+    \begin{bmatrix}
+        x_{11} & x_{12} & x_{13} & \dots & x_{1n} \\
+        y_{11} & x_{12} & y_{13} & \dots & y_{1n} \\
+        1 & 1 & 1 & \dots & 1
+    \end{bmatrix}
+\]
+and b is of the form:
+\[
+    \begin{bmatrix}
+        x_{21} & x_{22} & x_{23} & \dots & x_{2n} \\
+        y_{21} & x_{22} & y_{23} & \dots & y_{2n} \\
+        1 & 1 & 1 & \dots & 1
+    \end{bmatrix}
+\]
 
+It has also been given that the control points are perfectly colinear i.e. $y_{1i} = mx_{1i}+c$. 
+\[b = TA\]
+\[bA^T = TAA^T\]
+where $A^T$ is the transpose of matrix A. We can fine $T$ if $AA^T$ is invertible. $P = AA^T$ is given by:
+\[
+    \begin{bmatrix}
+        \sum_{i=1}^nx_{1i}^2 & a\sum_{i=1}^nx_{1i}^2 + b\sum_{i=1}^nx_{1i} & \sum_{i=1}^nx_{1i}\\
+        a\sum_{i=1}^nx_{1i}^2 + b\sum_{i=1}^nx_{1i} &  a^2\sum_{i=1}^nx_{1i}^2 + 2ab\sum_{i=1}^nx_{1i} + kb^2 & a\sum_{i=1}^nx_{1i} + nb\\
+        \sum_{i=1}^nx_{1i} & a\sum_{i=1}^nx_{1i} + nb & n
+    \end{bmatrix}
+\]
+
+If $C_1, C_2, C_3$ are the columns of the matrix $P$, then we can see from above that $C_2 - aC_1 - bC_3 = 0$. Hence the matrix is not invertible (rank-deficient). Hence, we will not be able to find $T$ using this method. Hence, affine transformation cannot be used if we choose co-linear points.
 \end{document}
