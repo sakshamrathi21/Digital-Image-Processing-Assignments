@@ -4,7 +4,7 @@ J1 = double(imread('../Images/Q5/T1.jpg')); % reading the images
 J2 = double(imread('../Images/Q5/T2.jpg'));
 J3 = imrotate(J2, 28.5, 'crop'); % making the rotated image, interpolation method used is 'nearest neighbour'
 %% (a) part
-imwrite(J3, '../Images/Q5/T2_rotated.jpg');
+imwrite(uint8(J3), '../Images/Q5/T2_rotated.jpg');
 
 %% (b) part
 angles = -45:1:45;
