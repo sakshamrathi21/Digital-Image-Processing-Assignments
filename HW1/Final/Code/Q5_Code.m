@@ -124,7 +124,7 @@ saveas(gcf,'../Images/Q5/QMI.png');
 optimal_theta_JE = angles(index); % Angle where JE has its global minima
 J4 = imrotate(J3+1, optimal_theta_JE, 'crop');
 [J1_masked, J4_masked] = get_valid_pixels(J1, J4);
-joint_hist = get_joint_hist(J1_masked, J4_masked, bin_width);
+joint_hist = get_norm_joint_hist(J1_masked, J4_masked, bin_width);
 
 figure(4);
 imagesc(0:bin_width:255, 0:bin_width:255, joint_hist); colorbar;
