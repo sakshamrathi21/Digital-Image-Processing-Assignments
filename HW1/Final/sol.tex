@@ -18,7 +18,7 @@
 \tableofcontents
 \clearpage
 \section*{Question 1}
-
+\addcontentsline{toc}{section}{Question 1}
 In the first scenario, both the images differ in the pixel resolution but maintain the same aspect ratio (square pixels). We will use the motion model with the following features:
 \begin{itemize}
     \item Translation: To align the images based on the control points
@@ -38,7 +38,7 @@ In the second scenario, both the images have different pixel shapes (the second 
 This model can handle non-uniform scaling and shearing along with the features in the previous scenario, making it suitable aligning images with different pixel sizes.
 \clearpage
 \section*{Question 2}
-
+\addcontentsline{toc}{section}{Question 2}
     \vspace{-10pt}
 
     \subsection*{Relationship between the motion vectors}
@@ -86,7 +86,7 @@ This model can handle non-uniform scaling and shearing along with the features i
     \end{enumerate}
     \clearpage
 \section*{Question 3}
-
+\addcontentsline{toc}{section}{Question 3}
     \begin{itemize}
         \item Since we have access to the coordinates of both MATLAB's coordinate system and that of the image, we can compute the 
         transformation matrix between the two coordinate systems. Since the graph is not rotated, the equations are fairly 
@@ -120,7 +120,7 @@ This model can handle non-uniform scaling and shearing along with the features i
     the systems. The scales are basically the values $c_{1}$ and $c_{2}$ and we are done.
 \clearpage
 \section*{Question 4}
-
+\addcontentsline{toc}{section}{Question 4}
     \begin{itemize}
         \item There are $12$ unknown parameters $A,B,C,D,E,F,a,b,c,d,e$ and $f$, therefore we would need at least $12/2 = 6$ 
         control points.
@@ -222,8 +222,8 @@ This model can handle non-uniform scaling and shearing along with the features i
     Therefore selecting control points such $X_{1}$ is invertible and solving equation \ref{final2} will provide the 
     matrix $\mathcal{M}$ whose entries are the constants $A,B,C,D,E,F,a,b,c,d,e$ and $f$.
     \clearpage
-    \section*{Question 5}
-
+\section*{Question 5}
+\addcontentsline{toc}{section}{Question 5}
     \vspace{-10pt}
     
     \textbf{(a)} The code is in \verb|Code/Q5_Code.m| and the rotated image is \verb|Images/Q5/T2_rotated.jpg|. \newline
@@ -306,6 +306,7 @@ This model can handle non-uniform scaling and shearing along with the features i
     Also unlike NCC, QMI can detect non-linear relation between variables.
 \clearpage
 \section*{Question 6}
+\addcontentsline{toc}{section}{Question 6}
 \textbf{(a)} The images were read using the imread function (and cast as double). Then we took 12 pairs of point as input from the user (through mouse click). The points were choosen to be as accurate and similar as possible. The values were saved in ``selected\_points.mat" to save effort for further runs. Here is a small section of the code:
 \begin{verbatim}
 n = 12; % Number of points
