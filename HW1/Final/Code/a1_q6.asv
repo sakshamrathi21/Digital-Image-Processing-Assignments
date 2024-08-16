@@ -101,8 +101,8 @@ end
 % Concatenating the original and the transformed images side by side:
 combinedImgNear = [im1, im2, warpedImg];
 % Displaying the final image and giving it an appropriate title:
-% imshow(combinedImgNear);
-% title('Original Image (Left), Target Image (Middle), Warped Image (Right) using nearest neighbout interpolation');
+imshow(combinedImgNear);
+title('Original Image (Left), Target Image (Middle), Warped Image (Right) using nearest neighbout interpolation');
 
 % Now we need to use bilinear interpolation, instead of nearest neighbour
 % interpolation:
@@ -117,6 +117,7 @@ for r = 1:size(im2, 1)
         originalCoords = invT * [c; r; 1];
         xOriginal = originalCoords(1);
         yOriginal = originalCoords(2);
+
         % Calculating the coresponding lower and upper (floor and ceiling)
         % values for each point:
         x1 = floor(xOriginal);
@@ -127,9 +128,6 @@ for r = 1:size(im2, 1)
         dx = xOriginal - x1;
         dy = yOriginal - y1;
         pixelValue = zeros(1, channels);
-        % Now, based on the position of the current point, we might not
-        % find all the 4 neighbours in bounds, so we will check for bounds,
-        % weigh them with the areas and then add the weighted sums:
         if x1 >= 1 && x1 <= cols && y1 >= 1 && y1 <= rows
             pixelValue = (1-dx)*(1-dy)*double(im1(y1, x1, :));
         end
@@ -142,22 +140,13 @@ for r = 1:size(im2, 1)
         if x2 >= 1 && x2 <= cols && y2 >= 1 && y2 <= rows
             pixelValue = pixelValue + dx*dy*double(im1(y2, x2, :));
         end
-        % Converting into integer and then assigning:
         warpedImg(r, c, :) = uint8(pixelValue);
     end
 end
 
-% Concatenating the images side by side
-combinedImgBil = [im1, im2, warpedImg];
-
-% Displaying the final image and giving it an appropriate title:
-% imshow(combinedImgBil);
-% title('Original Image (Left), Target Image (Middle), Warped Image using Bilinear Interpolation (Right)');
-
-% Displaying the entire set for comaprison:
 % Concatenate the images horizontally
-combinedAll = cat(1, combinedImgNear, combinedImgBil);
+combinedImg = [im1, im2, warpedImg];
 
-% Display the final image and give it an appropriate title
-imshow(combinedAll);
-title('Nearest Neighbor: Original (Left), Target (Middle), Warped (Right) | Bilinear: Original (Left), Target (Middle), Warped (Right)');
+% Display the combined image
+% imshow(combinedImg);
+% title('Original Image (Left), Target Image (Middle), Warped Image using Bilinear Interpolation (Right)');
