@@ -17,7 +17,7 @@
 \clearpage
 \tableofcontents
 \clearpage
-\section{Question 1}
+\section*{Question 1}
 
 In the first scenario, both the images differ in the pixel resolution but maintain the same aspect ratio (square pixels). We will use the motion model with the following features:
 \begin{itemize}
@@ -36,7 +36,8 @@ In the second scenario, both the images have different pixel shapes (the second 
     \item Shearing: To correct skewness.
 \end{itemize}
 This model can handle non-uniform scaling and shearing along with the features in the previous scenario, making it suitable aligning images with different pixel sizes.
-\section{Question 2}
+\clearpage
+\section*{Question 2}
 
     \vspace{-10pt}
 
@@ -83,8 +84,8 @@ This model can handle non-uniform scaling and shearing along with the features i
         \item \textbf{Numerical Precision:} Computational limitations such as numerical precision and rounding errors can also introduce small deviations from the expected relationship.
         \item \textbf{Pixels:} This motion between the images isn’t completely continuous i.e. it’s discrete, limited by the pixel size. Hence if the actual motion is having some fractional term (in terms of pixels), we have to round it up/down causing devation from the relationship.
     \end{enumerate}
-
-\section{Question 3}
+    \clearpage
+\section*{Question 3}
 
     \begin{itemize}
         \item Since we have access to the coordinates of both MATLAB's coordinate system and that of the image, we can compute the 
@@ -117,7 +118,8 @@ This model can handle non-uniform scaling and shearing along with the features i
     and mapping with the coordinates in MATLAB's graph. First step would be to solve for the origins of both the systems.
     This would give us the values of $t_{x}$ and $t_{y}$. Then once that is done, we can compare the scales of both 
     the systems. The scales are basically the values $c_{1}$ and $c_{2}$ and we are done.
-\section{Question 4}
+\clearpage
+\section*{Question 4}
 
     \begin{itemize}
         \item There are $12$ unknown parameters $A,B,C,D,E,F,a,b,c,d,e$ and $f$, therefore we would need at least $12/2 = 6$ 
@@ -219,7 +221,8 @@ This model can handle non-uniform scaling and shearing along with the features i
     \end{align}
     Therefore selecting control points such $X_{1}$ is invertible and solving equation \ref{final2} will provide the 
     matrix $\mathcal{M}$ whose entries are the constants $A,B,C,D,E,F,a,b,c,d,e$ and $f$.
-\section{Question 5}
+    \clearpage
+    \section*{Question 5}
 
     \vspace{-10pt}
     
@@ -301,7 +304,8 @@ This model can handle non-uniform scaling and shearing along with the features i
     \textbf{(f)} When two discrete random variables $I_1$ and $I_2$ are statistically independent, then $p_{I_1 I_2}(i_1,i_2)=p_{I_1}(i_1) \times p_{I_2}(i_2) \; \forall \; i_1, i_2$ (in domain of the variables), i.e. joint PMF is equal to product of the marginal PMFs. In that case, QMI would be equal to $0$. Hence the more the difference between $p_{I_1 I_2}(i_1,i_2)$ and $p_{I_1}(i_1) \times p_{I_2}(i_2)$, the more dependent the variables are. Hence the more aligned (correlated) the images are, QMI tends to be higher. Hence images are aligned when QMI is maximum.
     
     Also unlike NCC, QMI can detect non-linear relation between variables.
-\section{Question 6}
+\clearpage
+\section*{Question 6}
 \textbf{(a)} The images were read using the imread function (and cast as double). Then we took 12 pairs of point as input from the user (through mouse click). The points were choosen to be as accurate and similar as possible. The values were saved in ``selected\_points.mat" to save effort for further runs. Here is a small section of the code:
 \begin{verbatim}
 n = 12; % Number of points
