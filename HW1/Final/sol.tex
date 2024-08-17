@@ -308,6 +308,7 @@ This model can handle non-uniform scaling and shearing along with the features i
 \clearpage
 \section*{Question 6}
 \addcontentsline{toc}{section}{Question 6}
+The code for this question is in ``Code/a1\_q6.m".\\
 \textbf{(a)} The images were read using the imread function (and cast as double). Then we took 12 pairs of point as input from the user (through mouse click). The points were choosen to be as accurate and similar as possible. The values were saved in ``selected\_points.mat" to save effort for further runs. Here is a small section of the code:
 \begin{verbatim}
 n = 12; % Number of points
@@ -442,7 +443,7 @@ and b is of the form:
 It has also been given that the control points are perfectly colinear i.e. $y_{1i} = mx_{1i}+c$. 
 \[b = TA\]
 \[bA^T = TAA^T\]
-where $A^T$ is the transpose of matrix A. We can fine $T$ if $AA^T$ is invertible. $P = AA^T$ is given by:
+where $A^T$ is the transpose of matrix A. We can find $T$ if $AA^T$ is invertible. $P = AA^T$ is given by:
 \[
     \begin{bmatrix}
         \sum_{i=1}^nx_{1i}^2 & a\sum_{i=1}^nx_{1i}^2 + b\sum_{i=1}^nx_{1i} & \sum_{i=1}^nx_{1i}\\
@@ -451,5 +452,5 @@ where $A^T$ is the transpose of matrix A. We can fine $T$ if $AA^T$ is invertibl
     \end{bmatrix}
 \]
 
-If $C_1, C_2, C_3$ are the columns of the matrix $P$, then we can see from above that $C_2 - aC_1 - bC_3 = 0$. Hence the matrix is not invertible (rank-deficient). Hence, we will not be able to find $T$ using this method. Hence, affine transformation cannot be used if we choose co-linear points.
+If $C_1, C_2, C_3$ are the columns of the matrix $P$, then we can see from above that $C_2 - aC_1 - bC_3 = 0$. Hence the matrix is not invertible (rank-deficient). Hence, we will not be able to find $T$ using this method. Therefore, affine transformation cannot be used if we choose co-linear points.
 \end{document}
