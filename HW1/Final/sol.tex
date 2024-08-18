@@ -320,9 +320,9 @@ This model can handle non-uniform scaling and shearing along with the features i
     \vspace{-10pt}
     
     \begin{itemize}[itemsep=0em]
-        \item \textbf{NCC:} More the absolute value of NCC, better the linear relation between the images. Global maxima exists at $\theta = 0^{\circ}$, which is clearly not the correct rotation. There does exist a local maxima at around $\theta = -29^{\circ}$ which we wanted. Hence it can be observed that NCC is not a good measure always to deal with image alignment.
-        \item \textbf{JE:} Lesser the JE, better the alignment. We see that the global minima exists at $\theta = -29^{\circ}$, close to our expected value ($28.5^{\circ}$ clockwise) upto precision of 1 degree, given the step size of theta is 1 degree too. Hence, JE checks out to be a good method for checking image alignment. We also observe a local minima at $\theta = 0^{\circ}$.
-        \item \textbf{QMI:} More the QMI, better the alignment. We see that the global maxima exists at $\theta = -29^{\circ}$, close to our expected value ($28.5^{\circ}$ clockwise) upto precision of 1 degree, given the step size of theta is 1 degree too. Hence, QMI checks out to be a good method for checking image alignment. We also observe a local maxima at $\theta = 0^{\circ}$.
+        \item \textbf{NCC:} More the absolute value of NCC, better the linear relation between the images. Global maxima exists at $\theta = 0^{\circ}$, which is clearly not the correct rotation. There does exist a local maxima at around $\theta = -29^{\circ}$ as expected. Hence it can be observed that NCC is not always a good measure to deal with image alignment.
+        \item \textbf{JE:} Lesser the JE, better the alignment. We see that the global minima exists at $\theta = -29^{\circ}$, close to our expected value ($28.5^{\circ}$ clockwise) upto precision of 1 degree, given the step size of theta is 1 degree too. Hence, JE checks out to be a good method for dealing with image alignment. We also observe a local minima at $\theta = 0^{\circ}$.
+        \item \textbf{QMI:} More the QMI, better the alignment. We see that the global maxima exists at $\theta = -29^{\circ}$, close to our expected value ($28.5^{\circ}$ clockwise) upto precision of 1 degree, given the step size of theta is 1 degree too. Hence, QMI too checks out to be a good method for dealing with image alignment. We also observe a local maxima at $\theta = 0^{\circ}$.
     \end{itemize}
     
     \vspace{-10pt}
@@ -413,7 +413,7 @@ The equation which we need to solve finally is (using least squares approach, si
 
 
 \textbf{(c)}
-In this part, we used nearest neighbour interpolation for image warping. We used reverse warping (which gives better results than forward warping). We initialized a matrix of size same as Img2 with zeroes. We then iterated over the points and calculated the their corresponding point using the inverse of matrix T (already obtained from previous part). Then, the values obtained were rounded, and also, we considered only those values which were in bounds. Here is the code:
+In this part, we used nearest neighbour interpolation for image warping. We used reverse warping (which gives better results as opposed to forward warping). We initialized a matrix of size same as Img2 with zeroes. We then iterated over the points and calculated the their corresponding point using the inverse of matrix T (already obtained from the previous part). Then, the values obtained were rounded, and also, we considered only those values which were in bounds. Here is the code:
 \begin{verbatim}
 warpedImg = zeros(size(im2), 'uint8');
 for r = 1:size(im2, 1)
@@ -438,7 +438,7 @@ Here are all the three images displaeyed:
     \caption{Image warped using nearest neighbour interpolation}
 \end{figure}
 
-As we can see, the third image looks quite similar and aligned to the second image (except the black border, which comes because of out of bound values when multiplying by inv(T)).
+As we can see, the third image looks quite similar and aligned to the second image (except the black border, which comes because of the out of bound values when multiplying by inv(T)).
 
 
 \textbf{(d)}

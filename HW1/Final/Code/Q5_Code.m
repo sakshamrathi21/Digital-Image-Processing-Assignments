@@ -15,7 +15,7 @@ bin_width = 10;
 
 for i = 1:length(angles)
     J4 = imrotate(J3+1, angles(i), 'crop'); % J4 is rotated version of J3 with 1 added to all pixels
-    [J1_masked, J4_masked] = get_valid_pixels(J1, J4); % This gives me those pixels from J1 and J4 which are valid, i.e. occupied after rotation
+    [J1_masked, J4_masked] = get_valid_pixels(J1, J4); % This gives us those pixels from J1 and J4 which are valid, i.e. occupied after rotation
     NCC(i) = get_NCC(J1_masked, J4_masked); % Calculating Correlation Coefficient
     norm_joint_hist = get_norm_joint_hist(J1_masked, J4_masked, bin_width); % Calculating normalised joint histogram of the image intensities
     JE(i) = get_JE(norm_joint_hist); % Calculating Joint Entropy
@@ -24,12 +24,12 @@ end
 
 %% Functions
 
-% This function just return the intensities of those pixels which were
+% This function just returns the intensities of those pixels which were
 % occupied after rotation
-% J4 was rotated version of J3 + 1 so all the occupied pixels will have
+% J4 is the rotated version of J3 + 1 so all the occupied pixels will have
 % intensity value > 0 while those unoccupied are given value 0.
-% Now when I do J2 = J2 - 1, the unoccupied pixels will have the value -1
-% which I can now remove to get valid pixels
+% Now when we do J2 = J2 - 1, the unoccupied pixels will have the value -1
+% which we can now remove to get valid pixels
 function [J1_masked, J2_masked] = get_valid_pixels(J1, J2)
     J2 = J2 - 1;
     valid_mask = J2 ~= -1; % Unoccupied points have -1 in them, remove them from calculations
