@@ -121,18 +121,30 @@ This model can handle non-uniform scaling and shearing along with the features i
         \end{pmatrix}
     \end{align*}
     where $\mathcal{T} = \begin{pmatrix}
-                            c_{1} & 0 & t_{x} \\
-                            0  & c_{2} & t_{y} \\
+                            c_{x} & 0 & t_{x} \\
+                            0  & c_{y} & t_{y} \\
                             0 & 0 & 1
                         \end{pmatrix}$
 
     The transformation represented by $\mathcal{T}$ can be solved for step by step by taking a few points from the image 
-    and mapping with the coordinates in MATLAB's graph. First step would be to solve for the origins of both the systems.
-    This would give us the values of $t_{x}$ and $t_{y}$. Then once that is done, we can compare the scales of both 
-    the systems. The scales are basically the values $c_{1}$ and $c_{2}$ and we are done.
+    and mapping with the coordinates in MATLAB's graph. First step would be to solve for the scales.
+    The scales are basically the values $c_{x}$ and $c_{y}$ and we are done.
     
-    Since there are 4 unknowns we would need atleast 2 control points to solve for the entries of $\mathcal{T}$. However to 
-    solve for the unknowns via inversion of matrices, we will consider 3 control points. Let
+    The y-axis of both the coordinate systems increases in value as we go down therefore the scales are all positive ie 
+    $c_{x} > 0$ and $c_{y} > 0$.
+    Since there are 4 unknowns we would need atleast 2 control points to solve for the entries of $\mathcal{T}$.
+    We can find the scales as follows:
+    \begin{enumerate}
+        \item Pick two reference (control) points $(x_{1},y_{1})$ in the graph's coordinates frame corresponding to 
+        $(X_{1},Y_{1})$ in MATLAB's coordinates and another pair of points $(x_{2},y_{2})$ and $(X_{2},Y_{2})$
+        \item  The scaling factors can then be calculated as 
+        \begin{align*}
+            c_{x} &= \frac{x_{2} - x_{1}}{X_{2} - X_{1}} \\
+            c_{y} &= \frac{y_{2} - y_{1}}{Y_{2} - Y_{1}} 
+        \end{align*}
+    \end{enumerate}
+    
+    However to solve for the unknowns via inversion of matrices, we will consider 3 control points. Let
     the control points be $\{(x_{11},y_{11}),(x_{21},y_{21})\}$, $\{(x_{12},y_{12}),(x_{22},y_{22})\}$ and 
     $\{(x_{13},y_{13}),(x_{23},y_{23})\}$. The combined equations will be
     \begin{align}
@@ -143,8 +155,8 @@ This model can handle non-uniform scaling and shearing along with the features i
         \end{pmatrix}
         &= 
         \begin{pmatrix}
-            c_{1} & 0 & t_{x} \\
-            0  & c_{2} & t_{y} \\
+            c_{x} & 0 & t_{x} \\
+            0  & c_{y} & t_{y} \\
             0 & 0 & 1
         \end{pmatrix} \cdot
         \begin{pmatrix}
@@ -166,8 +178,8 @@ This model can handle non-uniform scaling and shearing along with the features i
         \end{pmatrix}
         = 
         \begin{pmatrix}
-            c_{1} & 0 & t_{x} \\
-            0  & c_{2} & t_{y} \\
+            c_{x} & 0 & t_{x} \\
+            0  & c_{y} & t_{y} \\
             0 & 0 & 1
         \end{pmatrix} \cdot
         \begin{pmatrix}
