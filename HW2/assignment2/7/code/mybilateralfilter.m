@@ -3,7 +3,7 @@ function output = mybilateralfilter(image, sigma_s, sigma_r)
     output = zeros(size(image));
     
     % Define the window size based on sigma_s
-    win_size = 2 * ceil(3 * sigma_s) + 1;
+    win_size = ceil(3 * sigma_s);
     
     % Create Gaussian spatial kernel
     [X, Y] = meshgrid(-floor(win_size/2):floor(win_size/2), -floor(win_size/2):floor(win_size/2));

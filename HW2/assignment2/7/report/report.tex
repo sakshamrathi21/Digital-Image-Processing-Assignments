@@ -5,6 +5,7 @@
 \usepackage{amsmath}
 \usepackage{amsmath,amsfonts,amssymb}
 \usepackage{graphicx}
+\usepackage{subcaption}
 \usepackage{enumitem}
 \usepackage{titlesec}
 \usepackage{fancyhdr}
@@ -31,5 +32,214 @@
 \clearpage
 \section*{Question 7}
 \addcontentsline{toc}{section}{Question 7}
+Here are the original and the noisy versions of the images:
+\begin{figure}[h]
+    \centering
+    % First subfigure
+    \begin{subfigure}[b]{0.3\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{../images/barbara256.png}
+        \caption{Original}
+        \label{fig:subfig1}
+    \end{subfigure}
+    % Second subfigure
+    \begin{subfigure}[b]{0.3\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{../images/noisy_barbara_5.png}
+        \caption{Noisy (sigma=5)}
+        \label{fig:subfig2}
+    \end{subfigure}
+    % Third subfigure
+    \begin{subfigure}[b]{0.3\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{../images/noisy_barbara_10.png}
+        \caption{Noisy (sigma=10)}
+        \label{fig:subfig3}
+    \end{subfigure}
+    
+    \caption{Versions of barbara image}
+    \label{fig:overall}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    % First subfigure
+    \begin{subfigure}[b]{0.3\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{../images/kodak24.png}
+        \caption{Original}
+        \label{fig:subfig1}
+    \end{subfigure}
+    % Second subfigure
+    \begin{subfigure}[b]{0.3\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{../images/noisy_kodak_5.png}
+        \caption{Noisy (sigma=5)}
+        \label{fig:subfig2}
+    \end{subfigure}
+    % Third subfigure
+    \begin{subfigure}[b]{0.3\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{../images/noisy_kodak_10.png}
+        \caption{Noisy (sigma=10)}
+        \label{fig:subfig3}
+    \end{subfigure}
+    
+    \caption{Versions of kodak image}
+    \label{fig:kodak}
+\end{figure}
+
+The code for this question is present in {../code/myMainScript.m} and \\ {../code/mybilateralfilter.m}.
+
+
+Here are the results of applying bilateral filter on noisy ($\sigma = 5$) barbara image with various values of $\sigma_s$ and $\sigma_r$:
+
+\begin{figure}[h]
+    \centering
+    % First subfigure
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{../images/noisy_barbara_5.png}
+        \caption{sigma=5}
+        \label{Noisy (sigma=5)}
+    \end{subfigure}
+    % Second subfigure
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{../images/filtered_barbara_5_sigma_s_2_sigma_r_2.png}
+        \caption{$\sigma_s=2;\sigma_r=2$}
+        \label{fig:subfig2}
+    \end{subfigure}
+    % Third subfigure
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{../images/filtered_barbara_5_sigma_s_0.1_sigma_r_0.1.png}
+        \caption{$\sigma_s=0.1;\sigma_r=0.1$}
+        \label{fig:subfig3}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{../images/filtered_barbara_5_sigma_s_3_sigma_r_15.png}
+        \caption{$\sigma_s=3;\sigma_r=15$}
+        \label{fig:subfig3}
+    \end{subfigure}
+    
+    \caption{Versions of barbara image (sigma=5)}
+    \label{fig:overall}
+\end{figure}
+
+
+Here are the results of applying bilateral filter on noisy ($\sigma = 10$) barbara image with various values of $\sigma_s$ and $\sigma_r$:
+
+\begin{figure}[h]
+    \centering
+    % First subfigure
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{../images/noisy_barbara_10.png}
+        \caption{sigma=5}
+        \label{Noisy (sigma=10)}
+    \end{subfigure}
+    % Second subfigure
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{../images/filtered_barbara_10_sigma_s_2_sigma_r_2.png}
+        \caption{$\sigma_s=2;\sigma_r=2$}
+        \label{fig:subfig2}
+    \end{subfigure}
+    % Third subfigure
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{../images/filtered_barbara_10_sigma_s_0.1_sigma_r_0.1.png}
+        \caption{$\sigma_s=0.1;\sigma_r=0.1$}
+        \label{fig:subfig3}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{../images/filtered_barbara_10_sigma_s_3_sigma_r_15.png}
+        \caption{$\sigma_s=3;\sigma_r=15$}
+        \label{fig:subfig3}
+    \end{subfigure}
+    
+    \caption{Versions of barbara image (sigma=10)}
+    \label{fig:overall}
+\end{figure}
+
+
+
+
+Here are the results of applying bilateral filter on noisy ($\sigma = 5$) kodak image with various values of $\sigma_s$ and $\sigma_r$:
+
+\begin{figure}[h]
+    \centering
+    % First subfigure
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{../images/noisy_kodak_5.png}
+        \caption{sigma=5}
+        \label{Noisy (sigma=5)}
+    \end{subfigure}
+    % Second subfigure
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{../images/filtered_kodak_5_sigma_s_2_sigma_r_2.png}
+        \caption{$\sigma_s=2;\sigma_r=2$}
+        \label{fig:subfig2}
+    \end{subfigure}
+    % Third subfigure
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{../images/filtered_kodak_5_sigma_s_0.1_sigma_r_0.1.png}
+        \caption{$\sigma_s=0.1;\sigma_r=0.1$}
+        \label{fig:subfig3}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{../images/filtered_kodak_5_sigma_s_3_sigma_r_15.png}
+        \caption{$\sigma_s=3;\sigma_r=15$}
+        \label{fig:subfig3}
+    \end{subfigure}
+    
+    \caption{Versions of kodak image (sigma=5)}
+    \label{fig:overall}
+\end{figure}
+
+
+Here are the results of applying bilateral filter on noisy ($\sigma = 10$) kodak image with various values of $\sigma_s$ and $\sigma_r$:
+
+\begin{figure}[h]
+    \centering
+    % First subfigure
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{../images/noisy_kodak_10.png}
+        \caption{sigma=5}
+        \label{Noisy (sigma=10)}
+    \end{subfigure}
+    % Second subfigure
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{../images/filtered_kodak_10_sigma_s_2_sigma_r_2.png}
+        \caption{$\sigma_s=2;\sigma_r=2$}
+        \label{fig:subfig2}
+    \end{subfigure}
+    % Third subfigure
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{../images/filtered_kodak_10_sigma_s_0.1_sigma_r_0.1.png}
+        \caption{$\sigma_s=0.1;\sigma_r=0.1$}
+        \label{fig:subfig3}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{../images/filtered_kodak_10_sigma_s_3_sigma_r_15.png}
+        \caption{$\sigma_s=3;\sigma_r=15$}
+        \label{fig:subfig3}
+    \end{subfigure}
+    
+    \caption{Versions of kodak image (sigma=10)}
+    \label{fig:overall}
+\end{figure}
+
 
 \end{document}
