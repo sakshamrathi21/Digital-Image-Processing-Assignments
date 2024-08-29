@@ -44,6 +44,32 @@ The right hand side inequality comes from the definition of CDF and PDF of rando
 where the last inequality comes from the fact that $f_A(a)$ does not depend on $C$.
 \[f_C(c) = \int_{-\infty}^\infty \frac{d}{dc}(F_B(c-a))f_A(a)da = \int_{-\infty}^\infty f_B(c-a)f_A(a)da\]
 
+So, the PDF of sum of two random variables represent \textbf{convolution} (a fundamental operation from image processing). The PDF of Gaussian noise is given as:
+\[f_N(n) = \frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{n^2}{2\sigma^2}}\]
+
+Therefore the PDF of the noisy image is given as:
+
+\[f_{I'}(i') = \int_{-\infty}^\infty f_I(i)f_N(i'-i)di = \int_{-\infty}^\infty f_I(i)\frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(i'-i)^2}{2\sigma^2}}di\]
+
+The above expression represents the PDF of the noisy image.
+
+
+Let us now consider the uniform noise case:
+\[f_N(n) = 
+\begin{cases} 
+    \frac{1}{2r} & \text{if } -r \leq x \leq r \\
+    -x  & \text{otherwise}
+\end{cases}\]
+
+(The PDF has been normalized, to account to the fact that the total probability across the interval should sum up to 1.)
+
+
+Similar to the case, the PDF of the noisy image will be given as:
+\[f_{I'}(i') = \int_{-\infty}^\infty f_I(i)f_N(i'-i)di = \int_{i'-r}^{i'+r} f_I(i)\frac{1}{2r}di = \frac{1}{2r}\int_{i'-r}^{i'+r} f_I(i)di\]
+
+
+The limits of the integration has been changed and the constant has been taken out.
+
 
 
 
