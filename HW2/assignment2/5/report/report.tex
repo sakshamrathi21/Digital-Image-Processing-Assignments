@@ -29,7 +29,45 @@
 \clearpage
 \tableofcontents
 \clearpage
-\section*{Question 7}
-\addcontentsline{toc}{section}{Question 7}
+\section*{Question 5}
+\addcontentsline{toc}{section}{Question 5}
+
+Let us first consider the case of zero-mean Gaussian Filter. We will choose a filter of size $2a+1$ and it is already given that the ramp image has infinite extent. The 1D image has intensities of the form:
+\[I(x) = cx + d\]
+
+The result of applying the Gaussian filter on I will be:
+\[J(x) = \frac{\sum_{i=-a}^{a}G(i)I(x+i)}{\sum_{i=-a}^{a}G(i)}\]
+where $G(i) = e^{-\frac{i^2}{2\sigma^2}}$ (the constant has been skipped because we are normalizing the weights after applying the filter).
+
+So,
+\[J(x) = \frac{\sum_{i=-a}^{a}e^{-\frac{i^2}{2\sigma^2}}(c(x+i)+d)}{\sum_{i=-a}^{a}e^{-\frac{i^2}{2\sigma^2}}}\]We can break the numerator sum as follows:
+\[\sum_{i=-a}^{a}e^{-\frac{i^2}{2\sigma^2}}(c(x+i)+d) = (cx+d)\sum_{i=-a}^{a}e^{-\frac{i^2}{2\sigma^2}} + c\sum_{i=-a}^{0}i\times e^{-\frac{i^2}{2\sigma^2}} + c\sum_{i=0}^{a}i\times e^{-\frac{i^2}{2\sigma^2}}\]
+
+The second and third terms on the right hand side, will cancel each other, so here is the final expression of the filtered image:
+\[J(x) = \frac{(cx+d)\sum_{i=-a}^{a}e^{-\frac{i^2}{2\sigma^2}}}{\sum_{i=-a}^{a}e^{-\frac{i^2}{2\sigma^2}}} = cx+d = I(x)\]
+
+
+Therefore, we have deduced that the filtered image $J(x)$ is essentially the same as the original unfiltered image.
+
+
+Let us move to the case of bilateral filter. Again, we will choose a window of size $2a+1$.
+\[J(x) = \frac{\sum_{i=-a}^a G_{\sigma_s}(|(x+i)-x|)G_{\sigma_r}(|I(x+i)-I(x)|)I(x+i)}{\sum_{i=-a}^aG_{\sigma_s}(|(x+i)-x|)G_{\sigma_r}(|I(x+i)-I(x)|)}\]
+
+\[J(x) = \frac{\sum_{i=-a}^a G_{\sigma_s}(|i|)G_{\sigma_r}(|ci|)I(x+i)}{\sum_{i=-a}^aG_{\sigma_s}(|i|)G_{\sigma_r}(|ci|)}\]
+
+\[J(x) = \frac{\sum_{i=-a}^a e^{-\frac{i^2}{\sigma_s^2}} e^{-\frac{(ci)^2}{\sigma_s^2}}(c(x+i)+d)}{\sum_{i=-a}^a e^{-\frac{i^2}{\sigma_s^2}} e^{-\frac{(ci)^2}{\sigma_s^2}}}\]
+Constants from the Gaussian PDF have been removed because of normalization in the denominator.
+
+
+Similar to the previous case, we will break the numerator sum as follows:
+\[\sum_{i=-a}^a e^{-\frac{i^2}{\sigma_s^2}} e^{-\frac{(ci)^2}{\sigma_s^2}}(c(x+i)+d) = (cx+d)\sum_{i=-a}^a e^{-\frac{i^2}{\sigma_s^2}} e^{-\frac{(ci)^2}{\sigma_s^2}} + c\sum_{i=-a}^{0}i\times e^{-\frac{i^2}{\sigma_s^2}} e^{-\frac{(ci)^2}{\sigma_s^2}} + c\sum_{i=0}^{a}i\times e^{-\frac{i^2}{\sigma_s^2}} e^{-\frac{(ci)^2}{\sigma_s^2}}\]
+
+The second and the third terms from the sum will cancel each other, so here is the final expression of the filtered image:
+
+\[J(x) = \frac{(cx+d)\sum_{i=-a}^a e^{-\frac{i^2}{\sigma_s^2}} e^{-\frac{(ci)^2}{\sigma_s^2}}}{\sum_{i=-a}^a e^{-\frac{i^2}{\sigma_s^2}} e^{-\frac{(ci)^2}{\sigma_s^2}}} = cx+d = I(x)\]
+
+
+Therefore, we have deduced that the output image $J(x)$ (after applying bilateral filter) is essentially the same as the original unfiltered image.
+
 
 \end{document}
