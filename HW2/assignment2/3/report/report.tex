@@ -16,6 +16,10 @@
 \usepackage[svgnames]{xcolor}
 \usepackage{xpatch}
 
+\setlength{\parindent}{0pt}
+
+\newcommand{\Conv}{\mathop{\scalebox{1.5}{\raisebox{-0.2ex}{$\ast$}}}}
+
 \makeatletter
 \newcommand{\colorboxed}[1]{\fcolorbox{Black}{White}{\m@th$\displaystyle#1$}}
 \xpatchcmd{\@Aboxed}{\boxed}{\colorboxed}{}{}
@@ -29,7 +33,124 @@
 \clearpage
 \tableofcontents
 \clearpage
-\section*{Question 7}
-\addcontentsline{toc}{section}{Question 7}
+\section*{Question 3}
+\addcontentsline{toc}{section}{Question 3}
+
+\subsection*{(a)}
+The Laplacian mask with a $-8$ in the center is \textbf{NOT} a separable filter. Proof:-
+
+Assume the contrary, i.e.\ it is a separable filter, then it must be representable as the matrix multiplication of a column vector and a row vector (Outer Product between 2 1D vectors ($u, v$) is matrix multiplication ($uv^T$)). The dimensions of the vectors should be $3 \times 1$ and $1 \times 3$ respectively, otherwise matrix multiplication won't be possible. Thus,
+
+\[
+\begin{bmatrix}
+1 & 1 & 1 \\
+1 & -8 & 1 \\
+1 & 1 & 1
+\end{bmatrix}
+=
+\begin{bmatrix}
+a \\
+b \\
+c
+\end{bmatrix}
+\begin{bmatrix}
+    d & e & f
+\end{bmatrix}
+=
+\begin{bmatrix}
+ad & ae & af \\
+bd & be & bf \\
+cd & ce & cf
+\end{bmatrix}
+\]
+
+Hence, $ad = ae = af = bd = bf = cd = ce = cf = 1$ and $be = -8$.
+
+From $ad = ae = af = 1$, we can tell that $a \neq 0$ and $d = e = f = 1/a$.
+
+Similarly, from $bd = bf = 1$ and $be = -8$, we can tell that $b \neq 0$ and $d = f = 1/b$ and $e = -8/b$. From the above $d = e = f$, we would see that $1/b = -8/b \implies 1 = -8$ which is clearly wrong. Contradiction arises.
+
+Hence our initial assumption that the given Laplacian mask is a separable filter is wrong.
+
+Hence proved.
+
+\subsection*{(b)}
+The Laplacian mask with a $-4$ in the center can be implemented entirely using 1D convolutions. Proof:- \\
+
+This Laplacian mask when applied at a point $(x, y)$ in a 2D image $f$ gives $f(x+1, y) + f(x-1, y) + f(x, y-1) + f(x, y+1) - 4f(x, y)$ (given in class slides). \\
+
+It can be written as $\{f(x, y+1) + f(x, y-1) - 2f(x, y)\} + \{f(x+1, y) + f(x-1, y) - 2f(x, y)\}$. \\
+
+See that in $\{f(x, y+1) + f(x, y-1) - 2f(x, y)\}$, the $x$ is constant and hence this can be computed using a row 1D convolution. $[1 \quad -2 \quad 1]$ can be that 1D mask. Similarly in $\{f(x+1, y) + f(x-1, y) - 2f(x, y)\}$, the $y$ is constant and hence this can be computed using a column 1D convolution. $[1 \quad -2 \quad 1]^T$ can be the mask. Adding these 1D convolution results will do the job. Hence,
+
+\[
+\begin{bmatrix}
+0 & 1 & 0 \\
+1 & -4 & 1 \\
+0 & 1 & 0
+\end{bmatrix}
+\Conv
+\mathbf{I}
+=
+\begin{bmatrix}
+1 & -2 & 1
+\end{bmatrix}
+\Conv
+\mathbf{I}
++
+\begin{bmatrix}
+1 \\
+-2 \\
+1
+\end{bmatrix}
+\Conv
+\mathbf{I}
+\]
+
+If image \textbf{I} is an impulse matrix and these 1D convolutions result in the same 2D Laplacian mask, then any image can be convolved with these 1D masks to get the Laplacian convolution, which is shown below:-
+
+\[
+\begin{bmatrix}
+1 & -2 & 1
+\end{bmatrix}
+\Conv
+\begin{bmatrix}
+0 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 0
+\end{bmatrix}
++
+\begin{bmatrix}
+1 \\
+-2 \\
+1
+\end{bmatrix}
+\Conv
+\begin{bmatrix}
+0 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 0
+\end{bmatrix}
+=
+\begin{bmatrix}
+0 & 0 & 0 \\
+1 & -2 & 1 \\
+0 & 0 & 0
+\end{bmatrix}
++
+\begin{bmatrix}
+0 & 1 & 0 \\
+0 & -2 & 0 \\
+0 & 1 & 0
+\end{bmatrix}
+=
+\begin{bmatrix}
+0 & 1 & 0 \\
+1 & -4 & 1 \\
+0 & 1 & 0
+\end{bmatrix}
+\]
+
+Hence proved.
 
 \end{document}
