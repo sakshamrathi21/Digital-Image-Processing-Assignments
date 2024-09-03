@@ -89,7 +89,7 @@ Here are the original and the noisy versions of the images:
     \label{fig:kodak}
 \end{figure}
 
-The code for this question is present in {../code/myMainScript.m} and \\ {../code/mybilateralfilter.m}. The window size of the bilateral filter is chosen to be $[3*\sigma_s]$, where $[]$ denotes the ceiling function.
+The code for this question is present in {../code/myMainScript.m} and \\ {../code/mybilateralfilter.m}. The window size of the bilateral filter is chosen to be $2\times [3*\sigma_s] + 1$, where $[]$ denotes the ceiling function.
 
 
 Here are the results of applying bilateral filter on noisy ($\sigma = 5$) barbara image with various values of $\sigma_s$ and $\sigma_r$:
@@ -130,7 +130,7 @@ Here are the results of applying bilateral filter on noisy ($\sigma = 5$) barbar
     \label{fig:overall}
 \end{figure}
 
-As we can see from the images, as we increase $\sigma_r$, the images get smoother (for example the face gets clearer). This is because of contribution from a wider range of intensity values in case of higher $\sigma_r$. So, with respect to the clarity of the image, the fourth one resembles more to the original image. The same effect can be observed due to higher $\sigma_s$ values, which essentially reduce the noise.
+As we can see from the images, as we increase $\sigma_r$, the images get smoother (for example the face gets clearer). This is because of contribution from a wider range of intensity values in case of higher $\sigma_r$. So, with respect to the clarity of the image, the fourth one resembles more to the original image. The same effect can be observed due to higher $\sigma_s$ values, which essentially reduce the noise. Moreover, it is worth noting that edges are preserved for all three cases.
 
 
 Here are the results of applying bilateral filter on noisy ($\sigma = 10$) barbara image with various values of $\sigma_s$ and $\sigma_r$:
