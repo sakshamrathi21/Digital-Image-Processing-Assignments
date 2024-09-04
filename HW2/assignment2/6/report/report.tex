@@ -16,6 +16,8 @@
 \usepackage[svgnames]{xcolor}
 \usepackage{xpatch}
 
+\setlength{\parindent}{0pt}
+
 \makeatletter
 \newcommand{\colorboxed}[1]{\fcolorbox{Black}{White}{\m@th$\displaystyle#1$}}
 \xpatchcmd{\@Aboxed}{\boxed}{\colorboxed}{}{}
@@ -29,7 +31,89 @@
 \clearpage
 \tableofcontents
 \clearpage
-\section*{Question 7}
-\addcontentsline{toc}{section}{Question 7}
+\section*{Question 6}
+\addcontentsline{toc}{section}{Question 6}
+\subsection*{Proving $I_{xx} + I_{yy} = I_{uu} + I_{vv}$}
+Given,
+\begin{equation}
+    (u, v) = (x \cos \theta - y \sin \theta, \, x \sin \theta + y \cos \theta)
+\end{equation}
+Also, for any function $f$:-
+\begin{subequations}
+    \begin{empheq}{align}
+        \frac{\partial{f}}{\partial{x}} &= \frac{\partial{f}}{\partial{u}} \frac{\partial{u}}{\partial{x}} + \frac{\partial{f}}{\partial{v}} \frac{\partial{v}}{\partial{x}} = \frac{\partial{f}}{\partial{u}} (\cos \theta) + \frac{\partial{f}}{\partial{v}} (\sin \theta)\\
+        \frac{\partial{f}}{\partial{y}} &= \frac{\partial{f}}{\partial{u}} \frac{\partial{u}}{\partial{y}} + \frac{\partial{f}}{\partial{v}} \frac{\partial{v}}{\partial{y}} = \frac{\partial{f}}{\partial{u}} (- \sin \theta) + \frac{\partial{f}}{\partial{v}} (\cos \theta)
+    \end{empheq}
+\end{subequations}
+Now, let's see second partial derivatives :-
+\begin{align*}
+    I_{xx} &= \frac{\partial^2 I}{\partial x^2} = \frac{\partial}{\partial x} \left(\frac{\partial I}{\partial x}\right) =  \frac{\partial}{\partial u} \left(\frac{\partial I}{\partial x}\right) (\cos \theta) + \frac{\partial}{\partial v} \left(\frac{\partial I}{\partial x}\right) (\sin \theta) &\text{(From Eqn.\ 2a)} \\
+    I_{yy} &= \frac{\partial^2 I}{\partial y^2} = \frac{\partial}{\partial y} \left(\frac{\partial I}{\partial y}\right) =  \frac{\partial}{\partial u} \left(\frac{\partial I}{\partial y}\right) (- \sin \theta) + \frac{\partial}{\partial v} \left(\frac{\partial I}{\partial y}\right) (\cos \theta) &\text{(From Eqn.\ 2b)}
+\end{align*}
+From Eqn.\ 2a, (Note: $I_{uv}$ is $\frac{\partial}{\partial{v}} \left(\frac{\partial I}{\partial u}\right)$ and similarly $I_{vu}$. Also $I_{uv} = I_{vu}$.)
+\begin{align*}
+    \frac{\partial}{\partial u} \left(\frac{\partial I}{\partial x}\right) &= \frac{\partial}{\partial x} \left(\frac{\partial I}{\partial u}\right) = \frac{\partial}{\partial{u}} \left(\frac{\partial I}{\partial u}\right) (\cos \theta) + \frac{\partial}{\partial{v}} \left(\frac{\partial I}{\partial u}\right) (\sin \theta) = I_{uu} (\cos \theta) + I_{uv} (\sin \theta) \\
+    \frac{\partial}{\partial v} \left(\frac{\partial I}{\partial x}\right) &= \frac{\partial}{\partial x} \left(\frac{\partial I}{\partial v}\right) = \frac{\partial}{\partial{u}} \left(\frac{\partial I}{\partial v}\right) (\cos \theta) + \frac{\partial}{\partial{v}} \left(\frac{\partial I}{\partial v}\right) (\sin \theta) = I_{vu} (\cos \theta) + I_{vv} (\sin \theta)
+\end{align*}
+From Eqn.\ 2b,
+\begin{align*}
+    \frac{\partial}{\partial u} \left(\frac{\partial I}{\partial y}\right) &= \frac{\partial}{\partial y} \left(\frac{\partial I}{\partial u}\right) = \frac{\partial}{\partial{u}} \left(\frac{\partial I}{\partial u}\right) (- \sin \theta) + \frac{\partial}{\partial{v}} \left(\frac{\partial I}{\partial u}\right) (\cos \theta) = I_{uu} (- \sin \theta) + I_{uv} (\cos \theta) \\
+    \frac{\partial}{\partial v} \left(\frac{\partial I}{\partial y}\right) &= \frac{\partial}{\partial y} \left(\frac{\partial I}{\partial v}\right) = \frac{\partial}{\partial{u}} \left(\frac{\partial I}{\partial v}\right) (- \sin \theta) + \frac{\partial}{\partial{v}} \left(\frac{\partial I}{\partial v}\right) (\cos \theta) = I_{vu} (- \sin \theta) + I_{vv} (\cos \theta)
+\end{align*}
+Substitute $\frac{\partial}{\partial{u}} \left(\frac{\partial I}{\partial x}\right)$ and $\frac{\partial}{\partial{v}} \left(\frac{\partial I}{\partial x}\right)$ in $I_{xx}$:-
+\begin{align*}
+    I_{xx} &= (I_{uu} (\cos \theta) + I_{uv} (\sin \theta)) \cos \theta + (I_{vu} (\cos \theta) + I_{vv} (\sin \theta)) \sin \theta \\
+    &= I_{uu} \cos^2 \theta  + I_{uv} \sin \theta \cos \theta + I_{vu} \cos \theta \sin \theta + I_{vv} \sin^2 \theta \\
+    &= I_{uu} \cos^2 \theta + 2 I_{uv} \sin \theta \cos \theta + I_{vv} \sin^2 \theta
+\end{align*}
+Substitute $\frac{\partial}{\partial{u}} \left(\frac{\partial I}{\partial y}\right)$ and $\frac{\partial}{\partial{v}} \left(\frac{\partial I}{\partial y}\right)$ in $I_{yy}$:-
+\begin{align*}
+    I_{yy} &= (I_{uu} (- \sin \theta) + I_{uv} (\cos \theta)) (- \sin \theta) + (I_{vu} (- \sin \theta) + I_{vv} (\cos \theta)) \cos \theta \\
+    &= I_{uu} \sin^2 \theta  - I_{uv} \cos \theta \sin \theta - I_{vu} \sin \theta \cos \theta + I_{vv} \sin^2 \theta \\
+    &= I_{uu} \sin^2 \theta - 2 I_{uv} \sin \theta \cos \theta + I_{vv} \cos^2 \theta
+\end{align*}
+Adding $I_{xx}$ and $I_{yy}$, you can see:-
+\begin{align*}
+    I_{xx} + I_{yy} &= \{I_{uu} \cos^2 \theta + 2 I_{uv} \sin \theta \cos \theta + I_{vv} \sin^2 \theta\} + \{I_{uu} \sin^2 \theta - 2 I_{uv} \sin \theta \cos \theta + I_{vv} \cos^2 \theta\} \\
+    &= I_{uu} (\cos^2 \theta + \sin^2 \theta) + I_{vv} (\sin^2 \theta + \cos^2 \theta) \\
+    &= I_{uu} + I_{vv}
+\end{align*}
+Hence proved.
 
+\subsection*{Finding Second Directional Derivative in Gradient's Direction}
+First Directional Derivative is $\phi (f, v) = \nabla f(x, y) \cdot v = (f_x \hat{i} + f_y \hat{j}) \cdot (v_x \hat{i} + v_y \hat{j}) = v_x f_x + v_y f_y$ for any (2-variable) function $f$ and unit vector $v$ ($= (v_x, v_y)$).
+
+Second Directional Derivative for $f$ and $v$ ($\psi (f, v)$) is First Directional Derivative of the First Directional Derivative or $\phi (\phi (f, v), v)$, which simplies to:-
+\begin{align*}
+    \phi (\phi (f, v), v) &= v_x \frac{\partial (\phi (f, v))}{\partial x} + v_y \frac{\partial (\phi (f, v))}{\partial y} \\
+    &= v_x \frac{\partial (v_x f_x + v_y f_y)}{\partial x} + v_y \frac{\partial (v_x f_x + v_y f_y)}{\partial y} \\
+    &= v_x \left(v_x \frac{\partial f_x}{\partial x} + v_y \frac{\partial f_y}{\partial x}\right) + v_y \left(v_x \frac{\partial f_x}{\partial y} + v_y \frac{\partial f_y}{\partial y}\right) \\
+    &= v_x^2 f_{xx} + v_x v_y f_{yx} + v_y v_x f_{xy} + v_y^2 f_{yy} \\
+    &= v_x^2 f_{xx} + 2 v_x v_y f_{xy} + v_y^2 f_{yy}
+\end{align*}
+Now, $f = I$ and $v = \left(\frac{I_x}{\sqrt{I_x^2 + I_y^2}}, \, \frac{I_y}{\sqrt{I_x^2 + I_y^2}}\right)$, the Second Directional Derivative becomes:-
+\begin{align*}
+    &= \left(\frac{I_x}{\sqrt{I_x^2 + I_y^2}}\right)^2 I_{xx} + 2 \left(\frac{I_x}{\sqrt{I_x^2 + I_y^2}}\right) \left(\frac{I_y}{\sqrt{I_x^2 + I_y^2}}\right) I_{xy} +  \left(\frac{I_y}{\sqrt{I_x^2 + I_y^2}}\right)^2 I_{yy} \\
+    &= \frac{I_x^2 I_{xx} + 2 I_x I_y I_{xy} + I_y^2 I_{yy}}{I_x^2 + I_y^2}
+\end{align*}
+Hence proved.
+
+\subsection*{Finding Second Directional Derivative $\perp$ to Gradient's Direction}
+Unit vector perpendicular to $v = (v_x, v_y)$ is $(-v_y, v_x)$ (call it $u$).
+
+See that $\psi (f, v) + \psi (f, v') = f_{xx} + f_{yy}$ as shown below:-
+\begin{align*}
+    \psi (f, v) + \psi (f, v') &= \{v_x^2 f_{xx} + 2 v_x v_y f_{xy} + v_y^2 f_{yy}\} + \{u_x^{2} f_{xx} + 2 u_x u_y f_{xy} + u_y^2 f_{yy}\} \\
+    &= \{v_x^2 f_{xx} + 2 v_x v_y f_{xy} + v_y^2 f_{yy}\} + \{(-v_y)^{2} f_{xx} + 2 (-v_y) (v_x) f_{xy} + (v_x)^2 f_{yy}\} \\
+    &= f_{xx} (v_x^2 + v_y^2) + f_{yy} (v_y^2 + v_x^2) \\
+    &= f_{xx} + f_{yy}
+\end{align*}
+Hence, Second Directional Derivative perpendicular to Gradient's Direction ($\psi (I, v')$) is:-
+\begin{align*}
+    \psi (I, v') &= I_{xx} + I_{yy} - \psi (I, v) \\
+    &= I_{xx} + I_{yy} - \frac{I_x^2 I_{xx} + 2 I_x I_y I_{xy} + I_y^2 I_{yy}}{I_x^2 + I_y^2} \\
+    &= \frac{(I_{xx} + I_{yy})(I_x^2 + I_y^2) - (I_x^2 I_{xx} + 2 I_x I_y I_{xy} + I_y^2 I_{yy})}{I_x^2 + I_y^2} \\
+    &= \frac{I_{xx} I_x^2 + I_{xx} I_y^2 + I_{yy} I_x^2 + I_{yy} I_y^2 - I_x^2 I_{xx} - 2 I_x I_y I_{xy} - I_y^2 I_{yy}}{I_x^2 + I_y^2} \\
+    &= \frac{I_{xx} I_y^2 + I_{yy} I_x^2 - 2 I_x I_y I_{xy}}{I_x^2 + I_y^2} \text{ (Ans.)}
+\end{align*}
 \end{document}
