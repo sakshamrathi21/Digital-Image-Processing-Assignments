@@ -144,7 +144,7 @@ title('Local HistEq 51x51 LC1');
 subplot(2, 3, 6);
 imshow(localHistEqLC1_71x71, []);
 title('Local HistEq 71x71 LC1');
-saveas(gcf, 'LC1_hist_eq.png');
+saveas(gcf, '../images/LC1_hist_eq.png');
 
 %% Create the figure for LC2
 figure;
@@ -172,7 +172,7 @@ subplot(2, 3, 6);
 imshow(localHistEqLC2_71x71, []);
 title('Local HistEq 71x71 LC2');
 
-saveas(gcf, 'LC2_hist_eq.png');
+saveas(gcf, '../images/LC2_hist_eq.png');
 
 toc;
 
