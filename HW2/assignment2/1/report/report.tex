@@ -39,9 +39,9 @@ We need to express the PDF of the final image in terms of the PDF of the origina
 Let us try to express the CDF of $C$ in terms of $A$ and $B$:
 \[F_C(c) = \mathbb{P}(C \leq c) = \mathbb{P}(A+ B \leq c) = \int_{-\infty}^\infty \mathbb{P}(B \leq c - a)f_A(a)da = \int_{-\infty}^\infty F_B(c-a)f_A(a)da\]
 
-The right hand side inequality comes from the definition of CDF and PDF of random variables, where we want the sum to be less than $c$, so $B\leq c-a$, where $a$ is a value taken by the distrubution $A$, with probability $f_A(a)$. And then we perform the integral across all such values of $a$. Now:
+The right hand side equality comes from the definition of CDF and PDF of random variables, where we want the sum to be less than $c$, so $B\leq c-a$, where $a$ is a value taken by the distrubution $A$, with probability $f_A(a)$. And then we perform the integral across all such values of $a$. Now:
 \[f_C(c) = \frac{d}{dc}F_C(c) = \frac{d}{dc}(\int_{-\infty}^\infty F_B(c-a)f_A(a)da) = \int_{-\infty}^\infty \frac{d}{dc}(F_B(c-a))f_A(a)da\]
-where the last inequality comes from the fact that $f_A(a)$ does not depend on $C$.
+where the last equality comes from the fact that $f_A(a)$ does not depend on $C$.
 \[f_C(c) = \int_{-\infty}^\infty \frac{d}{dc}(F_B(c-a))f_A(a)da = \int_{-\infty}^\infty f_B(c-a)f_A(a)da\]
 
 So, the PDF of sum of two random variables represent \textbf{convolution} (a fundamental operation from image processing). The PDF of Gaussian noise is given as:
