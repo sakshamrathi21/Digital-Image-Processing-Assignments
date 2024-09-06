@@ -23,58 +23,60 @@ localHistEqLC2_71x71 = transformImage(LC2, 71, 71);
 
 titleFontSize = 10;
 
-figure;
-subplot(2, 3, 1);
-imshow(LC1);
-title('Original', 'FontSize', titleFontSize);
+% Set title font size
+titleFontSize = 12; 
 
-subplot(2, 3, 2);
+figure;
 imshow(globalHistEqLC1);
-title('G.HistEq', 'FontSize', titleFontSize);
-
-subplot(2, 3, 3);
-imshow(localHistEqLC1_7x7, []);
-title('L.HistEq 7x7', 'FontSize', titleFontSize);
-
-subplot(2, 3, 4);
-imshow(localHistEqLC1_31x31, []);
-title('L.HistEq 31x31', 'FontSize', titleFontSize);
-
-subplot(2, 3, 5);
-imshow(localHistEqLC1_51x51, []);
-title('L.HistEq 51x51', 'FontSize', titleFontSize);
-
-subplot(2, 3, 6);
-imshow(localHistEqLC1_71x71, []);
-title('L.HistEq 71x71', 'FontSize', titleFontSize);
-saveas(gcf, '../images/LC1_hist_eq.png');
+title('Global HistEq', 'FontSize', titleFontSize);
+saveas(gcf, '../images/LC1_globalHistEq.png');
 
 figure;
-subplot(2, 3, 1);
-imshow(LC2);
-title('Original', 'FontSize', titleFontSize);
+imshow(localHistEqLC1_7x7, []);
+title('Local HistEq 7x7', 'FontSize', titleFontSize);
+saveas(gcf, '../images/LC1_localHistEq_7x7.png');
 
-subplot(2, 3, 2);
+figure;
+imshow(localHistEqLC1_31x31, []);
+title('Local HistEq 31x31', 'FontSize', titleFontSize);
+saveas(gcf, '../images/LC1_localHistEq_31x31.png');
+
+figure;
+imshow(localHistEqLC1_51x51, []);
+title('Local HistEq 51x51', 'FontSize', titleFontSize);
+saveas(gcf, '../images/LC1_localHistEq_51x51.png');
+
+figure;
+imshow(localHistEqLC1_71x71, []);
+title('Local HistEq 71x71', 'FontSize', titleFontSize);
+saveas(gcf, '../images/LC1_localHistEq_71x71.png');
+
+
+figure;
 imshow(globalHistEqLC2);
-title('G.HistEq', 'FontSize', titleFontSize);
+title('Global HistEq', 'FontSize', titleFontSize);
+saveas(gcf, '../images/LC2_globalHistEq.png');
 
-subplot(2, 3, 3);
+figure;
 imshow(localHistEqLC2_7x7, []);
-title('L.HistEq 7x7', 'FontSize', titleFontSize);
+title('Local HistEq 7x7', 'FontSize', titleFontSize);
+saveas(gcf, '../images/LC2_localHistEq_7x7.png');
 
-subplot(2, 3, 4);
+figure;
 imshow(localHistEqLC2_31x31, []);
-title('L.HistEq 31x31', 'FontSize', titleFontSize);
+title('Local HistEq 31x31', 'FontSize', titleFontSize);
+saveas(gcf, '../images/LC2_localHistEq_31x31.png');
 
-subplot(2, 3, 5);
+figure;
 imshow(localHistEqLC2_51x51, []);
-title('L.HistEq 51x51', 'FontSize', titleFontSize);
+title('Local HistEq 51x51', 'FontSize', titleFontSize);
+saveas(gcf, '../images/LC2_localHistEq_51x51.png');
 
-subplot(2, 3, 6);
+figure;
 imshow(localHistEqLC2_71x71, []);
-title('L.HistEq 71x71', 'FontSize', titleFontSize);
+title('Local HistEq 71x71', 'FontSize', titleFontSize);
+saveas(gcf, '../images/LC2_localHistEq_71x71.png');
 
-saveas(gcf, '../images/LC2_hist_eq.png');
 
 
 toc;
