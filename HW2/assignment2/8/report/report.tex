@@ -197,4 +197,17 @@
     
         \caption{Contrasts for LC2.jpg}
     \end{figure}
+
+    \subsection*{Explanation}
+    Histogram equalisation uses all the pixels that are available to get better contrast. If only a small window were
+    used as in the case of $7 \times 7$ local histogram method, the data is too less and the contrast is poor. So going 
+    by this argument, we must be getting the best results from using the entire image. This is not so because some regions
+    of the image have nothing to do with the other and have no influence on the intensities of each other's pixels. Finding 
+    a big enough window for local histogram equalisation gives the best results. On average the $51 \times 51$ and 
+    $71 \times 71$ windows seem to work better than the global method.
+    \begin{enumerate}
+        \item For LC1, the regions where the buildings are shadowed by trees is contrasted very well in the local method. 
+        \item For LC2, the branches at the top of tall trees and the logs on the ground are well contrasted in the local method.
+    \end{enumerate}
+    In both cases we are looking at the windows of sizes $51 \times 51$ and $71 \times 71$.
 \end{document}
