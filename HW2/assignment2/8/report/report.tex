@@ -15,7 +15,7 @@
 \usepackage{empheq}
 \usepackage[svgnames]{xcolor}
 \usepackage{xpatch}
-
+\usepackage{subcaption} 
 \makeatletter
 \newcommand{\colorboxed}[1]{\fcolorbox{Black}{White}{\m@th$\displaystyle#1$}}
 \xpatchcmd{\@Aboxed}{\boxed}{\colorboxed}{}{}
@@ -29,7 +29,172 @@
 \clearpage
 \tableofcontents
 \clearpage
-\section*{Question 7}
-\addcontentsline{toc}{section}{Question 7}
+\section*{Question 8}
+\addcontentsline{toc}{section}{Question 8}
+    The results of doing local and global histogram equalisation is as follows:
+    
+    \begin{figure}[h!]
+        \centering
+        
+        % First row of images (3 images)
+        \begin{subfigure}[b]{0.3\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{../images/LC1_globalHistEq.png}
+            \caption{Global HistEq}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.3\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{../images/LC1_localHistEq_7x7.png}
+            \caption{Local HistEq 7x7}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.3\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{../images/LC1_localHistEq_31x31.png}
+            \caption{Local HistEq 31x31}
+        \end{subfigure}
+        
+        \vspace{10pt} % Space between the two rows
+        
+        % Second row of images (3 images)
+        \begin{subfigure}[b]{0.3\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{../images/LC1_localHistEq_51x51.png}
+            \caption{Local HistEq 51x51}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.3\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{../images/LC1_localHistEq_71x71.png}
+            \caption{Local HistEq 71x71}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.3\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{../images/LC1.png}
+            \caption{Original LC1}
+        \end{subfigure}
+    
+        \caption{Results for LC1.png}
+    \end{figure}
 
+    \begin{figure}[h!]
+        \centering
+        
+        % First row of images (3 images)
+        \begin{subfigure}[b]{0.3\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{../images/LC2_globalHistEq.png}
+            \caption{Global HistEq}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.3\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{../images/LC2_localHistEq_7x7.png}
+            \caption{Local HistEq 7x7}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.3\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{../images/LC2_localHistEq_31x31.png}
+            \caption{Local HistEq 31x31}
+        \end{subfigure}
+        
+        \vspace{10pt} % Space between the two rows
+        
+        % Second row of images (3 images)
+        \begin{subfigure}[b]{0.3\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{../images/LC2_localHistEq_51x51.png}
+            \caption{Local HistEq 51x51}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.3\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{../images/LC2_localHistEq_71x71.png}
+            \caption{Local HistEq 71x71}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.3\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{../images/LC2.jpg}
+            \caption{Original LC2}
+        \end{subfigure}
+    
+        \caption{Results for LC2.png}
+    \end{figure}
+
+    Upon comparing the global and local histogram equalisation for LC1 the patches outlined in the red boxes
+    were found to have \textbf{better contrast} in the local method than in the global method:
+
+    \begin{figure}[ht]
+        \centering
+        
+        % First row of images (3 images)
+        \begin{subfigure}[b]{0.4\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{../images/LC1_globalHistEq_1.jpeg}
+            \caption{Global HistEq}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.4\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{../images/LC1_localHistEq_1.jpeg}
+            \caption{Local HistEq}
+        \end{subfigure}
+        
+        \vspace{10pt} % Space between the two rows
+        
+        % Second row of images (3 images)
+        \begin{subfigure}[b]{0.4\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{../images/LC1_globalHistEq_2.jpeg}
+            \caption{Global HistEq}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.4\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{../images/LC1_localHistEq_2.jpeg}
+            \caption{Local HistEq}
+        \end{subfigure}
+    
+        \caption{Contrasts for LC1.png}
+    \end{figure}
+
+    Similar results were obtained for the image LC2:
+
+    \begin{figure}[ht]
+        \centering
+        
+        % First row of images (3 images)
+        \begin{subfigure}[b]{0.4\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{../images/LC2_globalHistEq_1.jpeg}
+            \caption{Global HistEq}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.4\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{../images/LC2_localHistEq_1.jpeg}
+            \caption{Local HistEq 7x7}
+        \end{subfigure}
+        
+        \vspace{10pt} % Space between the two rows
+        
+        % Second row of images (3 images)
+        \begin{subfigure}[b]{0.4\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{../images/LC2_globalHistEq_2.jpeg}
+            \caption{Global Histeq}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.4\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{../images/LC2_localHistEq_2.jpeg}
+            \caption{Local HistEq 71x71}
+        \end{subfigure}
+    
+        \caption{Contrasts for LC2.jpg}
+    \end{figure}
 \end{document}
