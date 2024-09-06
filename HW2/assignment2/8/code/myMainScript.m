@@ -4,8 +4,8 @@ tic;
 % Load the images
 LC1 = imread('../images/LC1.png');
 LC2 = imread('../images/LC2.jpg');
-LC1 = double(LC1);
-LC2 = double(LC2);
+LC1 = double(LC1)/255;
+LC2 = double(LC2)/255;
 
 % Global Histogram Equalization
 globalHistEqLC1 = histeq(LC1);
@@ -27,53 +27,53 @@ localHistEqLC2_71x71 = transformImage(LC2, 71, 71);
 titleFontSize = 12; 
 
 figure;
-imshow(globalHistEqLC1);
+imshow(uint8(globalHistEqLC1*255));
 title('Global HistEq', 'FontSize', titleFontSize);
 saveas(gcf, '../images/LC1_globalHistEq.png');
 
 figure;
-imshow(localHistEqLC1_7x7, []);
+imshow(uint8(localHistEqLC1_7x7*255), []);
 title('Local HistEq 7x7', 'FontSize', titleFontSize);
 saveas(gcf, '../images/LC1_localHistEq_7x7.png');
 
 figure;
-imshow(localHistEqLC1_31x31, []);
+imshow(uint8(localHistEqLC1_31x31*255), []);
 title('Local HistEq 31x31', 'FontSize', titleFontSize);
 saveas(gcf, '../images/LC1_localHistEq_31x31.png');
 
 figure;
-imshow(localHistEqLC1_51x51, []);
+imshow(uint8(localHistEqLC1_51x51*255), []);
 title('Local HistEq 51x51', 'FontSize', titleFontSize);
 saveas(gcf, '../images/LC1_localHistEq_51x51.png');
 
 figure;
-imshow(localHistEqLC1_71x71, []);
+imshow(uint8(localHistEqLC1_71x71*255), []);
 title('Local HistEq 71x71', 'FontSize', titleFontSize);
 saveas(gcf, '../images/LC1_localHistEq_71x71.png');
 
 
 figure;
-imshow(globalHistEqLC2);
+imshow(uint8(globalHistEqLC2*255));
 title('Global HistEq', 'FontSize', titleFontSize);
 saveas(gcf, '../images/LC2_globalHistEq.png');
 
 figure;
-imshow(localHistEqLC2_7x7, []);
+imshow(uint8(localHistEqLC2_7x7*255), []);
 title('Local HistEq 7x7', 'FontSize', titleFontSize);
 saveas(gcf, '../images/LC2_localHistEq_7x7.png');
 
 figure;
-imshow(localHistEqLC2_31x31, []);
+imshow(uint8(localHistEqLC2_31x31*255), []);
 title('Local HistEq 31x31', 'FontSize', titleFontSize);
 saveas(gcf, '../images/LC2_localHistEq_31x31.png');
 
 figure;
-imshow(localHistEqLC2_51x51, []);
+imshow(uint8(localHistEqLC2_51x51*255), []);
 title('Local HistEq 51x51', 'FontSize', titleFontSize);
 saveas(gcf, '../images/LC2_localHistEq_51x51.png');
 
 figure;
-imshow(localHistEqLC2_71x71, []);
+imshow(uint8(localHistEqLC2_71x71*255), []);
 title('Local HistEq 71x71', 'FontSize', titleFontSize);
 saveas(gcf, '../images/LC2_localHistEq_71x71.png');
 
