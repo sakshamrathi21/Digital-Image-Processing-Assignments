@@ -4,6 +4,8 @@ tic;
 % Load the images
 LC1 = imread('../images/LC1.png');
 LC2 = imread('../images/LC2.jpg');
+LC1 = double(LC1);
+LC2 = double(LC2);
 
 % Global Histogram Equalization
 globalHistEqLC1 = histeq(LC1);
@@ -20,8 +22,6 @@ localHistEqLC2_7x7 = transformImage(LC2, 7, 7);
 localHistEqLC2_31x31 = transformImage(LC2, 31, 31);
 localHistEqLC2_51x51 = transformImage(LC2, 51, 51);
 localHistEqLC2_71x71 = transformImage(LC2, 71, 71);
-
-titleFontSize = 10;
 
 % Set title font size
 titleFontSize = 12; 
