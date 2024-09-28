@@ -30,6 +30,103 @@
 % \tableofcontents
 % \clearpage
 \section*{Question 2}
+The correlation of two continuous 2D signals in the continuous domain is represented by the equation:
+\begin{equation}
+    h(x, y) = (f \otimes g)(x, y) = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} f(u, v)g(x+r, y+s) dr ds
+\end{equation}
 
+We need to derive the 2D fourier transform of $h(x, y)$. We know that the 2D fourier transform of a function $p(x, y)$ is given by: 
+
+\begin{equation}
+    P(u, v) = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} p(x, y) e^{-j2\pi(ux+vy)} dx dy
+\end{equation}
+
+Taking the fourier transform of $h(x, y)$, we get:
+
+\begin{equation}
+    H(u, v) = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} h(x, y) e^{-j2\pi(ux+vy)} dx dy
+\end{equation}
+
+Substituting the value of $h(x, y)$ from equation (1) into equation (3), we get:
+
+\begin{equation}
+    H(u, v) = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} \left( \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} f(u, v)g(x+r, y+s) dr ds \right) e^{-j2\pi(ux+vy)} dx dy
+\end{equation}
+
+Rearranging the terms, we get:
+
+\begin{equation}
+    H(u, v) = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} f(u, v) \left( \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} g(x+r, y+s) e^{-j2\pi(ux+vy)} dx dy \right) du dv
+\end{equation}
+
+
+Consider $x' = x + r$ and $y' = y + v$. Thus, $x = x' - r$ and $y = y' - s$.
+
+\begin{equation}
+    H(u, v) = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} f(u, v) \left( \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} g(x', y') e^{-j2\pi(u(x'-r)+v(y'-s))} dx' dy' \right) du dv
+\end{equation}
+
+\begin{equation}
+    H(u, v) = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} f(u, v) \left( \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} g(x', y') e^{-j2\pi(ux'+vy')} e^{j2\pi(ur+vs)} dx' dy' \right) du dv
+\end{equation}
+
+\begin{equation}
+    H(u, v) = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} f(u, v) \left( \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} g(x', y') e^{-j2\pi(ux'+vy')} dx' dy' \right) e^{j2\pi(ur+vs)} du dv
+\end{equation}
+
+\begin{equation}
+    H(u, v) = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} f(u, v) G(u,v) e^{j2\pi(ur+vs)} du dv
+\end{equation}
+
+We know that the fourier transform of $f(u, v)$ is given by:
+
+\begin{equation}
+    F(u, v) = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} f(u, v) e^{-j2\pi(ux+vy)} dx dy
+\end{equation}
+
+Thus, the fourier transform of $f(u, v)$ is given by:
+
+\begin{equation}
+    \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} f(u, v) e^{-j2\pi(ux+vy)} dx dy = F(u, v)
+\end{equation}
+
+Similarly, the fourier transform of $g(x', y')$ is given by:
+
+\begin{equation}
+    G(u, v) = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} g(x', y') e^{-j2\pi(ux'+vy')} dx' dy'
+\end{equation}
+
+Substituting the value of $G(u, v)$ from equation (11) into equation (10), we get:
+
+\begin{equation}
+    H(u, v) = F(u, v) e^{j2\pi(ur+vs)}
+\end{equation}
+
+
+
+We know that the fourier transform of $g(x+u, y+v)$ is given by:
+
+\begin{equation}
+    G(u, v) = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} g(x+u, y+v) e^{-j2\pi(ux+vy)} dx dy
+\end{equation}
+
+Substituting the value of $G(u, v)$ from equation (6) into equation (5), we get:
+
+\begin{equation}
+    H(u, v) = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} f(u, v) G(u, v) du dv
+\end{equation}
+
+Thus, the 2D fourier transform of $h(x, y)$ is given by:
+
+\begin{equation}
+    H(u, v) = F(u, v)G(u, v)
+\end{equation}
+
+
+The correlation of two continuous 2D signals in the discrete domain is represented by the equation:
+
+\begin{equation}
+    h(x, y) = (f \otimes g)(x, y) = \sum_{m=-\infty}^{\infty} \sum_{n=-\infty}^{\infty} f(m, n)g(x+m, y+n)
+\end{equation}
 
 \end{document}
