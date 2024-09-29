@@ -6,14 +6,9 @@ function filtered_img = mymeanshiftfilter(noisy_img, sigma_s, sigma_r, max_iter,
     % sigma_r: range (intensity) bandwidth
     % max_iter: maximum number of iterations
     % tol: tolerance for convergence
-
-    [rows, cols, channels] = size(noisy_img); 
+    [rows, cols] = size(noisy_img); 
     filtered_img = noisy_img; % Initialize output
     spatial_radius = sigma_s;
-    intensity_radius = sigma_r;
-    
-    % Create a spatial grid for the image
-    [X, Y] = meshgrid(1:cols, 1:rows);
     
     % Iterate over all pixels
     for i = 1:rows
@@ -22,7 +17,6 @@ function filtered_img = mymeanshiftfilter(noisy_img, sigma_s, sigma_r, max_iter,
             center_x = j;
             center_y = i;
             center_intensity = squeeze(noisy_img(i, j, :));
-            
             for iter = 1:max_iter
                 % Define a spatial window around the center
                 xmin = max(1, round(center_x - spatial_radius));
@@ -38,7 +32,7 @@ function filtered_img = mymeanshiftfilter(noisy_img, sigma_s, sigma_r, max_iter,
                 spatial_dist = sqrt((localX - center_x).^2 + (localY - center_y).^2);
                 
                 % Compute the intensity distance from the center
-                intensity_dist = sqrt(sum((local_patch - reshape(center_intensity, 1, 1, [])).^2, 3));
+                intensity_dist = abs(local_patch - center_intensity);
                 
                 % Compute the combined distance weights
                 spatial_weight = exp(-(spatial_dist.^2) / (2 * sigma_s^2));
