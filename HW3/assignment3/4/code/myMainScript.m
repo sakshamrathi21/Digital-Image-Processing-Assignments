@@ -6,7 +6,6 @@ image(:, 101) = 255;
 % Compute the Fourier Transform
 F = fft2(image);
 F_shifted = fftshift(F); % Shift the zero frequency component to the center
-
 % Compute the magnitude
 magnitude = abs(F_shifted);
 log_magnitude = log(1 + magnitude); % Logarithm for better visibility
