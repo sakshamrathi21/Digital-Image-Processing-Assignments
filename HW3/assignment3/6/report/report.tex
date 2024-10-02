@@ -96,7 +96,34 @@ Indian Institute of Technology Bombay \\}
 \section*{Question 6}
 
 \begin{solution}{Solution}
-   
+    Let $F(\omega) = \mathcal{F} \{f(t)\}(\omega) = \int\limits_{-\infty}^{\infty} e^{-j2\pi\omega t} f(t)dt$.
+    \begin{align*}
+        \mathcal{F}\{\mathcal{F}\{f(t)\}\}(\tau) 
+        &= \int_{-\infty}^{\infty} e^{-j2\pi\tau\omega} 
+        \left( \int_{-\infty}^{\infty} e^{-j2\pi\omega t}f(t) dt \right) d\omega \\
+        &= \int_{-\infty}^{\infty} e^{-j2\pi\tau\omega} F(w) d\omega \\
+        &= \int_{-\infty}^{\infty} e^{j2\pi(-\tau)\omega} F(w) d\omega
+    \end{align*}
+
+    Note that $f(\tau) = \int_{-\infty}^{\infty} e^{j2\pi\tau\omega} F(w) d\omega$ and 
+    $f(-\tau) = \int_{-\infty}^{\infty} e^{j2\pi(-\tau)\omega} F(w) d\omega$. Therefore,
+    \begin{align}
+      \mathcal{F}\{\mathcal{F}\{f(t)\}\}(\tau) &= \int_{-\infty}^{\infty} e^{j2\pi(-\tau)\omega} F(w) d\omega = f(\tau) \nonumber \\
+      \Rightarrow \mathcal{F}\{\mathcal{F}\{f(t)\}\}(\tau) &= f(-\tau) \nonumber \\
+      \label{t}\Rightarrow \mathcal{F}\{\mathcal{F}\{f(t)\}\}(t) &= f(-t) 
+    \end{align}
+    The last step is possible because $\tau$ can be replaced by any variable and is essentially just a `formal parameter'. Let
+    $\mathcal{F}\{\mathcal{F}\{f(t)\}\}(t) = \mathbb{F}(t)$
+    
+    From equation \ref{t} we have,
+    \begin{align}
+      \mathcal{F}\{\mathcal{F}\{f(t)\}\}(t) &= f(-t) \nonumber \\
+      \Rightarrow \mathbb{F}(t) &= f(-t) \nonumber \\
+      \Rightarrow \mathcal{F}\{\mathcal{F}\{\mathbb{F}(t)\}\}(t) &= \mathcal{F}\{\mathcal{F}\{f(-t)\}\}(t) \nonumber \\
+      \Rightarrow \mathcal{F}\{\mathcal{F}\{\mathcal{F}\{\mathcal{F}\{f(t)\}\}\}\}(t) &= f(-(-t)) \text{ using eq\ref{t}}\nonumber \\
+      \Rightarrow \label{ans}\mathcal{F}\{\mathcal{F}\{\mathcal{F}\{\mathcal{F}\{f(t)\}\}\}\}(t) &= f(t)
+    \end{align}
+    and with equation \ref{ans} we are done.
 \end{solution}
 
 
