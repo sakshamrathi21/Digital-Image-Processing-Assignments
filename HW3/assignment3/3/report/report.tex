@@ -92,14 +92,19 @@ Indian Institute of Technology Bombay \\}
     % Second subfigure
     \begin{subfigure}[b]{0.3\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{../images/noisy_barbara256.png}
-        \caption{Noisy }
+        \includegraphics[width=\textwidth]{../images/noisy_barbara256_sigma_5.png}
+        \caption{Sigma = 5}
+        \label{fig:subfig2}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.3\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{../images/noisy_barbara256_sigma_10.png}
+        \caption{Sigma = 10}
         \label{fig:subfig2}
     \end{subfigure}
     \caption{Versions of barbara image}
     \label{fig:overall}
 \end{figure}
-
 \begin{figure}[H]
     \centering
     % First subfigure
@@ -112,171 +117,189 @@ Indian Institute of Technology Bombay \\}
     % Second subfigure
     \begin{subfigure}[b]{0.3\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{../images/noisy_kodak24.png}
-        \caption{Noisy }
+        \includegraphics[width=\textwidth]{../images/noisy_kodak24_sigma_5.png}
+        \caption{Sigma = 5}
         \label{fig:subfig2}
     \end{subfigure}
-    \caption{Versions of kodak image}
-    \label{fig:kodak}
+    \begin{subfigure}[b]{0.3\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{../images/noisy_kodak24_sigma_10.png}
+        \caption{Sigma = 10}
+        \label{fig:subfig2}
+    \end{subfigure}
+    \caption{Versions of barbara image}
+    \label{fig:overall}
 \end{figure}
 
-The code for this question is present in {../code/myMainScript.m}, \\ {../code/mybilateralfilter.m} and {../code/mymeanshiftfilter.m}. The window size of the bilateral filter and the meanshift filter is chosen to be $2\times [3*\sigma_s] + 1$, where $[]$ denotes the ceiling function.
+The code for this question is present in {../code/myMainScript.m} and {../code/mymeanshiftfilter.m}. The window size of the the meanshift filter is chosen to be $2\times [3*\sigma_s] + 1$, where $[]$ denotes the ceiling function.
 
 
-Here are the results of applying bilateral filter on noisy ($\sigma = 5$) barbara image with various values of $\sigma_s$ and $\sigma_r$:
+Here are the results of applying meanshift filter on noisy ($\sigma = 5$) barbara image with various values of $\sigma_s$ and $\sigma_r$:
 
 \begin{figure}[H]
     \centering
     % First subfigure
     \begin{subfigure}[b]{0.24\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{../images/noisy_barbara256.png}
+        \includegraphics[width=\textwidth]{../images/noisy_barbara256_sigma_5.png}
         \caption{sigma=5}
         \label{Noisy }
     \end{subfigure}
     % Second subfigure
     \begin{subfigure}[b]{0.24\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{../images/filtered_barbara256_bilateral_sigma_s_2_sigma_r_2.png}
+        \includegraphics[width=\textwidth]{../images/filtered_barbara256_meanshift_sigma_5_sigma_s_2_sigma_r_2.png}
         \caption{$\sigma_s=2;\sigma_r=2$}
         \label{fig:subfig2}
     \end{subfigure}
     % Third subfigure
     \begin{subfigure}[b]{0.24\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{../images/filtered_barbara256_bilateral_sigma_s_3_sigma_r_15.png}
+        \includegraphics[width=\textwidth]{../images/filtered_barbara256_meanshift_sigma_5_sigma_s_3_sigma_r_15.png}
         \caption{$\sigma_s=3;\sigma_r=15$}
         \label{fig:subfig3}
     \end{subfigure}
     \begin{subfigure}[b]{0.24\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{../images/filtered_barbara256_bilateral_sigma_s_15_sigma_r_3.png}
+        \includegraphics[width=\textwidth]{../images/filtered_barbara256_meanshift_sigma_5_sigma_s_15_sigma_r_3.png}
         \caption{$\sigma_s=15;\sigma_r=3$}
         \label{fig:subfig3}
     \end{subfigure}
     
-    \caption{Bilateral Versions of barbara image }
+    \caption{Meanshift Versions of barbara image ($\sigma=5$)}
     \label{fig:overall}
 \end{figure}
 
-If we talk with respect to the face of the barbara image, we can see that the image with $\sigma_s = 3$ and $\sigma_r = 15$ has a more clear face. Higher $\sigma_s$ actually incorporates intensity values from far neighbourhood too, which decreases the clarity of the face. Higher $\sigma_r$ means that the intensity values are taken from a larger range of intensity values, which makes the face more clear. Edges are preserved for all the images. All the other parts of the image have similar texture and hence the difference is not very visible.
+If we talk with respect to the face of the barbara image, we can see that the image with $\sigma_s=3$ and $\sigma_r=15$ has a blurred face. This is because a high value of $\sigma_r$ incorporates values from a larger intensity range which is clearly not good in this case. Moreover for this case, the edges are not preserved too. The image with $\sigma_s=15$ and $\sigma_r=3$ has more clarity over the image with $\sigma_s=2$ and $\sigma_r=2$. This is because barbara image does not have a variety of intensity levels, so neaby levels are roughly the same for various pixels, so a high value of $\sigma_s$ actually helps. Edges are preserved for both of the images. Moreover, the texture of all the other parts of the image is more clear for both of these than the third one.
 
 
-Here are the results of applying mean-shift filter on noisy ($\sigma = 5$) barbara image with various values of $\sigma_s$ and $\sigma_r$:
+
+
+
+Here are the results of applying mean-shift filter on noisy ($\sigma = 10$) barbara image with various values of $\sigma_s$ and $\sigma_r$:
+\begin{figure}[H]
+    \centering
+    % First subfigure
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{../images/noisy_barbara256_sigma_10.png}
+        \caption{sigma=5}
+        \label{Noisy }
+    \end{subfigure}
+    % Second subfigure
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{../images/filtered_barbara256_meanshift_sigma_10_sigma_s_2_sigma_r_2.png}
+        \caption{$\sigma_s=2;\sigma_r=2$}
+        \label{fig:subfig2}
+    \end{subfigure}
+    % Third subfigure
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{../images/filtered_barbara256_meanshift_sigma_10_sigma_s_3_sigma_r_15.png}
+        \caption{$\sigma_s=3;\sigma_r=15$}
+        \label{fig:subfig3}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{../images/filtered_barbara256_meanshift_sigma_10_sigma_s_15_sigma_r_3.png}
+        \caption{$\sigma_s=15;\sigma_r=3$}
+        \label{fig:subfig3}
+    \end{subfigure}
+    
+    \caption{Meanshift Versions of barbara image ($\sigma=10$)}
+    \label{fig:overall}
+\end{figure}
+
+
+Similar to the previous case, the image with $\sigma_s=3$ and $\sigma_r=15$ has a blurred face. This is because a high value of $\sigma_r$ incorporates values from a larger intensity range which is clearly not good in this case. Moreover for this case, the edges are not preserved too. The other two images have roughly the same clarity because the high noise levels induce a variety in the intensity levels of the image. Edges are preserved for both of the images. Moreover, the texture of all the other parts of the image is more clear for both of these than the third one. Overall the order of quality (increasing order) is:
+\begin{itemize}
+    \item $\sigma_s=2$ and $\sigma_r=2$
+    \item $\sigma_s=3$ and $\sigma_r=15$
+    \item $\sigma_s=15$ and $\sigma_r=3$
+\end{itemize}
+
+
+
+Here are the results of applying meanshift filter on noisy ($\sigma = 5$) kodak image with various values of $\sigma_s$ and $\sigma_r$:
 
 \begin{figure}[H]
     \centering
     % First subfigure
     \begin{subfigure}[b]{0.24\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{../images/noisy_barbara256.png}
+        \includegraphics[width=\textwidth]{../images/noisy_kodak24_sigma_5.png}
         \caption{sigma=5}
         \label{Noisy }
     \end{subfigure}
     % Second subfigure
     \begin{subfigure}[b]{0.24\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{../images/filtered_barbara256_meanshift_sigma_s_2_sigma_r_2.png}
+        \includegraphics[width=\textwidth]{../images/filtered_kodak24_meanshift_sigma_5_sigma_s_2_sigma_r_2.png}
         \caption{$\sigma_s=2;\sigma_r=2$}
         \label{fig:subfig2}
     \end{subfigure}
     % Third subfigure
     \begin{subfigure}[b]{0.24\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{../images/filtered_barbara256_meanshift_sigma_s_3_sigma_r_15.png}
+        \includegraphics[width=\textwidth]{../images/filtered_kodak24_meanshift_sigma_5_sigma_s_3_sigma_r_15.png}
         \caption{$\sigma_s=3;\sigma_r=15$}
         \label{fig:subfig3}
     \end{subfigure}
     \begin{subfigure}[b]{0.24\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{../images/filtered_barbara256_meanshift_sigma_s_15_sigma_r_3.png}
+        \includegraphics[width=\textwidth]{../images/filtered_kodak24_meanshift_sigma_5_sigma_s_15_sigma_r_3.png}
         \caption{$\sigma_s=15;\sigma_r=3$}
         \label{fig:subfig3}
     \end{subfigure}
     
-    \caption{Mean-shift Versions of kodak image }
+    \caption{Meanshift Versions of kodak image ($\sigma=5$)}
     \label{fig:overall}
 \end{figure}
 
-If we talk with respect to the face of the barbara image, we can see that the image with $\sigma_s=3$ and $\sigma_r=15$ has a blurred face. This is because a high value of $\sigma_r$ incorporates values from a larger intensity range which is clearly not good in this case. Moreover for this case, the edges are not preserved too. The image with $\sigma_s=15$ and $\sigma_r=3$ has more clarity over the image with $\sigma_s=2$ and $\sigma_r=2$. Edges are preserved for both of the images. Moreover, the texture of all the other parts of the image is more clear for both of these than the third one.
+
+The image with $\sigma_s=3$ and $\sigma_r=15$ has the lowest quality. The image looks really blurred and the edges are not preserved. The possible reason is that larger value of $\sigma_r=15$ incorporates values from a larger intensity range which is not good in this case.  Also, kodak24 has a variety of intensities and edges. The image with $\sigma_s=15$ and $\sigma_r=3$ has more clarity over the image with $\sigma_s=2$ and $\sigma_r=2$. Edges are preserved for both of the images. The overall texture looks quite similar for both of these images.
 
 
-Here are the results of applying bilateral filter on noisy ($\sigma = 5$) kodak image with various values of $\sigma_s$ and $\sigma_r$:
+Here are the results of applying mean-shift filter on noisy ($\sigma = 10$) kodak image with various values of $\sigma_s$ and $\sigma_r$:
 
 \begin{figure}[H]
     \centering
     % First subfigure
     \begin{subfigure}[b]{0.24\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{../images/noisy_kodak24.png}
+        \includegraphics[width=\textwidth]{../images/noisy_kodak24_sigma_10.png}
         \caption{sigma=5}
         \label{Noisy }
     \end{subfigure}
     % Second subfigure
     \begin{subfigure}[b]{0.24\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{../images/filtered_kodak24_bilateral_sigma_s_2_sigma_r_2.png}
+        \includegraphics[width=\textwidth]{../images/filtered_kodak24_meanshift_sigma_10_sigma_s_2_sigma_r_2.png}
         \caption{$\sigma_s=2;\sigma_r=2$}
         \label{fig:subfig2}
     \end{subfigure}
     % Third subfigure
     \begin{subfigure}[b]{0.24\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{../images/filtered_kodak24_bilateral_sigma_s_3_sigma_r_15.png}
+        \includegraphics[width=\textwidth]{../images/filtered_kodak24_meanshift_sigma_10_sigma_s_3_sigma_r_15.png}
         \caption{$\sigma_s=3;\sigma_r=15$}
         \label{fig:subfig3}
     \end{subfigure}
     \begin{subfigure}[b]{0.24\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{../images/filtered_kodak24_bilateral_sigma_s_15_sigma_r_3.png}
+        \includegraphics[width=\textwidth]{../images/filtered_kodak24_meanshift_sigma_10_sigma_s_15_sigma_r_3.png}
         \caption{$\sigma_s=15;\sigma_r=3$}
         \label{fig:subfig3}
     \end{subfigure}
     
-    \caption{Bilateral Versions of kodak image }
+    \caption{Meanshift Versions of kodak image ($\sigma=10$)}
     \label{fig:overall}
 \end{figure}
 
 
-Overall, the quality of the image with $\sigma_s=2$ and $\sigma_r=2$ is the best. One of the possible reasons for this is that kodak24 has a variety of intensities and edges. A high value of $\sigma_s$ incorporates values from a larger neighbourhood which is not good in this case. A high value of $\sigma_r$ incorporates values from a larger intensity range which is also not good in this case. The image with $\sigma_s=3$ and $\sigma_r=15$ has more clarity over the image with $\sigma_s=15$ and $\sigma_r=3$. Edges are preserved for all the images. The overall texture looks quite similar for all the three images. 
+Similar to the previous case, the image with $\sigma_s = 3$ and $\sigma_r = 15$ has the lowest quality. The image looks really blurred and the edges are not preserved. The quality of other two images is quite similar. Edges are preserved for both of these. The background trees are a bit more faded in case of $\sigma_s=2$ and $\sigma_r=2$ than the other one.
 
-Here are the results of applying mean-shift filter on noisy ($\sigma = 5$) kodak image with various values of $\sigma_s$ and $\sigma_r$:
-
-\begin{figure}[H]
-    \centering
-    % First subfigure
-    \begin{subfigure}[b]{0.24\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{../images/noisy_kodak24.png}
-        \caption{sigma=5}
-        \label{Noisy }
-    \end{subfigure}
-    % Second subfigure
-    \begin{subfigure}[b]{0.24\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{../images/filtered_kodak24_meanshift_sigma_s_2_sigma_r_2.png}
-        \caption{$\sigma_s=2;\sigma_r=2$}
-        \label{fig:subfig2}
-    \end{subfigure}
-    % Third subfigure
-    \begin{subfigure}[b]{0.24\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{../images/filtered_kodak24_meanshift_sigma_s_3_sigma_r_15.png}
-        \caption{$\sigma_s=3;\sigma_r=15$}
-        \label{fig:subfig3}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.24\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{../images/filtered_kodak24_meanshift_sigma_s_15_sigma_r_3.png}
-        \caption{$\sigma_s=15;\sigma_r=3$}
-        \label{fig:subfig3}
-    \end{subfigure}
-    
-    \caption{Mean-shift Versions of kodak image}
-    \label{fig:overall}
-\end{figure}
-
-The image with $\sigma_s=3$ and $\sigma_r=15$ has the lowest quality. The image looks really blurred and the edges are not preserved. The possible reason is that larger value of $\sigma_r=15$ incorporates values from a larger intensity range which is not good in this case. The image with $\sigma_s=15$ and $\sigma_r=3$ has more clarity over the image with $\sigma_s=2$ and $\sigma_r=2$. Edges are preserved for both of the images. The overall texture looks quite similar for both of these images.
 
 \end{solution}
 
