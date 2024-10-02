@@ -67,7 +67,7 @@ function IdealLowPassFilter(img_DFT, cutoff_freq, original_size)
     saveas(gcf, sprintf('../images/barbara_ideal_LPF_%d.png', cutoff_freq));
 end
 
-%% Guassian Low Pass Function
+%% Gaussian Low Pass Function
 function GaussianLowPassFilter(img_DFT, sigma, original_size)
     % Create a low pass filter of given cutoff frequency
     Filter = zeros(size(img_DFT));
