@@ -121,19 +121,39 @@ Indian Institute of Technology Bombay \\}
     &= F(-u,-v) \\
     \Rightarrow F^{*}(u,v) &= F(-u,-v)
   \end{align*}
-  Let $f(x,y)$ be real and even. We already showed that if $f$ is real then $F^{*}(u,v) = F(-u,-v)$. Now if we show that 
-  $F(u,v) = F^{*}(u,v)$ then we are done because $F$ would then be both real and even. 
+  Let $f(x,y)$ be real and even. Since $f(x,y)$ is even we have $f(x,y) = f(-x,-y)$. Also, $f$ is periodic ie, $f(x + M,y + N) = f(x,y)$. Combining these 
+  two equations we have,
+  \begin{align}
+    f(x,y) &= f(-x,-y) \nonumber \\
+    f(-x,-y) &= f(M - x,N - y) \nonumber \\
+    \Rightarrow \label{even}f(x,y) &= f(M - x,N - y)     
+  \end{align}
+  
+  Also, since $f$ and $e^{-j 2\pi \left((\frac{ux}{M} + \frac{vy}{N})\right)}$ are both periodic with the same periods,
+  the Discrete Fourier Transform of $f$ can also be written as 
+  \begin{equation}
+    \label{dft}F(u,v) = \frac{1}{\sqrt{MN}}\sum\limits_{x = 1}^{M}\sum\limits_{y = 1}^{N} f(x,y) e^{-j2\pi \left(\frac{ux}{M} + \frac{vy}{N}\right)}
+  \end{equation}
+  this is obtained by simply replacing any term with $x = 0$ by $x = M$ and any term with $y = 0$ by $y = N$ in the expression for $F$.
 
-  From the previous calculations we have 
-  \begin{align*}
-    F^{*}(u,v) &= \frac{1}{\sqrt{MN}}\sum\limits_{x = 0}^{M - 1}\sum\limits_{y = 0}^{N - 1} 
-    f(x,y) e^{j2\pi \left(\frac{ux}{M} + \frac{vy}{N}\right)} \\
-    &= \frac{1}{\sqrt{MN}}\sum\limits_{x = 0}^{M - 1}\sum\limits_{y = 0}^{N - 1} 
-    f(-x,-y) e^{j2\pi \left(\frac{(-u)(-x)}{M} + \frac{(-v)(-y)}{N}\right)} \\
-    &= \frac{1}{\sqrt{MN}}\sum\limits_{x = 0}^{M - 1}\sum\limits_{y = 0}^{N - 1} 
-    f(-x,-y) e^{-j2\pi \left(\frac{u(-x)}{M} + \frac{v(-y)}{N}\right)} \\
-    &= \frac{1}{\sqrt{MN}}\sum\limits_{x = -(M - 1)}^{0}\sum\limits_{y = -(N - 1)}^{0} 
-    f(x,y) e^{-j2\pi \left(\frac{ux}{M} + \frac{vy}{N}\right)}
-  \end{align*}
+  Using equations\ref{even} and\ref{dft} we will show that $F(-u,-v) = F(u,v)$
+  \begin{align}
+    F(-u,-v) 
+    &= \frac{1}{\sqrt{MN}}\sum\limits_{x = 0}^{M - 1}\sum\limits_{y = 0}^{N - 1} f(x,y) 
+    e^{-j2\pi \left(\frac{(-u)x}{M} + \frac{(-v)y}{N}\right)}  \nonumber\\   
+    &= \frac{1}{\sqrt{MN}}\sum\limits_{x = 0}^{M - 1}\sum\limits_{y = 0}^{N - 1} f(M - x,N - y) 
+    e^{-j2\pi \left(\frac{(-u)x}{M} + \frac{(-v)y}{N}\right)} \text{ (using equation\ref{even})} \nonumber \\
+    &= \frac{1}{\sqrt{MN}}\sum\limits_{x = 1}^{M}\sum\limits_{y = 1}^{N} f(x,y) 
+    e^{-j2\pi \left(\frac{(-u)(M - x)}{M} + \frac{(-v)(N - y)}{N}\right)}  \text{ (replacing $x$ by $M - x$ and $y$ by $N - y$)}\nonumber \\
+    &= \frac{1}{\sqrt{MN}}\sum\limits_{x = 1}^{M}\sum\limits_{y = 1}^{N} f(x,y) 
+    e^{-j2\pi \left(\frac{(-u)(-x)}{M} + \frac{(-v)(-y)}{N}\right)}  \text{ (using periodicity of $e^{-j2\pi \left(\frac{(-u)x}{M} + \frac{(-v)y}{N}\right)}$)}\nonumber \\
+    &= \frac{1}{\sqrt{MN}}\sum\limits_{x = 1}^{M}\sum\limits_{y = 1}^{N} f(x,y) 
+    e^{-j2\pi \left(\frac{ux}{M} + \frac{vy}{N}\right)}  \text{ (using periodicity of $e^{-j2\pi \left(\frac{(-u)x}{M} + \frac{(-v)y}{N}\right)}$)}\nonumber \\
+    &= F(u,v) \text{ (from equation\ref{dft})} \nonumber \\
+    \Rightarrow F(-u,-v) &= F(u,v)
+  \end{align}
+
+  We already showed that if $f$ is real then it's DFT $F$ satisfies $F^{*}(u,v) = F(-u,-v)$. So we have $F^{*}(u,v) = F(-u,-v) = F(u,v)$
+  therefore $F^{*}(u,v) = F(u,v)$ ie $F$ is real. Therefore $F$ is both real and even and we are done.
 \end{solution}
 \end{document}
