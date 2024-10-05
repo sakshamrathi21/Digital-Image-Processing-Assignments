@@ -102,6 +102,12 @@ Indian Institute of Technology Bombay \\}
     F(u,v) &= \frac{1}{\sqrt{MN}}\sum\limits_{x = 0}^{M - 1}\sum\limits_{y = 0}^{N - 1} f(x,y) e^{-j2\pi \left(\frac{ux}{M} + \frac{vy}{N}\right)}  \\  
     f(x,y) &= \frac{1}{\sqrt{MN}}\sum\limits_{u = 0}^{M - 1}\sum\limits_{v = 0}^{N - 1} F(u,v) e^{j2\pi \left(\frac{ux}{M} + \frac{vy}{N}\right)}
   \end{align*}
+
+  Note that formulae given above assume that the function that is being sampled is periodic with period $(M,N)$. Otherwise 
+  an infinite number of samples (spanning across all pairs of integers) has to be taken and the Discrete Fourier Transform and 
+  it's inverse will be an infinite double summation. Since periodicity is assumed, the sequence (ie samples) $f(x,y)$ wraps 
+  around: \[f(x + k_{1}M,y) = f(x,y + l_{1}N) = f(x + k_{2}M,y + l_{2}N) = f(x,y) \, \forall x,y,k_{i},l_{i} \in \mathbb{Z}\]
+  
   Let $f(x,y)$ be a real function and $F(u,v)$ be it's DFT\@. By linearity of the conjugate operator and the fact that $f(t)$ 
   is real, we can show that $F^{*}(u,v) = F(-u,-v)$
   
