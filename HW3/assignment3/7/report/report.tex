@@ -1,4 +1,5 @@
-\documentclass[a4paper,12pt]{article}
+\documentclass[a4paper]{article}
+\usepackage[svgnames]{xcolor}
 \usepackage{amsmath,amsfonts,amssymb}
 \usepackage{geometry}
 \usepackage{fancyhdr}
@@ -24,9 +25,11 @@
 \usepackage{geometry}
 \usepackage{fancyhdr}
 \usepackage{empheq}
-\usepackage[svgnames]{xcolor}
 \usepackage{xpatch}
 \usepackage{listings}
+
+\setlength{\parindent}{0pt}
+\newcommand{\Conv}{\mathop{\scalebox{1.5}{\raisebox{-0.2ex}{$\ast$}}}}
 
 \lstdefinestyle{Matlab}{
     language=Matlab,                      % Use MATLAB language
@@ -96,7 +99,99 @@ Indian Institute of Technology Bombay \\}
 \section*{Question 7}
 
 \begin{solution}{Solution}
-   
+	\textbf{Lemma:} $\mathbf{F} \left[\frac{\partial I_{(x,y)}}{\partial t} \right]_{(\mu, \nu)} = \frac{\partial}{\partial t} (\mathbf{F}[I_{(x,y)}]_{(\mu, \nu)})$
+	
+	\textbf{Proof:} Let's see LHS...
+	\[
+		\mathbf{F} \left[\frac{\partial I_{(x,y)}}{\partial t} \right]_{(\mu, \nu)} = \int_{- \infty}^{\infty} \int_{- \infty}^{\infty} \frac{\partial I_{(x,y)}}{\partial t} e^{-2 \pi j (\mu x + \nu y)} dx \, dy
+	\]
+	Let's see RHS...
+	\begin{align*}
+		\frac{\partial}{\partial t} (\mathbf{F}[I_{(x,y)}]_{(\mu, \nu)}) &= \frac{\partial}{\partial t} \left( \int_{- \infty}^{\infty} \int_{- \infty}^{\infty} I_{(x,y)} e^{-2 \pi j (\mu x + \nu y)} dx \, dy \right) \\
+		&= \int_{- \infty}^{\infty} \frac{\partial}{\partial t} \left( \int_{- \infty}^{\infty} I_{(x,y)} e^{-2 \pi j (\mu x + \nu y)} dx \right) dy &\text{ (Using Newton-Leibniz Formula)} \\
+		&= \int_{- \infty}^{\infty} \left( \int_{- \infty}^{\infty} \frac{\partial}{\partial t} \left( I_{(x,y)} e^{-2 \pi j (\mu x + \nu y)} \right) dx \right) dy &\text{ (Using Newton-Leibniz Formula)} \\
+		&= \int_{- \infty}^{\infty} \left( \int_{- \infty}^{\infty} \frac{\partial I_{(x,y)}}{\partial t} e^{-2 \pi j (\mu x + \nu y)} dx \right) dy &\text{ (As the exp term is independent from t)}
+	\end{align*}
+	LHS = RHS. Hence proved.
+	\vspace{5pt}
+	\hrule
+	\vspace{5pt}
+	\textbf{Lemma:} $\mathbf{F} \left[\frac{\partial^2 I}{\partial x^2} \right]_{(\mu ,\nu)} = -4 \pi^2 \mu^2 \mathbf{F}[I]_{(\mu ,\nu)}$ and $\mathbf{F} \left[\frac{\partial^2 I}{\partial y^2} \right]_{(\mu ,\nu)} = -4 \pi^2 \nu^2 \mathbf{F}[I]_{(\mu ,\nu)}$
+
+	\textbf{Proof:} Let's see the first one. See LHS...
+	\begin{align*}
+		\mathbf{F} \left[\frac{\partial^2 I}{\partial x^2}\right]_{(\mu ,\nu)} &= \int_{- \infty}^{\infty} \int_{- \infty}^{\infty} \frac{\partial^2 I}{\partial x^2} e^{-2 \pi j (\mu x + \nu y)} dx \, dy \\
+		&= \int_{- \infty}^{\infty} \left( \int_{- \infty}^{\infty} \frac{\partial^2 I}{\partial x^2} e^{-2 \pi j \mu x} dx \right) e^{-2 \pi j \nu y} dy \\
+		&= \int_{- \infty}^{\infty} \left( \left. \frac{\partial I}{\partial x} e^{-2 \pi j \mu x} \right|_{- \infty}^{\infty} + 2 \pi j \mu \int_{- \infty}^{\infty} \frac{\partial I}{\partial x} e^{-2 \pi j \mu x} dx \right) e^{-2 \pi j \nu y} dy &\text{ (Integration by parts)} \\
+		&= \int_{- \infty}^{\infty} \left( 0 + 2 \pi j \mu \left( \left. I e^{-2 \pi j \mu x} \right|_{- \infty}^{\infty} + 2 \pi j \mu \int_{- \infty}^{\infty} I e^{-2 \pi j \mu x} \right) dx \right) e^{-2 \pi j \nu y} dy &\text{ (Integration by parts)} \\
+		&= \int_{- \infty}^{\infty} \left( 0 + 2 \pi j \mu \left( 0 + 2 \pi j \mu \int_{- \infty}^{\infty} I e^{-2 \pi j \mu x} \right) dx \right) e^{-2 \pi j \nu y} dy \\
+		&= (2 \pi j \mu)^2 \int_{- \infty}^{\infty} \int_{- \infty}^{\infty} I e^{-2 \pi j (\mu x + \nu y)} dx \, dy \\
+		&= -4 \pi^2 \mu^2 \mathbf{F}[I]_{(\mu ,\nu)}
+	\end{align*}
+	LHS = RHS. Hence proved. Similarly the second one can be proved.
+	\vspace{5pt}
+	\hrule
+	\vspace{5pt}
+	Apply Fourier Transform on the given PDE on both sides:-
+	\begin{align*}
+		\mathbf{F} \left[\frac{\partial I}{\partial t} \right]_{(\mu, \nu)} &= \mathbf{F} \left[c \left( \frac{\partial^2 I}{\partial x^2} + \frac{\partial^2 I}{\partial y^2} \right)\right]_{(\mu, \nu)} \\
+		\implies \mathbf{F} \left[\frac{\partial I}{\partial t} \right]_{(\mu, \nu)} &= c \left( \mathbf{F} \left[\frac{\partial^2 I}{\partial x^2}\right]_{(\mu, \nu)} + \mathbf{F} \left[\frac{\partial^2 I}{\partial y^2}\right]_{(\mu, \nu)} \right)
+	\end{align*}
+	Apply the above lemmas:-
+	\begin{align*}
+		\frac{\partial}{\partial t}(\mathbf{F} [I]_{(\mu, \nu)}) &= c \left( \mathbf{F} \left[\frac{\partial^2 I}{\partial x^2}\right]_{(\mu, \nu)} + \mathbf{F} \left[\frac{\partial^2 I}{\partial y^2}\right]_{(\mu, \nu)} \right) \\
+		&= c \left( -4 \pi^2 \mu^2 \mathbf{F}[I]_{(\mu ,\nu)} -4 \pi^2 \nu^2 \mathbf{F}[I]_{(\mu ,\nu)} \right) \\
+		&= -c 4 \pi^2(\mu^2 + \nu^2) \mathbf{F}[I]_{(\mu ,\nu)}
+	\end{align*}
+	Let's call $\mathbf{F}[I]_{(\mu ,\nu)}$ as $F_{(\mu, \nu)}$, so our partial differential equation becomes:-
+	\[
+		\frac{\partial F_{(\mu, \nu)}}{\partial t} = -c 4 \pi^2(\mu^2 + \nu^2) F_{(\mu ,\nu)}
+	\]
+	Let's solve it\dots
+	\begin{align*}
+		\frac{\partial F_{(\mu, \nu)}}{F_{(\mu ,\nu)}} &= -c 4 \pi^2(\mu^2 + \nu^2) \, \partial t \\
+		\implies \int_0^{t_0} \frac{\partial F_{(\mu, \nu)}}{F_{(\mu ,\nu)}} &= -c 4 \pi^2(\mu^2 + \nu^2) \, \int_0^{t_0}  \partial t \\
+		\implies \ln \left( \frac{F_{(\mu, \nu)(t_0)}}{F_{(\mu, \nu)(0)}} \right) &= -c 4 \pi^2(\mu^2 + \nu^2) t_0
+	\end{align*}
+	Where $F_{(\mu, \nu)(t_0)}$ is the Fourier Transform of Image $I$ at time $t = t_0$, hence taking exponent both sides...
+	\[
+		F_{(\mu, \nu)(t)} = e^{-c 4 \pi^2(\mu^2 + \nu^2) t} F_{(\mu, \nu)(0)}
+	\]
+	Now take Inverse Fourier both sides...
+	\[
+		\mathbf{F}^{-1} [F_{(\mu, \nu)(t)}]_{(x,y)} = \mathbf{F}^{-1} [e^{-c 4 \pi^2(\mu^2 + \nu^2) t} F_{(\mu, \nu)(0)}]_{(x,y)}
+	\]
+	Point-wise multiplication becomes convolution of the inverse fourier tranforms...
+	\begin{align*}
+		\mathbf{F}^{-1} [F_{(\mu, \nu)(t)}]_{(x,y)} &= \mathbf{F}^{-1} [e^{-c 4 \pi^2(\mu^2 + \nu^2) t}]_{(x,y)} \Conv \mathbf{F}^{-1} [F_{(\mu, \nu)(0)}]_{(x,y)}\\
+		\implies I_{(x,y)(t)} &= \mathbf{F}^{-1} [e^{-c 4 \pi^2(\mu^2 + \nu^2) t}]_{(x,y)} \Conv I_{(x,y)(0)}
+	\end{align*}
+	Where $I_{(x,y)(t)}$ shows the intensity at point $(x,y)$ in Image $I$ at time $t$. Now the first term of RHS is inverse fourier transform of a Gaussian which is a Gaussian! Hence the intensity obtained by running the PDE till time $t$ can be achieved by convolution of the original intensity with a Gaussian.
+	\vspace{5pt}
+	\hrule
+	\vspace{5pt}
+	\textbf{Lemma:} $\mathbf{F}^{-1} [e^{-c(\mu^2 + \nu^2)}]_{(x,y)} = \frac{\pi}{c} e^{-\frac{\pi^2(x^2 + y^2)}{c}}$
+
+	\textbf{Proof:} See LHS...
+	\begin{align*}
+		\mathbf{F}^{-1} [e^{-c(\mu^2 + \nu^2)}]_{(x,y)} &= \int_{- \infty}^{\infty} \int_{- \infty}^{\infty} e^{-c(\mu^2 + \nu^2)} e^{2 \pi j (\mu x + \nu y)} d\mu \, d\nu \\
+		&= \left( \int_{- \infty}^{\infty} e^{-c \mu^2} e^{2 j \pi \mu x} d \mu \right) \left( \int_{- \infty}^{\infty} e^{-c \nu^2} e^{2 j \pi \nu y} d \nu \right)
+	\end{align*}
+	Consider $\int_{- \infty}^{\infty} e^{-c \mu^2} e^{2 j \pi \mu x} d \mu$. It is $= \int_{- \infty}^{\infty} e^{-c \mu^2} \cos (2 \pi \mu x) d \mu + j \int_{- \infty}^{\infty} e^{-c \mu^2} \sin (2 \pi \mu x) d \mu$. The right integral is odd hence will become 0. The left one equals $\sqrt{\frac{\pi}{c}} e^{-\frac{\pi^2 x^2}{c}}$. You can check Abramowitz and Stegun (1972, p. 302, equation 7.4.6) for this definite integral solution. Hence our above equation becomes:-
+	\[
+		\mathbf{F}^{-1} [e^{-c(\mu^2 + \nu^2)}]_{(x,y)} = \left(\sqrt{\frac{\pi}{c}} e^{-\frac{\pi^2 x^2}{c}}\right) \left(\sqrt{\frac{\pi}{c}} e^{-\frac{\pi^2 y^2}{c}}\right) = \frac{\pi}{c} e^{-\frac{\pi^2(x^2 + y^2)}{c}}
+	\]
+	Hence proved.
+	\vspace{5pt}
+	\hrule
+	\vspace{5pt}
+	Using above lemma:-
+	\[
+		\mathbf{F}^{-1} [e^{-c 4 \pi^2(\mu^2 + \nu^2) t}]_{(x,y)} = \frac{\pi}{c 4 \pi^2 t} e^{-\frac{\pi^2 (x^2 + y^2)}{c 4 \pi^2 t}} = \frac{1}{4 \pi c t} e^{-\frac{(x^2 + y^2)}{4ct}}
+	\]
+	Comparing with $e^{-\frac{x^2+y^2}{2 \sigma^2}}$, we can see that $\sigma^2 = 2ct$. Hence standard deviation is $\sqrt{2ct}$.
+
+	Also from the above lemma, we see that the Gaussian will have zero mean as well.
 \end{solution}
 
 

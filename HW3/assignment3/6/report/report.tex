@@ -115,7 +115,7 @@ Indian Institute of Technology Bombay \\}
     The last step is possible because $\tau$ can be replaced by any variable and is essentially just a `formal parameter'. Let
     $\mathcal{F}\{\mathcal{F}\{f(t)\}\}(t) = \mathbb{F}(t)$
     
-    From equation \ref{t} we have,
+    From equation\ref{t} we have,
     \begin{align}
       \mathcal{F}\{\mathcal{F}\{f(t)\}\}(t) &= f(-t) \nonumber \\
       \Rightarrow \mathbb{F}(t) &= f(-t) \nonumber \\
@@ -123,7 +123,15 @@ Indian Institute of Technology Bombay \\}
       \Rightarrow \mathcal{F}\{\mathcal{F}\{\mathcal{F}\{\mathcal{F}\{f(t)\}\}\}\}(t) &= f(-(-t)) \text{ using eq\ref{t}}\nonumber \\
       \Rightarrow \label{ans}\mathcal{F}\{\mathcal{F}\{\mathcal{F}\{\mathcal{F}\{f(t)\}\}\}\}(t) &= f(t)
     \end{align}
-    and with equation \ref{ans} we are done.
+    and with equation\ref{ans} we are done.
+
+    In case of functions like $rect$ and $sinc$ which are Fourier transform pairs, the $rect$ function is sufficiently simple
+    to evaluate numerically whereas the $sinc$ function requires a lot more approximations to evaluate the value at a single
+    point. So the identity in equation\ref{t} can be used to calculate the Fourier transform of $sinc$ which is 
+    just $rect(-t)$ (obtained as follows $\mathcal{F}\{sinc\}(t) = \mathcal{F}\{\mathcal{F}\{rect\}\}(t) = rect(-t)$). Similarly
+    one can find other Fourier transform pairs where one function is analytically much simpler than the other and use it's
+    values directly to calculate the Fourier transform of the more complex function.
+     
 \end{solution}
 
 
