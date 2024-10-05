@@ -170,7 +170,7 @@ Here are the results of applying meanshift filter on noisy ($\sigma = 5$) barbar
     \label{fig:overall}
 \end{figure}
 
-If we talk with respect to the face of the barbara image, we can see that the image with $\sigma_s=3$ and $\sigma_r=15$ has a blurred face. This is because a high value of $\sigma_r$ incorporates values from a larger intensity range which is clearly not good in this case. Moreover for this case, the edges are not preserved too. The image with $\sigma_s=15$ and $\sigma_r=3$ has more clarity over the image with $\sigma_s=2$ and $\sigma_r=2$. This is because barbara image does not have a variety of intensity levels, so neaby levels are roughly the same for various pixels, so a high value of $\sigma_s$ actually helps. Edges are preserved for both of the images. Moreover, the texture of all the other parts of the image is more clear for both of these than the third one.
+If we talk with respect to the face of the barbara image, we can see that the image with $\sigma_s=3$ and $\sigma_r=15$ has a blurred face. This is because a high value of $\sigma_r$ incorporates values from a larger intensity range which is clearly not good in this case. Moreover for this case, the edges are not preserved too. The image with $\sigma_s=15$ and $\sigma_r=3$ has more clarity over the image with $\sigma_s=2$ and $\sigma_r=2$. This is because barbara image does not have a variety of intensity levels, so nearby levels are roughly the same for various pixels, so a high value of $\sigma_s$ actually helps. Edges are preserved for both of the images. Moreover, the texture of all the other parts of the image is more clear for both of these than the third one.
 
 
 
@@ -183,7 +183,7 @@ Here are the results of applying mean-shift filter on noisy ($\sigma = 10$) barb
     \begin{subfigure}[b]{0.24\textwidth}
         \centering
         \includegraphics[width=\textwidth]{../images/noisy_barbara256_sigma_10.png}
-        \caption{sigma=5}
+        \caption{sigma=10}
         \label{Noisy }
     \end{subfigure}
     % Second subfigure
@@ -269,7 +269,7 @@ Here are the results of applying mean-shift filter on noisy ($\sigma = 10$) koda
     \begin{subfigure}[b]{0.24\textwidth}
         \centering
         \includegraphics[width=\textwidth]{../images/noisy_kodak24_sigma_10.png}
-        \caption{sigma=5}
+        \caption{sigma=10}
         \label{Noisy }
     \end{subfigure}
     % Second subfigure
