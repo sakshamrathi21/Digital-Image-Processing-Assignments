@@ -198,32 +198,32 @@ Taking the DFT of $h(x, y)$, we get:
 Substituting the value of $h(x, y)$ from equation (1) into equation (3), we get:
 
 \begin{equation}
-    H(u, v) = \sum_{x = 0}^{M-1} \sum_{y = 0}^{N-1} \left( \sum_{0}^{M-1} \sum_{0}^{N-1} f(r, s)g(x+r, y+s)\right) e^{-j2\pi(\frac{ux}{M}+\frac{vy}{N})} 
+    H(u, v) = \sum_{x = 0}^{M-1} \sum_{y = 0}^{N-1} \left( \sum_{r = 0}^{M-1} \sum_{s = 0}^{N-1} f(r, s)g(x+r, y+s)\right) e^{-j2\pi(\frac{ux}{M}+\frac{vy}{N})} 
 \end{equation}
 
 Rearranging the terms, we get:
 
 \begin{equation}
-    H(u, v) = \sum_{x = 0}^{M-1} \sum_{y = 0}^{N-1} f(r, s)\left( \sum_{0}^{M-1} \sum_{0}^{N-1} g(x+r, y+s) e^{-j2\pi(\frac{ux}{M}+\frac{vy}{N})}\right)  
+    H(u, v) = \sum_{r = 0}^{M-1} \sum_{s = 0}^{N-1} f(r, s)\left( \sum_{x = 0}^{M-1} \sum_{y = 0}^{N-1} g(x+r, y+s) e^{-j2\pi(\frac{ux}{M}+\frac{vy}{N})}\right)  
 \end{equation}
 
 
 Consider $x' = x + r$ and $y' = y + v$. Thus, $x = x' - r$ and $y = y' - s$. The limits of the sum on $g$ won't change because $g$ is periodic. (It is a discrete signal of finite size and can be overlapped.) (Translation theroem of DFT can also be used directly.)
 
 \begin{equation}
-    H(u, v) = \sum_{x = 0}^{M-1} \sum_{y = 0}^{N-1} f(r, s)\left( \sum_{0}^{M-1} \sum_{0}^{N-1} g(x', y') e^{-j2\pi(u(x'-r)+v(y'-s))}\right)
+    H(u, v) = \sum_{r = 0}^{M-1} \sum_{s = 0}^{N-1} f(r, s)\left( \sum_{x' = 0}^{M-1} \sum_{y' = 0}^{N-1} g(x', y') e^{-j2\pi(\frac{u(x'-r)}{M}+\frac{v(y'-s)}{N})}\right)
 \end{equation}
 
 \begin{equation}
-    H(u, v) = \sum_{x = 0}^{M-1} \sum_{y = 0}^{N-1} f(r, s)\left( \sum_{0}^{M-1} \sum_{0}^{N-1} g(x', y') e^{-j2\pi(ux'+vy')} e^{j2\pi(ur+vs)}\right)
+    H(u, v) = \sum_{r = 0}^{M-1} \sum_{s = 0}^{N-1} f(r, s)\left( \sum_{x' = 0}^{M-1} \sum_{y' = 0}^{N-1} g(x', y') e^{-j2\pi(\frac{ux'}{M}+\frac{vy'}{N})} e^{j2\pi(\frac{ur}{M}+\frac{vs}{N})}\right)
 \end{equation}
 
 \begin{equation}
-    H(u, v) = \sum_{x = 0}^{M-1} \sum_{y = 0}^{N-1} f(r, s)\left( \sum_{0}^{M-1} \sum_{0}^{N-1} g(x', y') e^{-j2\pi(ux'+vy')}\right) e^{j2\pi(ur+vs)}
+    H(u, v) = \sum_{r = 0}^{M-1} \sum_{s = 0}^{N-1} f(r, s)\left( \sum_{x' = 0}^{M-1} \sum_{y' = 0}^{N-1} g(x', y') e^{-j2\pi(\frac{ux'}{M}+\frac{vy'}{N})}\right) e^{j2\pi(\frac{ur}{M}+\frac{vs}{N})}
 \end{equation}
 
 \begin{equation}
-    H(u, v) = \sum_{x = 0}^{M-1} \sum_{y = 0}^{N-1} f(r, s) G(u,v) e^{j2\pi(ur+vs)}
+    H(u, v) = \sum_{r = 0}^{M-1} \sum_{s = 0}^{N-1} f(r, s) G(u,v) e^{j2\pi(ur+vs)}
 \end{equation}
 
 
