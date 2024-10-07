@@ -8,7 +8,7 @@ function filtered_img = mymeanshiftfilter(noisy_img, sigma_s, sigma_r, max_iter,
     % tol: tolerance for convergence
     [rows, cols] = size(noisy_img); 
     filtered_img = noisy_img; % Initialize output
-    spatial_radius = sigma_s;
+    spatial_radius = ceil(3*sigma_s);
     
     % Iterate over all pixels
     for i = 1:rows
