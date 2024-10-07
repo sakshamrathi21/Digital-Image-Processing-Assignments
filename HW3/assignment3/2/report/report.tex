@@ -223,22 +223,22 @@ Consider $x' = x + r$ and $y' = y + v$. Thus, $x = x' - r$ and $y = y' - s$. The
 \end{equation}
 
 \begin{equation}
-    H(u, v) = \sum_{r = 0}^{M-1} \sum_{s = 0}^{N-1} f(r, s) G(u,v) e^{j2\pi(ur+vs)}
+    H(u, v) = \sum_{r = 0}^{M-1} \sum_{s = 0}^{N-1} f(r, s) G(u,v) e^{j2\pi(\frac{ur}{M}+\frac{vs}{N})}
 \end{equation}
 
 
 Let us take the complex conjugate of the equation (23):
 
 \begin{equation}
-    H^*(u, v) = G^*(u,v) \sum_{r = 0}^{M-1} \sum_{s = 0}^{N-1} f^*(r, s)  e^{-j2\pi(ur+vs)}
+    H^*(u, v) = G^*(u,v) \sum_{r = 0}^{M-1} \sum_{s = 0}^{N-1} f^*(r, s) e^{-j2\pi(\frac{ur}{M}+\frac{vs}{N})}
 \end{equation}
 
 \begin{equation}
-    F^*(u, v) = [\sum_{r = 0}^{M-1} \sum_{s = 0}^{N-1} f(r, s)  e^{-j2\pi(ur+vs)}]^*
+    F^*(u, v) = [\sum_{r = 0}^{M-1} \sum_{s = 0}^{N-1} f(r, s)  e^{j2\pi(\frac{ur}{M}+\frac{vs}{N})}]^*
 \end{equation}
 
 \begin{equation}
-    F^*(-u, -v) = \sum_{r = 0}^{M-1} \sum_{s = 0}^{N-1} f^*(r, s)  e^{-j2\pi(ur+vs)}
+    F^*(-u, -v) = \sum_{r = 0}^{M-1} \sum_{s = 0}^{N-1} f^*(r, s)  e^{-j2\pi(\frac{ur}{M}+\frac{vs}{N})}
 \end{equation}
 
 Substituting the value of $F^*(-u, -v)$ from equation (26) into equation (23), we get:
