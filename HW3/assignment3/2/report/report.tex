@@ -145,6 +145,8 @@ Consider $x' = x + r$ and $y' = y + v$. Thus, $x = x' - r$ and $y = y' - s$.
 \end{equation}
 
 
+This result can also be obtained by the translation theorem of fourier transformation of functions. 
+
 Let us take the complex conjugate of the equation (10):
 
 \begin{equation}
@@ -174,67 +176,72 @@ Thus, the 2D fourier transform of the correlation of two continuous 2D signals i
 The correlation of two discrete 2D signals in the discrete domain is represented by the equation:
 
 \begin{equation}
-    h[m, n] = (f \otimes g)[m, n] = \sum_{r=-\infty}^{\infty} \sum_{s=-\infty}^{\infty} f[r, s]g[m+r, n+s]
+    h[m, n] = (f \otimes g)[m, n] = \sum_{r=0}^{M-1} \sum_{s=0}^{N-1} f[r, s]g[m+r, n+s]
 \end{equation}
+
+
+f and g are periodic functions (because they are discrete signals and can be overlapped). Therefore, we have used the above correlation formula.
+
 
 We need to derive the 2D DFT of $h(x, y)$. We know that the 2D DFT of a function $p(x, y)$ is given by: 
 
 \begin{equation}
-    P(u, v) = \sum_{-\infty}^{\infty} \sum_{-\infty}^{\infty} p(x, y) e^{-j2\pi(ux+vy)} 
+    P(u, v) = \sum_{x = 0}^{M-1} \sum_{y = 0}^{N-1} p(x, y) e^{-j2\pi(\frac{ux}{M}+\frac{vy}{N})} 
 \end{equation}
 
-Taking the DFTof $h(x, y)$, we get:
+Taking the DFT of $h(x, y)$, we get:
 
 \begin{equation}
-    H(u, v) = \sum_{-\infty}^{\infty} \sum_{-\infty}^{\infty} h(x, y) e^{-j2\pi(ux+vy)}
+    H(u, v) = \sum_{x = 0}^{M-1} \sum_{y = 0}^{N-1} h(x, y) e^{-j2\pi(\frac{ux}{M}+\frac{vy}{N})} 
 \end{equation}
 
 Substituting the value of $h(x, y)$ from equation (1) into equation (3), we get:
 
 \begin{equation}
-    H(u, v) = \sum_{-\infty}^{\infty} \sum_{-\infty}^{\infty} \left( \sum_{-\infty}^{\infty} \sum_{-\infty}^{\infty} f(r, s)g(x+r, y+s)\right) e^{-j2\pi(ux+vy)}
+    H(u, v) = \sum_{x = 0}^{M-1} \sum_{y = 0}^{N-1} \left( \sum_{0}^{M-1} \sum_{0}^{N-1} f(r, s)g(x+r, y+s)\right) e^{-j2\pi(\frac{ux}{M}+\frac{vy}{N})} 
 \end{equation}
 
 Rearranging the terms, we get:
 
 \begin{equation}
-    H(u, v) = \sum_{-\infty}^{\infty} \sum_{-\infty}^{\infty} f(r, s) \left( \sum_{-\infty}^{\infty} \sum_{-\infty}^{\infty} g(x+r, y+s) e^{-j2\pi(ux+vy)}\right)
+    H(u, v) = \sum_{x = 0}^{M-1} \sum_{y = 0}^{N-1} f(r, s)\left( \sum_{0}^{M-1} \sum_{0}^{N-1} g(x+r, y+s) e^{-j2\pi(\frac{ux}{M}+\frac{vy}{N})}\right)  
 \end{equation}
 
 
-Consider $x' = x + r$ and $y' = y + v$. Thus, $x = x' - r$ and $y = y' - s$.
+Consider $x' = x + r$ and $y' = y + v$. Thus, $x = x' - r$ and $y = y' - s$. The limits of the sum on $g$ won't change because $g$ is periodic. (It is a discrete signal of finite size and can be overlapped.)
 
 \begin{equation}
-    H(u, v) = \sum_{-\infty}^{\infty} \sum_{-\infty}^{\infty} f(r, s) \left( \sum_{-\infty}^{\infty} \sum_{-\infty}^{\infty} g(x', y') e^{-j2\pi(u(x'-r)+v(y'-s))} \right)
-\end{equation}
-
-\begin{equation}
-    H(u, v) = \sum_{-\infty}^{\infty} \sum_{-\infty}^{\infty} f(r, s) \left( \sum_{-\infty}^{\infty} \sum_{-\infty}^{\infty} g(x', y') e^{-j2\pi(ux'+vy')} e^{j2\pi(ur+vs)}\right)
+    H(u, v) = \sum_{x = 0}^{M-1} \sum_{y = 0}^{N-1} f(r, s)\left( \sum_{0}^{M-1} \sum_{0}^{N-1} g(x', y') e^{-j2\pi(u(x'-r)+v(y'-s))}\right)
 \end{equation}
 
 \begin{equation}
-    H(u, v) = \sum_{-\infty}^{\infty} \sum_{-\infty}^{\infty} f(r, s) \left( \sum_{-\infty}^{\infty} \sum_{-\infty}^{\infty} g(x', y') e^{-j2\pi(ux'+vy')}\right) e^{j2\pi(ur+vs)}
+    H(u, v) = \sum_{x = 0}^{M-1} \sum_{y = 0}^{N-1} f(r, s)\left( \sum_{0}^{M-1} \sum_{0}^{N-1} g(x', y') e^{-j2\pi(ux'+vy')} e^{j2\pi(ur+vs)}\right)
 \end{equation}
 
 \begin{equation}
-    H(u, v) = \sum_{-\infty}^{\infty} \sum_{-\infty}^{\infty} f(r, s) G(u,v) e^{j2\pi(ur+vs)}
-\end{equation}
-
-
-Let us take the complex conjugate of the equation (10):
-
-\begin{equation}
-    H^*(u, v) = G^*(u,v) \sum_{-\infty}^{\infty} \sum_{-\infty}^{\infty} f^*(r, s)  e^{-j2\pi(ur+vs)}
+    H(u, v) = \sum_{x = 0}^{M-1} \sum_{y = 0}^{N-1} f(r, s)\left( \sum_{0}^{M-1} \sum_{0}^{N-1} g(x', y') e^{-j2\pi(ux'+vy')}\right) e^{j2\pi(ur+vs)}
 \end{equation}
 
 \begin{equation}
-    F^*(u, v) = [\sum_{-\infty}^{\infty} \sum_{-\infty}^{\infty} f(r, s)  e^{-j2\pi(ur+vs)}]^*
-\end{equation}
-\begin{equation}
-    F^*(-u, -v) = \sum_{-\infty}^{\infty} \sum_{-\infty}^{\infty} f^*(r, s)  e^{-j2\pi(ur+vs)}
+    H(u, v) = \sum_{x = 0}^{M-1} \sum_{y = 0}^{N-1} f(r, s) G(u,v) e^{j2\pi(ur+vs)}
 \end{equation}
 
-Substituting the value of $F^*(-u, -v)$ from equation (12) into equation (10), we get:
+
+Let us take the complex conjugate of the equation (23):
+
+\begin{equation}
+    H^*(u, v) = G^*(u,v) \sum_{x = 0}^{M-1} \sum_{y = 0}^{N-1} f^*(r, s)  e^{-j2\pi(ur+vs)}
+\end{equation}
+
+\begin{equation}
+    F^*(u, v) = [\sum_{x = 0}^{M-1} \sum_{y = 0}^{N-1} f(r, s)  e^{-j2\pi(ur+vs)}]^*
+\end{equation}
+
+\begin{equation}
+    F^*(-u, -v) = \sum_{x = 0}^{M-1} \sum_{y = 0}^{N-1} f^*(r, s)  e^{-j2\pi(ur+vs)}
+\end{equation}
+
+Substituting the value of $F^*(-u, -v)$ from equation (26) into equation (23), we get:
 
 \begin{equation}
     H^*(u, v) = G^*(u,v) F^*(-u, -v)
@@ -247,6 +254,4 @@ Substituting the value of $F^*(-u, -v)$ from equation (12) into equation (10), w
 Thus, the 2D DFT of the correlation of two discrete 2D signals is the product of the fourier transform of the two signals, with the other signal frequency being negated.
 
 \end{solution}
-
-
 \end{document}
