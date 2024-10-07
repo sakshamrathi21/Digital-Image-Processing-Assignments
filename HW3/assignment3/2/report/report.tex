@@ -208,7 +208,7 @@ Rearranging the terms, we get:
 \end{equation}
 
 
-Consider $x' = x + r$ and $y' = y + v$. Thus, $x = x' - r$ and $y = y' - s$. The limits of the sum on $g$ won't change because $g$ is periodic. (It is a discrete signal of finite size and can be overlapped.)
+Consider $x' = x + r$ and $y' = y + v$. Thus, $x = x' - r$ and $y = y' - s$. The limits of the sum on $g$ won't change because $g$ is periodic. (It is a discrete signal of finite size and can be overlapped.) (Translation theroem of DFT can also be used directly.)
 
 \begin{equation}
     H(u, v) = \sum_{x = 0}^{M-1} \sum_{y = 0}^{N-1} f(r, s)\left( \sum_{0}^{M-1} \sum_{0}^{N-1} g(x', y') e^{-j2\pi(u(x'-r)+v(y'-s))}\right)
