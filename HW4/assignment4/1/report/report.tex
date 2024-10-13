@@ -69,10 +69,177 @@ Indian Institute of Technology Bombay \\}
 
 \section*{Question 1}
 
-\begin{solution}{Solution}
-    
+\begin{solution}{Part (a)}
+We need to prove that the covariance matrix in PCA is symmetric and positive semi-definite.
+
+\textbf{Symmetric:} The covariance matrix is given by:
+\begin{equation}
+  C = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})(x_i - \bar{x})^T
+\end{equation}
+where $\bar{x}$ is the mean of the data points. Consider the transpose of C, we know that (AB)$^T$ = B$^T$A$^T$. Hence,
+
+\begin{equation}
+  C^T = \left(\frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})(x_i - \bar{x})^T\right)^T = \frac{1}{n-1} \sum_{i=1}^{n} ((x_i - \bar{x})^T)^T(x_i - \bar{x})^T = 
+\end{equation}
+
+\begin{equation}
+  C^T = = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})(x_i - \bar{x})^T = C
+\end{equation}
+
+Since, $C^T = C$, the covariance matrix is symmetric.
+
+\textbf{Positive Semi-Definite:} We need to prove that for any vector $v$, $v^TCv \geq 0$. Let $v$ be a vector of size $d \times 1$. Then, $v^TCv$ is given by:
+
+\begin{equation}
+  v^TCv = v^T\left(\frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})(x_i - \bar{x})^T\right)v = \frac{1}{n-1} \sum_{i=1}^{n} v^T(x_i - \bar{x})(x_i - \bar{x})^Tv
+\end{equation}
+
+Let $y = (x_i - \bar{x})^Tv$. Then, $v^T(x_i - \bar{x})(x_i - \bar{x})^Tv = y^Ty = ||y||^2 \geq 0$. Hence, $v^TCv \geq 0$ for any vector $v$. Therefore, the covariance matrix is positive semi-definite.
 \end{solution}
 
+
+\begin{solution}{Part (b)}
+We need to prove that the eigen vectors of a symmetric matrix are orthonormal. (This is essentially the spectral theorem.)
+
+
+Let $\bar{v}$ and $\bar{w}$ be any two vectors. Since, $A$ is symmetric, we have:
+
+\begin{equation}
+  \bar{v}^TA\bar{w} = \bar{v}^TA^T\bar{w} = (A\bar{v})^T\bar{w}
+\end{equation}
+
+In other words, $\bar{v} . (A\bar{w}) = (A\bar{v}) . \bar{w}$.
+
+
+Let $\lambda_1$ and $\lambda_2$ be two distinct eigen values of $A$ and $v_1$ and $v_2$ be the corresponding eigen vectors. Then, we have:
+
+\begin{equation}
+  Av_1 = \lambda_1v_1 \quad \text{and} \quad Av_2 = \lambda_2v_2
+\end{equation}
+
+From the previous result:
+
+\begin{equation}
+  v_1 . (Av_2) = (Av_1) . v_2 \implies v_1 . (\lambda_2v_2) = (\lambda_1v_1) . v_2 \implies \lambda_2(v_1 . v_2) = \lambda_1(v_1 . v_2)
+\end{equation}
+
+Since, $\lambda_1 \neq \lambda_2$, we have $v_1 . v_2 = 0$. Hence, the eigen vectors of a symmetric matrix are orthonormal.
+
+
+It is possible that an eigenvalue may have a larger multiplicity. However for a fixed eigen value $\lambda$, the set of vectors v for which $vA = \lambda v$ is a subspace, of full dimension, and we may simply choose an orthonormal basis for this subspace.
+
+
+Therefore, eigen vectors of a symmetric matrix are orthonormal.
+\end{solution}
+
+\begin{solution}{Part (c)}
+We are given a dataset of some $N$ vectors in $d$ dimensions given by $\{x_i\}_{i=1}^N$ with mean vector $\bar{x}$. The entire matrix of eigen vectors (denoted by $V$) is orthonormal (as shown in the previvous part). We already know from lecture slides that:
+\begin{equation}
+  x_i = \bar{x} + V\alpha_i
+\end{equation}
+
+where $\alpha_i$ is the projection of $x_i$ on the eigen vectors. We can write this as:
+\begin{equation}
+  \alpha_i = V^T(x_i - \bar{x})
+\end{equation}
+
+We approximate $x_i$ by the largest $k$ eigen vectors. This is given by:
+\begin{equation}
+  \tilde{x} = \bar{x} + V_k\alpha_{ik}
+\end{equation}
+
+where $V_k = V(:,1:k)$ (the largest $k$ eigen vectors) and $\alpha_{ik} = (V_k)^T(x_i - \bar{x})$.
+
+
+We need to find $||x_i-\tilde{x_i}||$. We have:
+\begin{equation}
+  x_i - \tilde{x_i} = \bar{x} + V\alpha_i - \bar{x} - V_k\alpha_{ik} = V\alpha_i - V_k\alpha_{ik}
+\end{equation}
+We can expand $V$ and $V_k$ and write this as:
+\begin{equation}
+  x_i - \tilde{x_i} = \sum_{j=1}^{d} v_j\alpha_i(j) - \sum_{j=1}^{k} v_j\alpha_{ik}(j) = \sum_{j=1}^k v_j(\alpha_i(j) - \alpha_{ik}(j)) + \sum_{j=k+1}^d v_j\alpha_i(j)
+\end{equation}
+
+It is clear that the first term is 0. Because, $\alpha_i(j) = V^T(x_i - \bar{x})$ and $\alpha_{ik}(j) = (V_k)^T(x_i - \bar{x})$. Since $V_k$ is a subset of $V$, the first $k$ eigen vectors, the first term is 0. Hence, we have:
+\begin{equation}
+  x_i - \tilde{x_i} = \sum_{j=k+1}^d v_j\alpha_i(j)
+\end{equation}
+
+Therefore, $||x_i-\tilde{x_i}||_2^2 = \sum_{j=k+1}^{d} (\alpha_i(j))^2$, this is because the eigen vectors are orthonormal. Hence, the error is given by the sum of the squares of the projections of the data points on the eigen vectors from $k+1$ to $d$.
+
+
+The sum of this error over all data points is given by:
+\begin{equation}
+  \sum_{i=1}^{N} ||x_i-\tilde{x_i}||_2^2 = \sum_{i=1}^{N} \sum_{j=k+1}^{d} (\alpha_i(j))^2 = \sum_{i=1}^{N} \sum_{j=k+1}^{d} (v_j^T(x_i - \bar{x}))(v_j^T(x_i - \bar{x}))
+\end{equation}
+
+where $v_j$ is the $j^{th}$ eigen vector. 
+
+\begin{equation}
+  \sum_{i=1}^{N} ||x_i-\tilde{x_i}||_2^2 = \sum_{i=1}^{N} \sum_{j=k+1}^{d} (v_j^T(x_i - \bar{x})) ((x_i - \bar{x})^Tv_j) = \sum_{j=k+1}^{d} (N-1) v_j^TCv_j = \sum_{j=k+1}^{d} (N-1) \lambda_j
+\end{equation}
+
+where $\lambda_j$ is the $j^{th}$ eigen value. 
+
+Therefore:
+\begin{equation}
+  \frac{1}{N} \sum_{i=1}^{N} ||x_i-\tilde{x_i}||_2^2 = \frac{N-1}{N} \sum_{j=k+1}^{d} \lambda_j
+\end{equation}
+
+It is already given to us that the last $d-k$ eigen values are very small. Thus, the error is also small. (We have also expressed the error in terms of the eigen values of the covariance matrix.)
+\end{solution}
+
+
+\begin{solution}{Part (d)}
+We have two uncorrelated zero-mean random variables $X_1 \sim \mathcal{N}(0, 100)$ and $X_1 \sim \mathcal{N}(0, 1)$. We need to find the covariance matrix of the random vector $X = [X_1, X_2]^T$.
+
+The covariance matrix is given by:
+\begin{equation}
+  C = \begin{bmatrix}
+    \text{Var}(X_1) & \text{Cov}(X_1, X_2) \\
+    \text{Cov}(X_1, X_2) & \text{Var}(X_2)
+  \end{bmatrix}
+\end{equation}
+
+Since, $X_1$ and $X_2$ are uncorrelated, $\text{Cov}(X_1, X_2) = 0$. Hence, the covariance matrix is given by:
+\begin{equation}
+  C = \begin{bmatrix}
+    100 & 0 \\
+    0 & 1
+  \end{bmatrix}
+\end{equation}
+
+The eigen values of the matrix can be calculated by equating the determinant of the following matrix to 0:
+\begin{equation}
+  \begin{vmatrix}
+    100-\lambda & 0 \\
+    0 & 1-\lambda
+  \end{vmatrix} = 0
+\end{equation}
+Therefore, the eigen values are $\lambda_1 = 100$ and $\lambda_2 = 1$. The eigen vectors are given by:
+
+The corresponding eigen vectors are given by $[1, 0]^T$ and $[0, 1]^T$. Clearly one of the eigen values is much larger than the other. Therefore, the principal component of the data is given by projection of the data on the first eigen vector which is $X_1$.
+
+
+If the variance of $X_1$ is reduced to 1, the covariance matrix becomes:
+
+\begin{equation}
+  C = \begin{bmatrix}
+    1 & 0 \\
+    0 & 1
+  \end{bmatrix}
+\end{equation}
+
+The eigen values of the matrix can be calculated by equating the determinant of the following matrix to 0:
+\begin{equation}
+  \begin{vmatrix}
+    1-\lambda & 0 \\
+    0 & 1-\lambda
+  \end{vmatrix} = 0
+\end{equation}
+
+Therefore, the eigen values are $\lambda_1 = 1$ and $\lambda_2 = 1$. The corresponding eigen vectors are $[1, 0]^T$ and $[0, 1]^T$. Since, in this case the eigen values are the same, we can't reduce the dimensionality of the data. The principal components are the same as the original data.  
+\end{solution}
 
 
 
