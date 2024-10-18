@@ -70,7 +70,46 @@ Indian Institute of Technology Bombay \\}
 \section*{Question 3}
 
 \begin{solution}{Solution}
-    
+    Let $A$ be a real $m \times n$ matrix. $A$ can always be expressed as $A = U \Sigma V^{T}$ where 
+    $U \in \mathbb{R}^{m \times m}$, $V \in \mathbb{R}^{n \times n}$ and $\Sigma \in \mathbb{R}^{m \times n}$, 
+    $U,V$ being orthogonal matrices and $\Sigma$ being a diagonal matrix with non negative values (called singular values)
+    on the diagonal. Let $\Sigma = diag(\sigma_{1},\sigma_{2}, \dots,\sigma_{\min(m,n)})$. We will show that the squares 
+    of the non-zero singular values of $A$ are the eigenvalues of either $AA^{T}$ or $A^{T}A$. This is equivalent to 
+    showing that the the non-zero singular values of $A$ are the squareroots of either $AA^{T}$ or $A^{T}A$ because,
+    the singular values are non-negative by definition. 
+    \subsection*{Part a}
+      We will show that the non zero singular values of $A$ are equal to the square roots of the eigen values of either 
+      $AA^{T}$ or $A^{T}A$. We define $\Sigma_{m}^{2} = \Sigma \Sigma^{T}$ and $\Sigma^{2}_{n} = \Sigma^{T} \Sigma$.
+
+      \begin{align*}
+        AA^{T} &= (U \Sigma V^{T}) \cdot {(U \Sigma V^{T})}^{T} \\
+               &= U \Sigma V^{T} \cdot (V \Sigma^{T} U^{T}) \\
+               &= U \Sigma V^{T} V \Sigma^{T} U^{T} \\
+               &= U \Sigma (V^{T}V) \Sigma^{T} U^{T} \\ 
+               &= U \Sigma I_{n} \Sigma ^{T} U^{T} \\
+               &= U \Sigma \Sigma^{T} U^{T} \\
+               &= U \Sigma^{2}_{m} U^{T} \\
+      \end{align*}
+
+      Similarly, $A^{T}A = V \Sigma^{T} \Sigma V^{T} = V \Sigma_{n}^{2} V^{T}$.
+
+      Clearly, $\Sigma^{2}_{m} \in R^{m \times m}$ and equals $diag(\sigma_{1}^{2},\sigma_{2}^{2},\dots , \sigma_{m}^{2}) = D$.
+      Now $m = \min(m,n)$ or $n = \min(m,n)$.  
+
+      Let $m = \min(m,n)$. In this case, $\Sigma_{m}^{2}$ is a diagonal matrix ($D$) whose entries are squares of the singular 
+      values of $A$. Since $AA^{T}$ is a real symmetric matrix, by \textbf{spectral theorem}  it has an orthogonal decomposition given by 
+      $AA^{T} = \mathcal{U} \mathcal{D} \mathcal{U^{T}}$ where $\mathcal{D}$ is a diagonal matrix whose entries are the eigenvalues
+      of $AA^{T}$ and $\mathcal{U}$ is an orthogonal matrix. Therefore the non zero entries of $D$ are the eigenvalues of $AA^{T}$.
+      Since $D = \Sigma_{m}^{2}$, the non zero entries of $D$ are the squares of the non zero singular values of $A$ and the squares of the any 
+      non-zero singular value of $A$ is an eigenvalue of $AA^{T}$, we are done.
+
+      Let $n = \min(m,n)$. In this case, we deal with the diagonal matrix $D = \Sigma_{n}^{2}$ whose entries are the squares of 
+      all the singular values of $A$ (this is because $n = \min(m,n)$). The proof is very similar to the case above. Since
+      $A^{T}A$ is a real symmetric matrix, it has an orthogonal decomposition $\mathcal{V} \mathcal{D} \mathcal{V}^{T}$
+      and therefore we have the non-zero entries of $D$ to be the eigenvalues of $A^{T}A$ and following a similar argument we 
+      arrive at the conclusion that the square of any non-zero singular value of $A$ is an eigen value of $A^{T}A$ and that
+      any eigenvalue of $A^{T}A$ is the square of some non-zero singular value of $A$. This completes the proof.
+      
 \end{solution}
 
 
