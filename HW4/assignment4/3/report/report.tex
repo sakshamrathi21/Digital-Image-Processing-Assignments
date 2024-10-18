@@ -77,7 +77,7 @@ Indian Institute of Technology Bombay \\}
     of the non-zero singular values of $A$ are the eigenvalues of either $AA^{T}$ or $A^{T}A$. This is equivalent to 
     showing that the the non-zero singular values of $A$ are the squareroots of either $AA^{T}$ or $A^{T}A$ because,
     the singular values are non-negative by definition. 
-    \subsection*{Part a}
+    \section*{Part a}
       We will show that the non zero singular values of $A$ are equal to the square roots of the eigen values of either 
       $AA^{T}$ or $A^{T}A$. We define $\Sigma_{m}^{2} = \Sigma \Sigma^{T}$ and $\Sigma^{2}_{n} = \Sigma^{T} \Sigma$.
 
@@ -110,6 +110,31 @@ Indian Institute of Technology Bombay \\}
       arrive at the conclusion that the square of any non-zero singular value of $A$ is an eigen value of $A^{T}A$ and that
       any eigenvalue of $A^{T}A$ is the square of some non-zero singular value of $A$. This completes the proof.
       
+      \section*{Part b}
+
+      The Frobenius norm of a matrix $A \in \mathbb{R}^{m \times n}$ is defined as 
+      \[\left \lvert \lvert A \right \rvert \rvert_{F} = \sqrt{\left(\sum\limits_{i = 1}^{m} \sum\limits_{j = 1}^{n} A_{ij}^{2}\right)} \]
+
+      For any matrix $A \in \mathbb{R}^{m \times n}$ we have 
+      \[ \sum\limits_{i = 1}^{m}\sum\limits_{j = 1}^{n} A_{ij}^{2} = \text{Tr}(AA^{T}) = \text{Tr}(A^{T}A)\] where $\text{Tr}(M) = \sum\limits_{i = 1}^{n} M_{ii}$
+      for any $n \times n$ square matrix $M$. The trace of a matrix also has the following property,
+      \[\text{Tr}(AB) = \text{Tr}(BA)\] whenever $AB$ and $BA$ are both square matrices for two matrices $A$ and $B$.
+
+      WLOG we take $m = \min(n,m)$ (in the other case we simply deal with $A^{T}A$ and $\Sigma_{n}^{2}$)
+      \begin{align*}
+          \lvert\lvert A \rvert\rvert_{F}^{2} &= \sum\limits_{i = 1}^{m}\sum\limits_{j = 1}^{n} A_{ij}^{2} \\
+                                              &= \text{Tr}(AA^{T}) \\
+                                              &= \text{Tr}((U\Sigma V^{T} V \Sigma^{T} U^{T})) \\
+                                              &= \text{Tr} (U \Sigma_{m}^{2} U^{T}) \\
+                                              &= \text{Tr} ((U \Sigma_{m}^{2}) (U^{T})) \\
+                                              &= \text{Tr} ((U^{T})(U \Sigma_{m}^{2})) \\
+                                              &= \text(Tr) (U^{T} U \Sigma_{m}^{2}) \\
+                                              &= \text(Tr) (I_{m} \Sigma_{m}^{2}) \\
+                                              &= \text(Tr) (\Sigma_{m}^{2}) \\
+                                              &= \sum\limits_{i = 1}^{k} \sigma_{i}^{2} \,\text{ (where k is the number of non-zero singular values of A)} \\
+          \Rightarrow \lvert\lvert A \rvert \rvert_{F}^{2} &= \sum\limits_{i = 1}^{k} \sigma_{i}^{2}
+      \end{align*}
+
 \end{solution}
 
 
