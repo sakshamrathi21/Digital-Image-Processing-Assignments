@@ -1,6 +1,7 @@
 \documentclass[a4paper,12pt]{article}
 \usepackage{xcolor}
-\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{hyperref}
 \usepackage{geometry}
 \usepackage{fancyhdr}
 \usepackage{graphicx}
@@ -63,6 +64,10 @@
 \small Department of Computer Science, \\
 Indian Institute of Technology Bombay \\}
 \date{}
+
+\newtheorem{Def}{Definition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
 
 \begin{document}
 \maketitle
@@ -128,16 +133,173 @@ Indian Institute of Technology Bombay \\}
                                               &= \text{Tr} (U \Sigma_{m}^{2} U^{T}) \\
                                               &= \text{Tr} ((U \Sigma_{m}^{2}) (U^{T})) \\
                                               &= \text{Tr} ((U^{T})(U \Sigma_{m}^{2})) \\
-                                              &= \text(Tr) (U^{T} U \Sigma_{m}^{2}) \\
-                                              &= \text(Tr) (I_{m} \Sigma_{m}^{2}) \\
-                                              &= \text(Tr) (\Sigma_{m}^{2}) \\
+                                              &= \text{Tr} (U^{T} U \Sigma_{m}^{2}) \\
+                                              &= \text{Tr} (I_{m} \Sigma_{m}^{2}) \\
+                                              &= \text{Tr} (\Sigma_{m}^{2}) \\
                                               &= \sum\limits_{i = 1}^{k} \sigma_{i}^{2} \,\text{ (where k is the number of non-zero singular values of A)} \\
-          \Rightarrow \lvert\lvert A \rvert \rvert_{F}^{2} &= \sum\limits_{i = 1}^{k} \sigma_{i}^{2}
+          \Rightarrow \lvert\lvert A \rvert \rvert_{F}^{2} &= \sum\limits_{i = 1}^{k} \sigma_{i}^{2} 
       \end{align*}
 
-\end{solution}
+      Thus we have the square of the Frobenius norm of a matrix to equal the sum of squares of the singular values.
 
+      \section*{Part c}
 
+      \section*{Part d}
 
+      Given:
+      \begin{align*}
+        A \in \mathbb{R}^{m \times n} \, &, m \leqslant n \\
+        P &= A^{T}A \\
+        Q &= AA^{T}
+      \end{align*}
 
+      A few results and definitions we will use:
+      \begin{Def}\label{psd}
+         A matrix $M \in \mathbb{R}^{n \times n}$ is said to be positive semi-definite if $\forall \vec{x} \in R^{n}$,
+         \[ \vec{v}^{T} M \vec{v} \geqslant 0\]
+      \end{Def}
+      \begin{theorem}[Spectral Theorem]\label{spectral}
+        Any real symmetric matrix $A \in \mathbb{R}^{n \times n}$ is orthogonally diagonalizable. That is there exists real numbers
+        $\lambda_{1},\lambda_{2}, \dots,\lambda_{n}$, $U \in \mathbb{R}^{n \times n}$ such that $A = UDU^{T}$ where 
+        $D = \text{diag}(\lambda_{1},\lambda_{2},\dots,\lambda_{n})$,
+        $U = \left[ \vec{u}_{1} \vec{u}_{2} \cdots \vec{u}_{n}\right]$ with 
+        $A \vec{u}_{i} = \lambda_{i} \vec{u}_{i} \, \forall i \in [1,n]$ and $UU^{T} = U^{T}U = I_{n}$
+      \end{theorem}
+        \begin{lemma}\label{l1}
+        $P$ and $Q$ are positive semi-definite (defintion \@\ref{psd}) and their eigenvalues are non-negative.
+          \begin{proof}
+            We will first show that $P$ is positive semi-definite and then we will show that the eigen values of $P$ 
+            are all non-negative. The proof for $Q$ is similar.     
+            
+            Let $\vec{x} \in \mathbb{R}^{n}$. 
+            \begin{align}
+            \vec{x}^{T} P \vec{x} &= \vec{x}^{T}(A^{T}A) \vec{x} \nonumber \\ 
+                                  &= \vec{x}^{T} A^{T} A \vec{x} \nonumber \\
+                                  &= (\vec{x}^{T} A^{T}) (A \vec{x}) \nonumber \\
+                                  &= {(A \vec{x})}^{T} (A\vec{x}) \nonumber \\
+                                  &= \vec{y}^{T} \vec{y} \, \text{ where $\vec{y} \in \mathbb{R}^{n} \, \vec{y} = A \vec{x}$} \nonumber \\
+                                  &= \lvert \lvert \vec{y} \rvert \rvert^{2} \geqslant 0 \nonumber \\
+            \Rightarrow \label{r1}\vec{x}^{T} P \vec{x} &\geqslant 0
+            \end{align}
+            
+            Let $\vec{u} \in R^{n}/\{\vec{0}\} $ be an eigenvector of $P$ with corresponding eigenvalue $\lambda \in \mathbb{C}$.
+            Consider the expression $\vec{u}^{T} P \vec{u}$. From equation\@ref{1} we know that $\vec{u}^{T} P \vec{u} \geqslant 0$.
+            Therefore we have,
+
+            \begin{align}
+               \vec{u}^{T} P \vec{u} &= \vec{u}^{T}(P \vec{u}) \geqslant 0 \nonumber  \\
+                                     = \vec{u}^{T}(\lambda \vec{u}) &\geqslant 0 \nonumber \\
+                                     = \lambda \vec{u}^{T} \vec{u} &\geqslant 0\nonumber \\
+                                     = \lambda \lvert\lvert \vec{u} \rvert\rvert^{2} &\geqslant 0 \nonumber \\
+                \Rightarrow \lambda \lvert\lvert \vec{u} \rvert\rvert^{2} &\geqslant 0 \nonumber \\
+                \Rightarrow \label{r2}\lambda &\geqslant 0
+            \end{align}
+
+            Therefore we have eigenvalues of $P$ to be non-negative. The proofs hold for $Q$ as well, just replace $\vec{x}$ in
+            equation \@\ref{r1} by $\vec{y} \in \mathbb{R}^{m}$ and $\vec{u}$ in equation \@\ref{r2} by
+            $\vec{v} \in \mathbb{R}^{m}$.
+          \end{proof}
+        \end{lemma}
+
+        \begin{lemma}\label{l2}The following are true regarding the eigenvectors of $P$ and $Q$:
+          \begin{enumerate}
+            \item If $\vec{u} \in \mathbb{R}^{n}$ is an eigenvector of $P$ with eigenvalue $\lambda$ then $A\vec{u}$ is an eigenvector of 
+            $Q$ with eigenvalue $\lambda$.
+            \item If $\vec{v} \in \mathbb{R}^{m}$ is an eigenvector of $Q$ with eigenvalue $\mu$, then $A^{T} \vec{v}$ is an eigenvector of $P$ with eigenvalue $\mu$.
+        \end{enumerate}
+          \begin{proof}
+            Since $\vec{u} \in \mathbb{R}^{n}$ is an eigenvector of $P$ with eigenvalue $\lambda$ we have,
+            \begin{align}
+              P\vec{u} &= \lambda \vec{u} \nonumber \\
+              \Rightarrow P\vec{u} &= (A^{T}A) \vec{u} = \lambda \vec{u} \nonumber \\
+              \Rightarrow (A^{T}) (A \vec{u}) &= \lambda \vec{u} \nonumber \\
+              \Rightarrow A \left( A^{T} (A\vec{u})\right) &= A \left( \lambda \vec{u}\right) \nonumber \, \text{ (pre-multiplying both LHS and RHS by a non-null matrix $A$)} \nonumber \\
+              \Rightarrow  (A A^{T}) (A\vec{u}) &= \lambda (A \vec{u}) \nonumber \\
+              \Rightarrow (Q) (A\vec{u}) &= \lambda (A\vec{u}) \nonumber \\
+              \Rightarrow  \label{r3}Q (A\vec{u}) &= \lambda (A\vec{u})
+            \end{align}
+            From equation \@\ref{r3} we have that for every $\vec{u}$ that is eigenvector of $P$, the vector $A\vec{u}$
+            is an eigenvector of $Q$ with the same eigenvalue. Now we prove the second part of the lemma whose proof is very
+            similar to what we saw above.
+
+            Since $\vec{v} \in \mathbb{R}^{m}$ is an eigenvector of $Q$ with eigenvalue $\mu$ we have,
+            \begin{align}
+              Q\vec{v} &= \mu \vec{v} \nonumber \\
+              \Rightarrow Q\vec{v} &= (AA^{T}) \vec{v} = \mu \vec{v} \nonumber \\
+              \Rightarrow (A) (A^{T} \vec{v}) &= \mu \vec{v} \nonumber \\
+              \Rightarrow A^{T} \left( A (A^{T}\vec{v})\right) &= A^{T} \left( \mu \vec{v}\right) \nonumber \, \text{ (pre-multiplying both LHS and RHS by a non-null matrix $A^{T}$)} \nonumber \\
+              \Rightarrow  (A^{T} A) (A^{T}\vec{v}) &= \mu (A^{T} \vec{v}) \nonumber \\
+              \Rightarrow (P) (A^{T}\vec{v}) &= \mu (A^{T}\vec{v}) \nonumber \\
+              \Rightarrow  \label{r4}P (A^{T}\vec{v}) &= \mu (A^{T}\vec{v})
+            \end{align}
+
+            Equations \@\ref{r3} and \@\ref{r4} complete the proof.
+          \end{proof}
+        \end{lemma}
+
+        \begin{lemma}\label{l3}
+          Let $\vec{v}_{i} \in \mathbb{R}^{m}$ be an eigenvector of $Q$. Define 
+          $u_{i} \stackrel{\Delta}{=} \frac{A^{T} \vec{v}_{i}}{\lvert\lvert A^{T} \vec{v}_{i} \rvert\rvert_{2}}$. There exists 
+          $\gamma_{i} \geqslant 0$ such that $A\vec{u_{i}} = \gamma_{i} \vec{v}_{i}$
+          \begin{proof} % We will use the results of lemmas \@\ref{l1} and \@\ref{l2} to prove the statement of this lemma.
+            % \begin{enumerate}
+            %   \item From lemma \@\ref{l2} we know that if $\vec{v}_{i}$ is eigenvector of $Q$ with eigenvalue $\mu_{i}$, then
+            %   $A^{T}\vec{v}_{i}$ is eigenvector of $P$ with eigenvalue $\mu_{i}$.
+            %   \item From lemma \@\ref{l1} we know that eigenvalues of $P$ and $Q$ are non-negative, therefore we have 
+            %   $\mu_{i} \geqslant 0$.
+            %   \item For any matrix $M$ with an eigenvector $\vec{x}$ and corresponding eigenvalue $\nu$, we always have $c\vec{x}$ 
+            %   to also be an eigenvector with eigenvalue $\nu$ for any real $c \neq 0$.
+            % \end{enumerate}
+            % Combining these three results we have 
+            % $\vec{u}_{i} \stackrel{\Delta}{=} \frac{A^{T} \vec{v}_{i}}{\lvert\lvert A^{T} \vec{v}_{i} \rvert\rvert_{2}}$
+            % which is a unit vector in $\mathbb{R}^{n}$ to be an eigenvector of $P$ with eigenvalue $\mu_{i}$.
+            Let $\vec{v}_{i} \in \mathbb{R}^{m}$ be an eigenvector of $Q$ with an eigenvalue $\mu$. From lemma \@\ref{l1} we know that eigenvalues of $P$ and $Q$ are non-negative, therefore we have 
+            $\mu_{i} \geqslant 0$.
+            Consider the expression $A\vec{u}_{i}$,
+            \begin{align}
+               A\vec{u}_{i} &= A \left(\frac{A^{T} \vec{v}_{i}}{\lvert\lvert A^{T} \vec{v}_{i} \rvert\rvert_{2}}\right) \nonumber \\
+                            &= \frac{ A (A^{T} \vec{v}_{i})}{\lvert\lvert A^{T} \vec{v}_{i} \rvert\rvert_{2}} \nonumber \\
+                            &= \frac{ (A A^{T}) \vec{v}_{i}}{\lvert\lvert A^{T} \vec{v}_{i} \rvert\rvert_{2}} \nonumber \\
+                            &= \frac{Q\vec{v}_{i}}{\lvert\lvert A^{T} \vec{v}_{i} \rvert\rvert_{2}} \nonumber \\
+                            &= \frac{\mu_{i}\vec{v}_{i}}{\lvert\lvert A^{T} \vec{v}_{i} \rvert\rvert_{2}} \nonumber \\
+                            &= \left(\frac{\mu_{i}}{\lvert\lvert A^{T} \vec{v}_{i} \rvert\rvert_{2}}\right) \vec{v}_{i} \nonumber \\
+                            &= \gamma_{i} \vec{v}_{i}
+            \end{align}
+
+            That is, there exists 
+            $\gamma_{i} = \left(\frac{\mu_{i}}{\lvert\lvert A^{T} \vec{v}_{i} \rvert\rvert_{2}}\right) \geqslant 0$ 
+            such that $A\vec{u}_{i} = \gamma_{i} \vec{v}_{i}$
+          \end{proof}
+        \end{lemma}
+
+        \begin{theorem}[Singular Value Decomposition]
+            Let $\vec{v}_{i}$,$\vec{u_{i}}$ and $\gamma_{i}$ be defined as in lemma \@\ref{l3}. 
+            Let $U = \left[\vec{v}_{1} | \vec{v}_{2} | \cdots | \vec{v}_{m}\right]$,
+            $V = \left[\vec{u}_{1} | \vec{u}_{2} | \cdots | \vec{u}_{m}\right]$ and 
+            $\Gamma =\text{diag}(\gamma_{1},\gamma_{2},\dots,\gamma_{m})$ where $U$ and $\Gamma$ are both $m \times m$
+            matrices and $V$ is an $n\times m$ matrix. Then \[ A = U \Gamma V^{T} \]
+            \begin{proof}
+              Two matrices $A$ and $B$ are equal only if they the same dimensions and the values at the corresponding indices
+              for every pair of $(i,j)$ are equal ie, $\forall i \in [1,m]$, $\forall j \in [1,n]$, if $A_{ij} = B_{ij}$
+              then $A = B$ and vice versa.
+
+              As $P$ and $Q$ are real symmetric matrices we can obtain an orthonormal basis for $\mathbb{R}^{n}$ and 
+              $\mathbb{R}^{m}$ respectively that are the eigenvectors of $P$ and $Q$ respectively (theorem \@\ref{spectral}).
+
+              Since the columns of $U$ and $V$ are the orthonormal eigenvectors of $Q$ and $P$ respectively, we have 
+              $UU^{T} = U^{T}U = I_{m}$ and $V^{T}V = I_{m}$.
+              
+              Consider the expression $AV$.
+              \begin{align}
+                AV &= A \left[ \vec{u}_{1} | \vec{u}_{2} | \cdots | \vec{u}_{m}\right] \nonumber \\
+                \Rightarrow AV &= \left[ A\vec{u}_{1} | A\vec{u}_{2} | \cdots | A \vec{u}_{m} \right] \nonumber \\
+                               &= \left[ \gamma_{1}\vec{v}_{1} | \gamma_{2}\vec{v}_{2} | \cdots | \gamma_{m} \vec{v}_{m} \right] \text{ from lemma \@\ref{l3}} \nonumber \\
+                               &= \left[\vec{v}_{1} | \vec{v}_{2} | \cdots | \vec{v}_{m}\right] \Gamma \nonumber \\
+                               &= U \Gamma \nonumber \\
+                \Rightarrow AV &= U \Gamma \nonumber \\
+                \Rightarrow A V V^{T} &= \text{ if this is somehow equal to $I_{n}$ then we are done.}
+              \end{align}
+            \end{proof}
+        \end{theorem}
+  \end{solution}
 \end{document}
