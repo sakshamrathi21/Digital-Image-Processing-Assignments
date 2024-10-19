@@ -1,0 +1,85 @@
+clear; clc; tic;
+
+% Step 1: Load the ORL database (as done in your original code)
+num_persons = 32; % Number of persons (1 to 32)
+num_train = 6; % Number of training images per person
+img_rows = 92; % Image height
+img_cols = 112; % Image width
+img_size = img_rows * img_cols;
+
+train_data = []; % training set
+train_labels = []; % training subjects
+test_set = []; % testing set
+test_sub = []; % testing subjects
+
+for i = 1:32
+    imagefiles = dir("../../../ORL/s" + num2str(i) + "/*.pgm");
+
+    for ii = 1:length(imagefiles)
+        currentfilename = imagefiles(ii).folder + "/" + imagefiles(ii).name;
+        currentimage = im2double(imread(currentfilename));
+
+        if (ii <= 6)
+            train_data = cat(2, train_data, currentimage(:));
+            train_labels = cat(2, train_labels, i);
+        else
+            test_set = cat(2, test_set, currentimage(:));
+            test_sub = cat(2, test_sub, i);
+        end
+
+    end
+
+end
+
+mean_vector = mean(train_set, 2);
+X = train_set - mean_vector;
+
+[eigenfaces, S, V] = svd(X);
+k = [2, 10, 20, 50, 75, 100, 125, 150, 175];
+
+% Normalize the eigenfaces
+for i = 1:size(eigenfaces, 2)
+    eigenfaces(:, i) = eigenfaces(:, i) / norm(eigenfaces(:, i)); % Normalize each eigenface to unit length
+end
+
+% Step 4: Reconstruct one face using different values of k
+k_values = [2, 10, 20, 50, 75, 100, 125, 150, 175];
+face_idx = 1; % Reconstruct the first face (you can change this to reconstruct any other face)
+
+figure;
+for i = 1:length(k_values)
+    k = k_values(i);
+    
+    % Select the top k eigenfaces
+    selected_eigenfaces = eigenfaces(:, 1:k);
+    
+    % Project the selected face onto the top k eigenfaces
+    face_proj = selected_eigenfaces' * (train_centered(:, face_idx));
+    
+    % Reconstruct the face from the top k eigenfaces
+    face_reconstructed = selected_eigenfaces * face_proj + train_mean;
+    
+    % Reshape the face back to the original image dimensions
+    face_reconstructed_img = reshape(face_reconstructed, img_rows, img_cols);
+    
+    % Plot the reconstructed image
+    subplot(3, 3, i); % 3x3 grid for the 9 values of k
+    imagesc(uint8(face_reconstructed_img)); colormap("gray");
+    title(sprintf('k = %d', k));
+end
+
+% Save the figure of reconstructed faces
+saveas(gcf, '../images/ORL_reconstructed_faces.png');
+
+% Step 5: Plot the first 25 eigenfaces
+figure;
+for i = 1:25
+    eigenface_img = reshape(eigenfaces(:, i), img_rows, img_cols); % Reshape eigenface to original image size
+    subplot(5, 5, i); % 5x5 grid for the 25 eigenfaces
+    imagesc(uint8(eigenface_img)); colormap("gray");
+    title(sprintf('Eigenface %d', i));
+end
+
+% Save the figure of the first 25 eigenfaces
+saveas(gcf, '../images/ORL_eigenfaces.png');
+toc;
