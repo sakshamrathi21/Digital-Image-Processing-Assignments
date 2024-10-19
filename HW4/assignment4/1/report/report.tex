@@ -83,7 +83,7 @@ where $\bar{x}$ is the mean of the data points. Consider the transpose of C, we 
 \end{equation}
 
 \begin{equation}
-  C^T = = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})(x_i - \bar{x})^T = C
+  C^T = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})(x_i - \bar{x})^T = C
 \end{equation}
 
 Since, $C^T = C$, the covariance matrix is symmetric.
@@ -126,14 +126,14 @@ From the previous result:
 Since, $\lambda_1 \neq \lambda_2$, we have $v_1 . v_2 = 0$. Hence, the eigen vectors of a symmetric matrix are orthonormal.
 
 
-It is possible that an eigenvalue may have a larger multiplicity. However for a fixed eigen value $\lambda$, the set of vectors v for which $vA = \lambda v$ is a subspace, of full dimension, and we may simply choose an orthonormal basis for this subspace.
+It is possible that an eigenvalue may have a larger multiplicity. However for a fixed eigen value $\lambda$, the set of vectors v for which $Av = \lambda v$ is a subspace, of full dimension, and we may simply choose an orthonormal basis for this subspace.
 
 
 Therefore, eigen vectors of a symmetric matrix are orthonormal.
 \end{solution}
 
 \begin{solution}{Part (c)}
-We are given a dataset of some $N$ vectors in $d$ dimensions given by $\{x_i\}_{i=1}^N$ with mean vector $\bar{x}$. The entire matrix of eigen vectors (denoted by $V$) is orthonormal (as shown in the previvous part). We already know from lecture slides that:
+We are given a dataset of some $N$ vectors in $d$ dimensions given by $\{x_i\}_{i=1}^N$ with mean vector $\bar{x}$. The entire matrix of eigen vectors (denoted by $V$) is orthonormal (as shown in the previous part). We already know from lecture slides that:
 \begin{equation}
   x_i = \bar{x} + V\alpha_i
 \end{equation}
