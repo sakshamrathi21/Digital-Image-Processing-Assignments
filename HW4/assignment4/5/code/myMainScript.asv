@@ -60,7 +60,7 @@ eigenfaces = U; % The left singular vectors correspond to the eigenfaces
 
 % For no matching identity we need to find a threshold value for the PCA eigen coefficients in mean squared sense
 % We find the threshold by cross validation
-threshold_values = linspace(30, 300, 100);
+threshold_values = linspace(70, 300, 100);
 k = 75; % say
 
 selected_eigenfaces = eigenfaces(:, 1:k);
@@ -91,8 +91,7 @@ get_best_threshold("recall", threshold_values, mse_min_list, closest_idx_list, t
 get_best_threshold("specificity", threshold_values, mse_min_list, closest_idx_list, train_labels, test_labels, test_data_size);
 get_best_threshold("my_score", threshold_values, mse_min_list, closest_idx_list, train_labels, test_labels, test_data_size);
 
-% Testing threshold = 140 (say)
-test_threshold(140, mse_min_list, closest_idx_list, train_labels, test_labels, test_data_size);
+% 
 
 function get_best_threshold(metric, threshold_values, mse_min_list, closest_idx_list, train_labels, test_labels, test_data_size)
     best_score = 0;
@@ -200,7 +199,7 @@ function get_best_threshold(metric, threshold_values, mse_min_list, closest_idx_
     fprintf("Recognition rate: %f\n\n", recognition_rate);
 end
 
-function test_threshold(threshold, mse_min_list, closest_idx_list, train_labels, test_labels, test_data_size)
+function [TP_count, FP_count, TN_count, FN_count, accuracy, f] test_threshold(threshold, mse_min_list, closest_idx_list, train_labels, test_labels, test_data_size)
     correct_classifications = 0;
     TP_count = 0;
     FP_count = 0;
@@ -254,8 +253,8 @@ function test_threshold(threshold, mse_min_list, closest_idx_list, train_labels,
     
     % Print the confusion matrix
     fprintf("Confusion matrix:\n");
-    fprintf("TP: %d\tFP: %d\n", TP_count, FP_count);
-    fprintf("FN: %d\tTN: %d\n", FN_count, TN_count);
+    fprintf("TP: %d\tFP: %d\n", TP, FP);
+    fprintf("FN: %d\tTN: %d\n", FN, TN);
     
     fprintf("Recognition rate: %f\n\n", recognition_rate);
 end

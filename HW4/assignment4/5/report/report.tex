@@ -17,6 +17,8 @@
 \usepackage{mathpazo}   % Palatino font (serif)
 \usepackage{microtype}  % Better typography
 
+\setlength{\parindent}{0pt}
+
 % Page background color
 \pagecolor{gray!10!white}
 
@@ -70,7 +72,72 @@ Indian Institute of Technology Bombay \\}
 \section*{Question 5}
 
 \begin{solution}{Solution}
-    
+	Code is in \texttt{myMainScript.m}.
+
+	We'll use $k = 75$ as it provided sufficiently good recognition rates in Q4.\ We see that the test error (minimum MSE) had mean around $77.7$ and standard deviation around $46.5$.
+
+	\begin{center}
+		\includegraphics[scale=0.5]{../images/mean_std-dev.png}
+	\end{center}
+
+	So we propose that we look from $77.7 - 46.5 \approx 30$ to $77.7 + 4 \times 46.5 \approx 300$ for finding a suitable threshold.
+
+	Basically we performed cross-validation to find the best threshold value.\ The metrics used to achieve this are:- Accuracy, F1-score, Specificity, Recall and one of my own.\ We maximise these metrics over the set of threshold values to find the best one.
+
+	Note that here ``positives" are cases where a face is found to have a matching identity and ``negatives" are the opposite.\ $TP$ stands for ``True Positive'', $FP$ stands for ``False Positive'', $TN$ stands for ``True Negative'' and $FN$ stands for ``False Negative''.
+
+	\begin{itemize}
+		\item \textbf{Accuracy:}
+		\[
+			\text{Accuracy} = \frac{TP+TN}{TP+TN+FP+FN}
+		\]
+		Maximising Accuracy gives:-
+		\begin{center}
+			\includegraphics[scale=0.5]{../images/accuracy.png}
+		\end{center}
+		We see that the best threshold is around 172 and recognition rate is around 0.75 which is good.\ $FP$ is also not much.\ Hence this seems a good metric and a good threshold.
+		\item \textbf{F1-score:}
+		\[
+			\text{F1-score} = \frac{2TP}{2TP+FP+FN}
+		\]
+		Maximising F1-score gives:-
+		\begin{center}
+			\includegraphics[scale=0.5]{../images/f1-score.png}
+		\end{center}
+		We see that the best threshold is around 172 and recognition rate is around 0.75 which is good.\ $FP$ is also not much.\ Hence this seems a good metric and a good threshold.
+		\item \textbf{Specificity:}
+		\[
+			\text{Specificity} = \frac{TN}{TN+FP}
+		\]
+		Maximising Specificity gives:-
+		\begin{center}
+			\includegraphics[scale=0.5]{../images/specificity.png}
+		\end{center}
+		We see that the best threshold is around 30 and recognition rate is around 0.2 which is low.\ Although $FP$ is 0, $FN$ are too high.\ Hence this doesn't seem a nice metric or a threshold.
+		\item \textbf{Recall:}
+		\[
+			\text{Recall} = \frac{TP}{TP+FN}
+		\]
+		Maximising Recall gives:-
+		\begin{center}
+			\includegraphics[scale=0.5]{../images/recall.png}
+		\end{center}
+		We see that the best threshold is around 172 and recognition rate is around 0.75 which is good.\ $FP$ is also not much.\ Hence this seems a good metric and a good threshold.
+		\item \textbf{My Metric:}
+		\[
+			\text{My Metric} = \frac{1}{FP+1} + \frac{1}{FN+1}
+		\]
+		Maximising my metric gives:-
+		\begin{center}
+			\includegraphics[scale=0.5]{../images/my-metric.png}
+		\end{center}
+		We see that the best threshold is around 172 and recognition rate is around 0.75 which is good.\ $FP$ is also not much.\ Hence this seems a good metric and a good threshold.
+	\end{itemize}
+	Hence, depending on the application we can choose any of the thresholds mentioned above. However, for general applications, where we would like to have a low number of False Positives and False Negatives, we can use a threshold value of 140 (as this is a value in between 30 and 172 and is closer to 172, hence best of both worlds).\ The results we get for a threshold of 140 are as follows:-
+	\begin{center}
+		\includegraphics[scale=0.5]{../images/test.png}
+	\end{center}
+	Here we have 9 false negatives and 24 false positives.
 \end{solution}
 
 
