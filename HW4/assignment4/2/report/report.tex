@@ -140,4 +140,21 @@ Thus, we need to maximize $\sum_{i=3}^n a_i^2\lambda_i$ subject to the constrain
 
 Therefore, we have proved that the direction of $f$ is corresponding to the eigen vector with the second largest eigen value and the direction of $g$ is corresponding to the eigen vector with the third largest eigen value.
 \end{solution}
+
+% \begin{solution}{Alternative Solution}
+%   We can also solve this problem using the Lagrange Multiplier method. We need to maximize $f^tCf$ subject to the constraint that $f^te = 0$ and $||f|| = 1$. The Lagrangian is given by:
+%   \begin{equation}
+%     L = f^tCf - \lambda_1(f^te) - \lambda_2(||f|| - 1)
+%   \end{equation}
+
+%   Taking the derivative of $L$ with respect to $f$ and setting it to 0, we get:
+%   \begin{equation}
+%     \frac{\partial L}{\partial f} = 2Cf - \lambda_1e - 2\lambda_2f = 0
+%   \end{equation}
+%   Taking dot product with $e$, we get:
+%   \begin{equation}
+%     2e^tCf - \lambda_1e^te - 2\lambda_2e^tf = 0
+%   \end{equation}
+%   $e^tCf$ must be equal to $\lambda_2e^tf$
+% \end{solution}
 \end{document}

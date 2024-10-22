@@ -88,7 +88,7 @@ where $\bar{x}$ is the mean of the data points. Consider the transpose of C, we 
 
 Since, $C^T = C$, the covariance matrix is symmetric.
 
-\textbf{Positive Semi-Definite:} We need to prove that for any vector $v$, $v^TCv \geq 0$. Let $v$ be a vector of size $d \times 1$. Then, $v^TCv$ is given by:
+\textbf{Positive Semi-Definite:} A matrix $C$ is positive semi-definite if $w^tCw \geq 0$ for any vector w (definition of positive semi-definite). Let $v$ be a vector of size $d \times 1$. Then, $v^TCv$ is given by:
 
 \begin{equation}
   v^TCv = v^T\left(\frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})(x_i - \bar{x})^T\right)v = \frac{1}{n-1} \sum_{i=1}^{n} v^T(x_i - \bar{x})(x_i - \bar{x})^Tv
