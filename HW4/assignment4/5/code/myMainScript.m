@@ -74,7 +74,7 @@ closest_idx_list = zeros(1, test_data_size);
 
 for test_img_idx = 1:test_data_size
     test_img_proj = test_projections(:, test_img_idx);
-    mse = sum((train_projections - test_img_proj) .^ 2);
+    mse = sum((train_projections - test_img_proj) .^ 2, 1);
     [mse_min, closest_idx] = min(mse);
     mse_min_list(test_img_idx) = mse_min;
     closest_idx_list(test_img_idx) = closest_idx;

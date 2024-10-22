@@ -84,7 +84,7 @@ function plot_recognition_rates(k_values, train_centered, train_labels, test_cen
             
             % Compute squared differences with all training images
             diffs = train_projections - test_img_proj;
-            sq_diffs = sum(diffs .^ 2);
+            sq_diffs = sum(diffs .^ 2, 1);
             
             % Find the closest training image
             [~, closest_idx] = min(sq_diffs);

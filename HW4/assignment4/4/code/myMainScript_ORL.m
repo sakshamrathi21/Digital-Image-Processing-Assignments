@@ -41,6 +41,8 @@ for person = 1:num_persons
     end
 end
 
+k_values = [1, 2, 3, 5, 10, 15, 20, 30, 50, 75, 100, 150, 170];
+
 % Step 2: Mean Center the Data
 train_mean = mean(train_data, 2);
 train_centered = train_data - train_mean;
@@ -49,34 +51,30 @@ test_centered = test_data - train_mean;
 % Step 3: Perform PCA using eig or svd
 % ------ Use eig method ------
 method = "eig";
-L = train_centered' * train_centered; % Small covariance matrix
-[V, D] = eig(L, "vector"); % Eigen decomposition
-eigenfaces = train_centered * V; % Compute the actual eigenfaces
-eigenfaces = eigenfaces(:, end:-1:1); % Sort in descending order of eigenvalues
+N = size(train_data, 2);
+fprintf("N = %d\n", N);
+C = (train_centered * train_centered')/(N - 1); % Covariance matrix
+[eigenvectors, ~] = eigs(C, k_values(end)); % Eigen decomposition
 
-% % ------ Alternatively, use svd (uncomment this and comment the eig method above) ------
+% ------ Alternatively, use svd (uncomment this and comment the eig method above) ------
 % method = "svd";
-% [U, S, V] = svd(train_centered, 'econ'); % SVD of the centered training data
-% eigenfaces = U; % The left singular vectors correspond to the eigenfaces
-
-% Normalize the eigenfaces
-for i = 1:size(eigenfaces, 2)
-    eigenfaces(:, i) = eigenfaces(:, i) / norm(eigenfaces(:, i)); % Normalize each eigenface to unit length
-end
+% [U, S, V] = svd(train_centered); % SVD of the centered training data
+% eigenvectors = U; % The left singular vectors correspond to the eigenfaces
 
 % Step 4: Recognition using squared difference
-k_values = [1, 2, 3, 5, 10, 15, 20, 30, 50, 75, 100, 150, 170];
 recognition_rates = zeros(length(k_values), 1);
 
 for idx = 1:length(k_values)
     k = k_values(idx);
-    selected_eigenfaces = eigenfaces(:, 1:k); % Use top k eigenfaces
+    selected_eigenvectors = eigenvectors(:, 1:k); % Use top k eigenfaces
     
     % Project training data onto the selected eigenfaces
-    train_projections = selected_eigenfaces' * train_centered;
+    train_projections = selected_eigenvectors' * train_centered;
+
+    fprintf("train coeff size = %d x %d\n", size(train_projections, 1), size(train_projections, 2));
     
     % Project test data onto the selected eigenfaces
-    test_projections = selected_eigenfaces' * test_centered;
+    test_projections = selected_eigenvectors' * test_centered;
     
     % Classify test images
     correct_classifications = 0;
@@ -85,19 +83,21 @@ for idx = 1:length(k_values)
         
         % Compute squared differences with all training images
         diffs = train_projections - test_img_proj;
-        sq_diffs = sum(diffs .^ 2);
+        sq_diffs = sum(diffs .^ 2, 1);
+        % fprintf("sq_diffs size = %d x %d\n", size(sq_diffs, 1), size(sq_diffs, 2));
         
         % Find the closest training image
         [~, closest_idx] = min(sq_diffs);
         predicted_label = train_labels(closest_idx);
         true_label = test_labels(test_img_idx);
-        
+
         if predicted_label == true_label
             correct_classifications = correct_classifications + 1;
         end
     end
     
     recognition_rate = correct_classifications / size(test_projections, 2);
+    fprintf("k = %d, rate = %f\n", k, recognition_rate);
     recognition_rates(idx) = recognition_rate;
 end
 
