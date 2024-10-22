@@ -80,9 +80,9 @@ Indian Institute of Technology Bombay \\}
 		\includegraphics[scale=0.5]{../images/mean_std-dev.png}
 	\end{center}
 
-	So we propose that we look from $77.7 - 46.5 \approx 30$ to $77.7 + 4 \times 46.5 \approx 300$ for finding a suitable threshold.
+	So we propose that we look from $77.7 - 46.5 \approx 30$ to $77.7 + 4 \times 46.5 \approx 300$ for finding a suitable threshold.\ We took $4 \sigma$ to the right of mean so as to cover as many big test errors as possible.
 
-	Basically we performed cross-validation to find the best threshold value.\ The metrics used to achieve this are:- Accuracy, F1-score, Specificity, Recall and one of my own.\ We maximise these metrics over the set of threshold values to find the best one.
+	Basically we performed cross-validation to find the best threshold value.\ The metrics used to achieve this are:- Accuracy, F1-score, Youden's Index and one of my own.\ We maximise these metrics over the set of threshold values to find the best one.
 
 	Note that here ``positives" are cases where a face is found to have a matching identity and ``negatives" are the opposite.\ $TP$ stands for ``True Positive'', $FP$ stands for ``False Positive'', $TN$ stands for ``True Negative'' and $FN$ stands for ``False Negative''.
 
@@ -105,24 +105,15 @@ Indian Institute of Technology Bombay \\}
 			\includegraphics[scale=0.5]{../images/f1-score.png}
 		\end{center}
 		We see that the best threshold is around 172 and recognition rate is around 0.75 which is good.\ $FP$ is also not much.\ Hence this seems a good metric and a good threshold.
-		\item \textbf{Specificity:}
+		\item \textbf{Youden's Index:}
 		\[
-			\text{Specificity} = \frac{TN}{TN+FP}
+			\text{Youden's Index} = \frac{TP}{TP+FN} + \frac{TN}{TN+FP} - 1
 		\]
-		Maximising Specificity gives:-
+		Maximising Youden's Index gives:-
 		\begin{center}
-			\includegraphics[scale=0.5]{../images/specificity.png}
+			\includegraphics[scale=0.5]{../images/youden_index.png}
 		\end{center}
-		We see that the best threshold is around 30 and recognition rate is around 0.2 which is low.\ Although $FP$ is 0, $FN$ are too high.\ Hence this doesn't seem a nice metric or a threshold.
-		\item \textbf{Recall:}
-		\[
-			\text{Recall} = \frac{TP}{TP+FN}
-		\]
-		Maximising Recall gives:-
-		\begin{center}
-			\includegraphics[scale=0.5]{../images/recall.png}
-		\end{center}
-		We see that the best threshold is around 172 and recognition rate is around 0.75 which is good.\ $FP$ is also not much.\ Hence this seems a good metric and a good threshold.
+		We see that the best threshold is around 73 and recognition rate is around 0.5 which is reasonable.\ Although $FP$ is 0, $FN$ is a little high.\ Though not very good, this is debatable.
 		\item \textbf{My Metric:}
 		\[
 			\text{My Metric} = \frac{1}{FP+1} + \frac{1}{FN+1}

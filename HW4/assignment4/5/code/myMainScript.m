@@ -87,8 +87,7 @@ fprintf("Standard Deviation of Test Error is %f...\n\n", std(mse_min_list));
 % Getting the best threshold for the following metrics...
 get_best_threshold("accuracy", threshold_values, mse_min_list, closest_idx_list, train_labels, test_labels, test_data_size);
 get_best_threshold("f1_score", threshold_values, mse_min_list, closest_idx_list, train_labels, test_labels, test_data_size);
-get_best_threshold("recall", threshold_values, mse_min_list, closest_idx_list, train_labels, test_labels, test_data_size);
-get_best_threshold("specificity", threshold_values, mse_min_list, closest_idx_list, train_labels, test_labels, test_data_size);
+get_best_threshold("youden_index", threshold_values, mse_min_list, closest_idx_list, train_labels, test_labels, test_data_size);
 get_best_threshold("my_score", threshold_values, mse_min_list, closest_idx_list, train_labels, test_labels, test_data_size);
 
 % Testing threshold = 140 (say)
@@ -103,8 +102,7 @@ function get_best_threshold(metric, threshold_values, mse_min_list, closest_idx_
     FN = 0;
     accuracy_ = 0;
     f1_score_ = 0;
-    recall_ = 0;
-    specificity_ = 0;
+    youden_index_ = 0;
     my_score_ = 0;
     recognition_rate = 0;
     
@@ -148,10 +146,9 @@ function get_best_threshold(metric, threshold_values, mse_min_list, closest_idx_
     
         end
     
-        specificity = TN_count / (TN_count + FP_count);
         accuracy = (TP_count + TN_count) / test_data_size;
         f1_score = TP_count / (TP_count + 0.5 * (FP_count + FN_count));
-        recall = TP_count / (TP_count + FN_count);
+        youden_index = TP_count / (TP_count + FN_count) + TN_count / (TN_count + FP_count) - 1;
         my_score = 1 / (FP_count + 1) + 1 / (FN_count + 1);
 
         metric_var = 0;
@@ -160,10 +157,8 @@ function get_best_threshold(metric, threshold_values, mse_min_list, closest_idx_
             metric_var = accuracy;
         elseif (metric == "f1_score")
             metric_var = f1_score;
-        elseif (metric == "recall")
-            metric_var = recall;
-        elseif (metric == "specificity")
-            metric_var = specificity;
+        elseif (metric == "youden_index")
+            metric_var = youden_index;
         elseif (metric == "my_score")
             metric_var = my_score;
         end
@@ -172,8 +167,7 @@ function get_best_threshold(metric, threshold_values, mse_min_list, closest_idx_
             best_score = metric_var;
             accuracy_ = accuracy;
             f1_score_ = f1_score;
-            specificity_ = specificity;
-            recall_ = recall;
+            youden_index_ = youden_index;
             my_score_ = my_score;
             best_threshold = threshold;
             FP = FP_count;
@@ -187,8 +181,7 @@ function get_best_threshold(metric, threshold_values, mse_min_list, closest_idx_
     fprintf("Maximising %s...\n", metric);
     fprintf("Accuracy: %f\n", accuracy_);
     fprintf("F1 Score: %f\n", f1_score_);
-    fprintf("Specificity: %f\n", specificity_);
-    fprintf("Recall: %f\n", recall_);
+    fprintf("Youden's Index: %f\n", youden_index_);
     fprintf("My Score: %f\n", my_score_);
     fprintf("Best Threshold: %f\n", best_threshold);
     
@@ -238,18 +231,16 @@ function test_threshold(threshold, mse_min_list, closest_idx_list, train_labels,
 
     end
 
-    specificity = TN_count / (TN_count + FP_count);
     accuracy = (TP_count + TN_count) / test_data_size;
     f1_score = TP_count / (TP_count + 0.5 * (FP_count + FN_count));
-    recall = TP_count / (TP_count + FN_count);
+    youden_index = TP_count / (TP_count + FN_count) + TN_count / (TN_count + FP_count) - 1;
     my_score = 1 / (FP_count + 1) + 1 / (FN_count + 1);
     recognition_rate = correct_classifications / test_data_size;
 
     fprintf("Testing threshold = %f...\n", threshold);
     fprintf("Accuracy: %f\n", accuracy);
     fprintf("F1 Score: %f\n", f1_score);
-    fprintf("Specificity: %f\n", specificity);
-    fprintf("Recall: %f\n", recall);
+    fprintf("Youden's Index: %f\n", youden_index);
     fprintf("My Score: %f\n", my_score);
     
     % Print the confusion matrix
