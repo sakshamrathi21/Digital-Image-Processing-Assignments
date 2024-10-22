@@ -143,8 +143,25 @@ Indian Institute of Technology Bombay \\}
       Thus we have the square of the Frobenius norm of a matrix to equal the sum of squares of the singular values.
 
       \section*{Part c}
+        When the SVD is computed through the eigenvalue decomposition of $AA^{T}$ and $A^{T}A$, we get the correct singular
+        values but $U \Gamma V^{T}$ does not equal $A$. This is because the eigenvectors of $AA^{T}$ and $A^{T}A$ may be 
+        of opposite signs with respect to each other. As given in the slides, 
+        \[ A = \sum\limits_{i = 1}^{r} \gamma_{i} \vec{u_{i}}\vec{v_{i}}^{T}\]
+        where $r$ is the number of non zero singular values of $A$ and $\vec{u_{i}}$ and $\vec{v_{i}}$ are the corresponding eigenvectors
+        (ie the eigenvectors of $AA^{T}$ and those of $A^{T}A$ respectively with eigenvalue equal to $\gamma_{i}^{2}$).
+        
+        In part d of this question, $\vec{u_{i}}$ is defined such that $A\vec{u_{i}} = \gamma_{i} \vec{v_{i}}$. However the eigenvalue
+        decomposition may return $-\vec{u_{i}}$ and $\vec{v_{i}}$ or $\vec{u_{i}}$ and $-\vec{v_{i}}$. This results in the product 
+        $\vec{u_{i}}\vec{v_{i}}^{T}$ having a flipped sign from the one given in the summation above. Therefore the results obtained
+        from the eigval routine gives the correct singular values but not the correct singular value decomposition because of the sign
+        mismatch between corresponding left and right signular vectors.
 
-      \section*{Part d}
+        Now this can be fixed by computing the product  $\vec{u_{i}}^{T} \cdot (A^{T}\vec{v_{i}})$. If the signs matched then the overall
+        product will have a positive value (check lemma\@\ref{l3} for defition of $\vec{u_{i}}$). Whenever the product 
+        is negative flip the signs of the vector $\vec{v_{i}}$. Now construct the matrix $U$ and $V$ with the corrected columns.
+        This will yield the correct SVD of any matrix $A$.
+        
+      \section*{Part d Singular Value Decomposition}
 
       Given:
       \begin{align*}
@@ -240,19 +257,9 @@ Indian Institute of Technology Bombay \\}
         \begin{lemma}\label{l3}
           Let $\vec{v}_{i} \in \mathbb{R}^{m}$ be an eigenvector of $Q$. Define 
           $u_{i} \stackrel{\Delta}{=} \frac{A^{T} \vec{v}_{i}}{\lvert\lvert A^{T} \vec{v}_{i} \rvert\rvert_{2}}$. There exists 
-          $\gamma_{i} \geqslant 0$ such that $A\vec{u_{i}} = \gamma_{i} \vec{v}_{i}$
-          \begin{proof} % We will use the results of lemmas \@\ref{l1} and \@\ref{l2} to prove the statement of this lemma.
-            % \begin{enumerate}
-            %   \item From lemma \@\ref{l2} we know that if $\vec{v}_{i}$ is eigenvector of $Q$ with eigenvalue $\mu_{i}$, then
-            %   $A^{T}\vec{v}_{i}$ is eigenvector of $P$ with eigenvalue $\mu_{i}$.
-            %   \item From lemma \@\ref{l1} we know that eigenvalues of $P$ and $Q$ are non-negative, therefore we have 
-            %   $\mu_{i} \geqslant 0$.
-            %   \item For any matrix $M$ with an eigenvector $\vec{x}$ and corresponding eigenvalue $\nu$, we always have $c\vec{x}$ 
-            %   to also be an eigenvector with eigenvalue $\nu$ for any real $c \neq 0$.
-            % \end{enumerate}
-            % Combining these three results we have 
-            % $\vec{u}_{i} \stackrel{\Delta}{=} \frac{A^{T} \vec{v}_{i}}{\lvert\lvert A^{T} \vec{v}_{i} \rvert\rvert_{2}}$
-            % which is a unit vector in $\mathbb{R}^{n}$ to be an eigenvector of $P$ with eigenvalue $\mu_{i}$.
+          $\gamma_{i} \geqslant 0$ such that $A\vec{u_{i}} = \gamma_{i} \vec{v}_{i}$. Also, $\vec{u_{i}}$ is a unit eigenvector of $P$.
+          If $\vec{v_{i}}$ are all orthogonal to each other then $\vec{u_{i}}$ are also orthogonal to each other $\forall i \in [1,m]$.
+          \begin{proof} 
             Let $\vec{v}_{i} \in \mathbb{R}^{m}$ be an eigenvector of $Q$ with an eigenvalue $\mu$. From lemma \@\ref{l1} we know that eigenvalues of $P$ and $Q$ are non-negative, therefore we have 
             $\mu_{i} \geqslant 0$.
             Consider the expression $A\vec{u}_{i}$,
@@ -268,37 +275,91 @@ Indian Institute of Technology Bombay \\}
 
             That is, there exists 
             $\gamma_{i} = \left(\frac{\mu_{i}}{\lvert\lvert A^{T} \vec{v}_{i} \rvert\rvert_{2}}\right) \geqslant 0$ 
-            such that $A\vec{u}_{i} = \gamma_{i} \vec{v}_{i}$
+            such that $A\vec{u}_{i} = \gamma_{i} \vec{v}_{i}$, $\vec{u}_{i}$ is a unit vector and by lemma \@\ref{l2}, $\vec{u_{i}}$ is also an eigenvector of $P$.
+            
+            We will show that $\vec{u_{i}}^{T} \cdot \vec{u_{j}} = 0$, $\forall i \neq j$. $\vec{v_{i}}$ is an eigenvector
+            of $Q$ with eigenvalue $\mu_{i} \, \forall i \in [1,m]$.
+            \begin{align*}
+              \vec{u_{i}}^{T} \cdot \vec{u_{j}} &= \left(\frac{A^{T} \vec{v}_{i}}{\lvert\lvert A^{T} \vec{v}_{i} \rvert\rvert_{2}}\right)^{T}
+              \cdot \left(\frac{A^{T} \vec{v}_{j}}{\lvert\lvert A^{T} \vec{v}_{j} \rvert\rvert_{2}}\right) \\
+              &= \frac{1}{\lvert\lvert A^{T} \vec{v}_{i} \rvert\rvert_{2}\cdot  \lvert\lvert A^{T} \vec{v}_{j} \rvert\rvert_{2}} 
+              \left( {(A^{T}\vec{v_{i}})}^{T} (A^{T}\vec{v_{j}})\right) \\
+              &= \frac{1}{\lvert\lvert A^{T} \vec{v}_{i} \rvert\rvert_{2}\cdot  \lvert\lvert A^{T} \vec{v}_{j} \rvert\rvert_{2}} 
+              \left( (\vec{v_{i}}^{T} A) (A^{T}\vec{v_{j}})\right) \\              
+              &= \frac{1}{\lvert\lvert A^{T} \vec{v}_{i} \rvert\rvert_{2}\cdot  \lvert\lvert A^{T} \vec{v}_{j} \rvert\rvert_{2}} 
+              \left( (\vec{v_{i}}^{T} (AA^{T}) \vec{v_{j}})\right) \\
+              &= \frac{1}{\lvert\lvert A^{T} \vec{v}_{i} \rvert\rvert_{2}\cdot  \lvert\lvert A^{T} \vec{v}_{j} \rvert\rvert_{2}} 
+              \left( (\vec{v_{i}}^{T} (Q) \vec{v_{j}})\right) \\
+              &= \frac{1}{\lvert\lvert A^{T} \vec{v}_{i} \rvert\rvert_{2}\cdot  \lvert\lvert A^{T} \vec{v}_{j} \rvert\rvert_{2}} 
+              \left( (\vec{v_{i}}^{T} (Q \vec{v_{j}}))\right) \\
+              &= \frac{1}{\lvert\lvert A^{T} \vec{v}_{i} \rvert\rvert_{2}\cdot  \lvert\lvert A^{T} \vec{v}_{j} \rvert\rvert_{2}} 
+              \left( (\vec{v_{i}}^{T} (\mu_{j} \vec{v_{j}}) )\right) \\
+              &= \frac{1}{\lvert\lvert A^{T} \vec{v}_{i} \rvert\rvert_{2}\cdot  \lvert\lvert A^{T} \vec{v}_{j} \rvert\rvert_{2}} 
+              \left( (\mu_{i}(\vec{v_{i}}^{T} \cdot \vec{v_{j}}))\right) \\
+              &= 0 \,\text{ (as $\vec{v_{i}}$ and $\vec{v_{j}}$ are orthogonal to each other)}
+            \end{align*}
+
           \end{proof}
         \end{lemma}
+        \begin{lemma}\label{l4}
+          Let $\{\vec{v_{i}} | i \in [1,m]\}$, $\{\vec{u_{i}} | i \in [1,n]\}$ be sets of orthonormal eigenvectors of $Q$,$P$ respectively 
+          such that $\vec{u_{i}} = \frac{A^{T}\vec{v_{i}}}{\lvert\lvert A^{T}\vec{v_{i}}\rvert\rvert_{2}}$,
+          $ \forall i \in [1,m]$. Then,
+          \[ A \vec{u_{i}} = \vec{0}\]
+          $\forall i \in [m + 1,n]$.
+          \begin{proof}
+              Clearly the rowspace of $A$ ($\mathcal{R}(A)$) has dimensions at most $m$ since there are only $m$ rows. Therefore the space spanned
+              by the row vectors of $A$ can have an orthonormal basis which consists of at most $m$ vectors. 
 
+              Any vector $\vec{x} \in \mathcal{R}(A)$ can be written as $\sum\limits_{i = 1}^{m} c_{i} \vec{a_{i}}$ where 
+              $\vec{a_{i}} \in \mathbb{R}^{n}$ are the rows of $A$ and $c_{i} \in \mathbb{R}$. This can also be written as 
+              \[\vec{x} = A^{T} \vec{c}\]
+              where $\vec{c} = (c_{1},c_{2},\dots c_{m})$. 
+
+              Note that $\vec{u_{i}} = A^{T}\vec{v_{i}^{'}}$ where 
+              $\vec{v_{i}^{'}} = \frac{1}{\lvert\lvert A^{T}\vec{v_{i}}\rvert\rvert_{2}}\vec{v_{i}}$, $\forall i \in [1,m]$. Therefore 
+              $\vec{u_{i}} \in \mathcal{R}(A) \, , \forall i \in [1,m]$, ie $\{\vec{u_{i}} | i \in [1,m]\}$ form an 
+              orthonormal basis of 
+              $\mathcal{R}(A)$ ie $\vec{x} = \sum\limits_{i = 1}^{m} c_{i} \vec{u_{i}}$ for any $\vec{x} \in \mathcal{R}$ and 
+              any vector $\vec{y} \notin \mathcal{R}(A)$ has $\vec{y}^{T} \vec{u_{i}} = 0$. Since 
+              $\vec{u_{j}}$ is orthogonal to $\vec{u_{i}}$ $\forall j \neq i$, $\vec{u_{j}}$ cannot be represented as a linear
+              combination of $\vec{u_{i}}$ when $i \neq j$. Therefore $\vec{u_{j}} \notin \mathcal{R}(A) \, \forall j \in [m + 1,n]$
+              since there exists no $c_{i}$ such that $\vec{u_{j}} = \sum\limits_{i = 1}^{m} c_{i} \vec{u_{i}}$.
+              
+              Therefore $\vec{u_{i}}^{T}\cdot\vec{x} = 0 \, \forall i \in [m + 1,n]\, , \forall \vec{x} \in mathcal{R}(A)$ hence 
+              $\vec{u_{i}}^{T} \cdot \vec{a_{i}} = 0 \forall i \in [m + 1,n]\, , \forall j \in [1,m]$. This gives 
+              
+                  \[A\vec{u_{i}} = \vec{0}\]
+              where $i \in [m + 1,n]$.
+          \end{proof}
+        \end{lemma}
         \begin{theorem}[Singular Value Decomposition]
-            Let $\vec{v}_{i}$,$\vec{u_{i}}$ and $\gamma_{i}$ be defined as in lemma \@\ref{l3}. 
+            Let $\{\vec{v_{i}} | i \in [1,m]\}$ be a set of orthonormal eigenvectors of $Q$, $\gamma_{i}$ be 
+            defined as in lemma \@\ref{l3}and $\{\vec{u_{i}} | i \in [1,n]\}$ be a set of orthonormal eigenvectors of 
+            $P$ defined as in lemma \@\ref{l4}.
             Let $U = \left[\vec{v}_{1} | \vec{v}_{2} | \cdots | \vec{v}_{m}\right]$,
-            $V = \left[\vec{u}_{1} | \vec{u}_{2} | \cdots | \vec{u}_{m}\right]$ and 
-            $\Gamma =\text{diag}(\gamma_{1},\gamma_{2},\dots,\gamma_{m})$ where $U$ and $\Gamma$ are both $m \times m$
-            matrices and $V$ is an $n\times m$ matrix. Then \[ A = U \Gamma V^{T} \]
+            $V = \left[\vec{u}_{1} | \vec{u}_{2} | \cdots | \vec{u}_{n}\right]$ and 
+            $\Gamma =\text{diag}(\gamma_{1},\gamma_{2},\dots,\gamma_{m})$ where $U$ is an $m \times m$, $\Gamma$ is an 
+            $m \times n$ matrix and $V$ is an $n \times n$ matrix. Then \[ A = U \Gamma V^{T} \]
             \begin{proof}
-              Two matrices $A$ and $B$ are equal only if they the same dimensions and the values at the corresponding indices
-              for every pair of $(i,j)$ are equal ie, $\forall i \in [1,m]$, $\forall j \in [1,n]$, if $A_{ij} = B_{ij}$
-              then $A = B$ and vice versa.
-
-              As $P$ and $Q$ are real symmetric matrices we can obtain an orthonormal basis for $\mathbb{R}^{n}$ and 
-              $\mathbb{R}^{m}$ respectively that are the eigenvectors of $P$ and $Q$ respectively (theorem \@\ref{spectral}).
-
               Since the columns of $U$ and $V$ are the orthonormal eigenvectors of $Q$ and $P$ respectively, we have 
-              $UU^{T} = U^{T}U = I_{m}$ and $V^{T}V = I_{m}$.
+              $UU^{T} = U^{T}U = I_{m}$ and $VV^{T} = V^{T}V = I_{n}$. The result follows naturally from the lemmas proven earlier.
               
               Consider the expression $AV$.
               \begin{align}
-                AV &= A \left[ \vec{u}_{1} | \vec{u}_{2} | \cdots | \vec{u}_{m}\right] \nonumber \\
-                \Rightarrow AV &= \left[ A\vec{u}_{1} | A\vec{u}_{2} | \cdots | A \vec{u}_{m} \right] \nonumber \\
-                               &= \left[ \gamma_{1}\vec{v}_{1} | \gamma_{2}\vec{v}_{2} | \cdots | \gamma_{m} \vec{v}_{m} \right] \text{ from lemma \@\ref{l3}} \nonumber \\
-                               &= \left[\vec{v}_{1} | \vec{v}_{2} | \cdots | \vec{v}_{m}\right] \Gamma \nonumber \\
+                AV &= A \left[ \vec{u}_{1} | \vec{u}_{2} | \cdots | \vec{u}_{n}\right] \nonumber \\
+                \Rightarrow AV &= \left[ A\vec{u}_{1} | A\vec{u}_{2} | \cdots | A \vec{u}_{n} \right] \nonumber \\
+                               &= \left[ \gamma_{1}\vec{v}_{1} | \gamma_{2}\vec{v}_{2} | \cdots | \gamma_{m} \vec{v}_{m} | 
+                               \vec{0} | \cdots |\vec{0}\right] \text{ (from lemma \@\ref{l3} and lemma \@\ref{l4})} \nonumber \\
+                               &= \left[\vec{v}_{1} | \vec{v}_{2} | \cdots | \vec{v}_{m}\right] \Gamma \text{ (by observation, since the last $n - m$ columns of $\Gamma$ are $\vec{0}$)}\nonumber \\
                                &= U \Gamma \nonumber \\
                 \Rightarrow AV &= U \Gamma \nonumber \\
-                \Rightarrow A V V^{T} &= \text{ if this is somehow equal to $I_{n}$ then we are done.}
+                \Rightarrow A V V^{T} &= U \Gamma V^{T} \nonumber \\
+                \Rightarrow A I_{n} &= U \Gamma V^{T} \nonumber \\
+                \Rightarrow A &=  U \Gamma V^{T}
               \end{align}
+               
+              We have thus shown that every matrix $A \in \mathbb{R}^{m \times n}$ has a \textbf{singular value decomposition}.
             \end{proof}
         \end{theorem}
   \end{solution}
