@@ -41,15 +41,14 @@ test_centered = test_data - train_mean;
 
 % Step 3: Perform PCA using eig or svd
 % ------ Use eig method ------
-L = train_centered' * train_centered; % Small covariance matrix
-[V, D] = eig(L, "vector"); % Eigen decomposition
-eigenfaces = train_centered * V; % Compute the actual eigenfaces
-eigenfaces = eigenfaces(:, end:-1:1); % Sort in descending order of eigenvalues
-
+L = (train_centered' * train_centered); % Covariance matrix
+[eigenvectors, ~] = eig(L); % Eigen decomposition
+eigenfaces = train_centered * eigenvectors;
 % Normalize the eigenfaces
 for i = 1:size(eigenfaces, 2)
     eigenfaces(:, i) = eigenfaces(:, i) / norm(eigenfaces(:, i)); % Normalize each eigenface to unit length
 end
+eigenfaces = eigenfaces(:, end:-1:1); % Sort in descending order of eigenvalues
 
 k_values = [1, 2, 3, 5, 10, 15, 20, 30, 50, 60, 65, 75, 100, 200, 300, 500, 1000];
 
@@ -60,6 +59,11 @@ plot_recognition_rates(k_values, train_centered, train_labels, test_centered, te
 plot_recognition_rates(k_values, train_centered, train_labels, test_centered, test_labels, eigenfaces, true);
 
 function plot_recognition_rates(k_values, train_centered, train_labels, test_centered, test_labels, eigenfaces, top3)
+    if (top3 == false)
+        disp("Yale Recognition Rate with ALL eigen-coeffs...");
+    else
+        disp("Yale Recognition Rate with expect the top 3 eigen-coeffs...");
+    end
     recognition_rates = zeros(length(k_values), 1);
     for idx = 1:length(k_values)
         k = k_values(idx);
@@ -97,6 +101,7 @@ function plot_recognition_rates(k_values, train_centered, train_labels, test_cen
         end
         
         recognition_rate = correct_classifications / size(test_projections, 2);
+        fprintf("k = %d, rate (in percent) = %f\n", k, 100 * recognition_rate);
         recognition_rates(idx) = recognition_rate;
     end
 

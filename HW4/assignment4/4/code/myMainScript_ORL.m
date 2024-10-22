@@ -41,6 +41,7 @@ for person = 1:num_persons
     end
 end
 
+N = size(train_data, 2);
 k_values = [1, 2, 3, 5, 10, 15, 20, 30, 50, 75, 100, 150, 170];
 
 % Step 2: Mean Center the Data
@@ -51,10 +52,14 @@ test_centered = test_data - train_mean;
 % Step 3: Perform PCA using eig or svd
 % ------ Use eig method ------
 method = "eig";
-N = size(train_data, 2);
-fprintf("N = %d\n", N);
-C = (train_centered * train_centered')/(N - 1); % Covariance matrix
-[eigenvectors, ~] = eigs(C, k_values(end)); % Eigen decomposition
+L = (train_centered' * train_centered); % Covariance matrix
+[eigenvectors, ~] = eig(L); % Eigen decomposition
+eigenfaces = train_centered * eigenvectors;
+% Normalize the eigenfaces
+for i = 1:size(eigenfaces, 2)
+    eigenfaces(:, i) = eigenfaces(:, i) / norm(eigenfaces(:, i)); % Normalize each eigenface to unit length
+end
+eigenfaces = eigenfaces(:, end:-1:1); % Sort in descending order of eigenvalues
 
 % ------ Alternatively, use svd (uncomment this and comment the eig method above) ------
 % method = "svd";
@@ -66,15 +71,13 @@ recognition_rates = zeros(length(k_values), 1);
 
 for idx = 1:length(k_values)
     k = k_values(idx);
-    selected_eigenvectors = eigenvectors(:, 1:k); % Use top k eigenfaces
+    selected_eigenfaces = eigenfaces(:, 1:k); % Use top k eigenfaces
     
     % Project training data onto the selected eigenfaces
-    train_projections = selected_eigenvectors' * train_centered;
-
-    fprintf("train coeff size = %d x %d\n", size(train_projections, 1), size(train_projections, 2));
+    train_projections = selected_eigenfaces' * train_centered;
     
     % Project test data onto the selected eigenfaces
-    test_projections = selected_eigenvectors' * test_centered;
+    test_projections = selected_eigenfaces' * test_centered;
     
     % Classify test images
     correct_classifications = 0;
@@ -97,7 +100,7 @@ for idx = 1:length(k_values)
     end
     
     recognition_rate = correct_classifications / size(test_projections, 2);
-    fprintf("k = %d, rate = %f\n", k, recognition_rate);
+    fprintf("k = %d, rate (in percent) = %f\n", k, 100 * recognition_rate);
     recognition_rates(idx) = recognition_rate;
 end
 
