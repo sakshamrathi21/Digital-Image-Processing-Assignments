@@ -104,7 +104,7 @@ Since $Cu_i = \lambda_i u_i$, we can write the above equation as:
 
 (The last equation follows from the fact that the eigen vectors are orthonormal.)
 
-Thus, we need to maximize $\sum_{i=2}^n a_{i}^{2}\lambda_{i}$ subject to the constraint that $f^{t}e = 0$ and $||f|| = 1$. Since $\lambda_2$ is the second largest eigen value, we can maximize the above expression by setting $a_2 = 1$ and $a_i = 0$ for $i \neq 2$. Thus, the direction $f$ is given by $u_2$. Also, the constraint $||f|| = 1$ is satisfied by setting $a_2 = 1$ instead of any other scalar multiple.
+Thus, we need to maximize $\sum_{i=2}^n a_{i}^{2}\lambda_{i}$ subject to the constraint that $f^{t}e = 0$ and $||f|| = 1$. (This is a weighted inequality and we need to maximizr it, so we can set the coefficient of the largest value to 1 and others to zero.) Since $\lambda_2$ is the second largest eigen value, we can maximize the above expression by setting $a_2 = 1$ and $a_i = 0$ for $i \neq 2$. Thus, the direction $f$ is given by $u_2$. Also, the constraint $||f|| = 1$ is satisfied by setting $a_2 = 1$ instead of any other scalar multiple.
 \end{solution}
 
 \clearpage
