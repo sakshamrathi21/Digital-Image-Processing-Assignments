@@ -1,5 +1,7 @@
 clear; tic; clc;
 
+% The location of the CroppedYale folder (containing the images should be): "../../../CroppedYale" with respect to the location of this script (Basically outside the zipped folder)
+
 % Step 1: Load and Organize the Data
 num_persons = 39; % Number of persons (1 to 39, with person 14 missing)
 num_train = 40; % Number of training images per person

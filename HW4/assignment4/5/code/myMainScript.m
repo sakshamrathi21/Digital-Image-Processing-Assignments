@@ -1,5 +1,7 @@
 clear; tic; clc;
 
+% The location of the ORL folder (containing the images should be): "../../../ORL" with respect to the location of this script (Basically outside the zipped folder)
+
 % Step 1: Load and Organize the Data
 num_persons = 32; % Number of persons (1 to 32)
 num_train = 6; % Number of training images per person
