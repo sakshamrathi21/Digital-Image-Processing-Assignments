@@ -70,7 +70,7 @@ Indian Institute of Technology Bombay \\}
 \section*{Question 2}
 
 \begin{solution}{Solution}
-We need to find the direction $f$ which is perpendicular to $e$ and for which $f^tCf$ is maximized. It is also given that all the non-zero eigen values of $C$ are distinct and $\text{rank}(C) > 2$. 
+We need to find the direction $f$ which is perpendicular to $e$ and for which $f^{t}Cf$ is maximized. It is also given that all the non-zero eigen values of $C$ are distinct and $\text{rank}(C) > 2$. 
 
 Let $C = UDU^t$ be the eigen value decomposition of $C$. Since $C$ is a symmetric matrix, $U$ is an orthogonal matrix. Let $D = diag(\lambda_1, \lambda_2, \ldots, \lambda_n)$ be the diagonal matrix of eigen values of $C$.
 
@@ -78,64 +78,64 @@ Let $C = UDU^t$ be the eigen value decomposition of $C$. Since $C$ is a symmetri
 Since, the eigen vectors of $C$ form an orthonormal basis, we can write $f$ as follows:
 
 \begin{equation}
-    f = Ua = \sum_{i=1}^{n} a_iu_i
+    f = Ua = \sum_{i=1}^{n} a_{i}u_i
 \end{equation}
 where $a$ is a vector in $\mathbb{R}^n$ and $u_i$ are the eigen vectors.
 
-Without loss of generality, let us assume that $\lambda_1 > \lambda_2 > \lambda_3 > \dots$. The fact that rank(C) > 2 ensures that there are atleast three non-zero eigen values (the values being distinct follows from the question statement itself).
+Without loss of generality, let us assume that $\lambda_1 > \lambda_2 > \lambda_3 > \dots$. The fact that $\text{rank}(C) > 2$ ensures that there are atleast three non-zero eigen values (the values being distinct follows from the question statement itself).
 
 Since, $u_1$ corresponds to $\lambda_1$, we have $u_1 = e$. Also, the dot product of $f$ and $e$ is 0:
 
 \begin{equation}
-  f^te = 0 \implies \sum_{i=1}^{n} a_iu_i^te = 0 \implies a_1 = 0
+  f^{t}e = 0 \implies \sum_{i=1}^{n} a_{i}u_{i}^{t}e = 0 \implies a_1 = 0
 \end{equation}
-because, $u_1 = e$ and $u_i^te = 0$ for $i \neq 1$ (orthonormal eigen vectors).
+because, $u_1 = e$ and $u_{i}^{t}e = 0$ for $i \neq 1$ (orthonormal eigen vectors).
 
-We need to maximize $f^tCf$ which is given by:
+We need to maximize $f^{t}Cf$ which is given by:
 
 \begin{equation}
-  f^tCf = (\sum_{i=2}^n a_iu_i)^t C(\sum_{i=2}^n a_iu_i)
+  f^{t}Cf = {\left(\sum_{i=2}^n a_{i}u_{i}\right)}^{t} C\left(\sum_{i=2}^n a_{i}u_{i}\right)
 \end{equation}
 
 Since $Cu_i = \lambda_i u_i$, we can write the above equation as:
 \begin{equation}
-  f^tCf = (\sum_{i=2}^n a_iu_i)^t (\sum_{i=2}^n a_i\lambda_iu_i) = \sum_{i=2}^n a_i^2\lambda_i
+  f^{t}Cf = {\left(\sum_{i=2}^n a_{i}u_{i}\right)}^t \left(\sum_{i=2}^n a_{i}\lambda_{i}u_{i}\right) = \sum_{i=2}^n a_{i}^{2}\lambda_{i}
 \end{equation}
 
 (The last equation follows from the fact that the eigen vectors are orthonormal.)
 
-Thus, we need to maximize $\sum_{i=2}^n a_i^2\lambda_i$ subject to the constraint that $f^te = 0$ and $||f|| = 1$. Since $\lambda_2$ is the second largest eigen value, we can maximize the above expression by setting $a_2 = 1$ and $a_i = 0$ for $i \neq 2$. Thus, the direction $f$ is given by $u_2$. Also, the constraint $||f|| = 1$ is satisfied by setting $a_2 = 1$ instead of any other scalar multiple.
+Thus, we need to maximize $\sum_{i=2}^n a_{i}^{2}\lambda_{i}$ subject to the constraint that $f^{t}e = 0$ and $||f|| = 1$. Since $\lambda_2$ is the second largest eigen value, we can maximize the above expression by setting $a_2 = 1$ and $a_i = 0$ for $i \neq 2$. Thus, the direction $f$ is given by $u_2$. Also, the constraint $||f|| = 1$ is satisfied by setting $a_2 = 1$ instead of any other scalar multiple.
 \end{solution}
 \clearpage
 \begin{solution}{Solution}
-  We need to find direction $g$ which is perpendicular to both $e$ and $f$ and for which $g^tCg$ is maximized. We have already found that $f = u_2$. We can write $g$ as follows:
+  We need to find direction $g$ which is perpendicular to both $e$ and $f$ and for which $g^{t}Cg$ is maximized. We have already found that $f = u_{2}$. We can write $g$ as follows:
   \begin{equation}
-    g = Ua = \sum_{i=1}^{n} a_iu_i
+    g = Ua = \sum_{i=1}^{n} a_{i}u_{i}
   \end{equation}
 
-$g$ is perpendicular to $f$ and $e$. Thus, $g^tf = 0$ and $g^te = 0$. We can write these as:
+$g$ is perpendicular to $f$ and $e$. Thus, $g^{t}f = 0$ and $g^{t}e = 0$. We can write these as:
 
 \begin{equation}
-  g^tf = 0 \implies \sum_{i=1}^{n} a_iu_i^tf = 0 \implies a_2 = 0
+  g^{t}f = 0 \implies \sum_{i=1}^{n} a_{i}u_{i}^{t}f = 0 \implies a_2 = 0
 \end{equation}
 
 \begin{equation}
-  g^te = 0 \implies \sum_{i=1}^{n} a_iu_i^te = 0 \implies a_1 = 0
+  g^{t}e = 0 \implies \sum_{i=1}^{n} a_{i}u_{i}^{t}e = 0 \implies a_1 = 0
 \end{equation}
 
-This again uses the fact that the eigen vectors are orthonormal. We need to maximize $g^tCg$ which is given by:
+This again uses the fact that the eigen vectors are orthonormal. We need to maximize $g^{t}Cg$ which is given by:
 
 \begin{equation}
-  g^tCg = (\sum_{i=3}^n a_iu_i)^t C(\sum_{i=3}^n a_iu_i)
+  g^{t}Cg = {\left(\sum_{i=3}^n a_{i}u_{i}\right)}^t C\left(\sum_{i=3}^n a_{i}u_{i}\right)
 \end{equation}
 
 Similar to the previous part, we can write the above equation as:
 
 \begin{equation}
-  g^tCg = (\sum_{i=3}^n a_iu_i)^t (\sum_{i=3}^n a_i\lambda_iu_i) = \sum_{i=3}^n a_i^2\lambda_i
+  g^{t}Cg = {\left(\sum_{i=3}^n a_{i}u_{i}\right)}^t \left(\sum_{i=3}^n a_i\lambda_{i}u_{i}\right) = \sum_{i=3}^n a_{i}^{2}\lambda_{i}
 \end{equation}
 
-Thus, we need to maximize $\sum_{i=3}^n a_i^2\lambda_i$ subject to the constraint that $g^tf = 0$, $g^te = 0$ and $||g|| = 1$. Since $\lambda_3$ is the third largest eigen value, we can maximize the above expression by setting $a_3 = 1$ and $a_i = 0$ for $i \neq 3$. Thus, the direction $g$ is given by $u_3$. Also, the constraint $||g|| = 1$ is satisfied by setting $a_3 = 1$ instead of any other scalar multiple.
+Thus, we need to maximize $\sum_{i=3}^n a_i^2\lambda_i$ subject to the constraint that $g^{t}f = 0$, $g^{t}e = 0$ and $||g|| = 1$. Since $\lambda_3$ is the third largest eigen value, we can maximize the above expression by setting $a_3 = 1$ and $a_i = 0$ for $i \neq 3$. Thus, the direction $g$ is given by $u_3$. Also, the constraint $||g|| = 1$ is satisfied by setting $a_3 = 1$ instead of any other scalar multiple.
 
 
 Therefore, we have proved that the direction of $f$ is corresponding to the eigen vector with the second largest eigen value and the direction of $g$ is corresponding to the eigen vector with the third largest eigen value.
