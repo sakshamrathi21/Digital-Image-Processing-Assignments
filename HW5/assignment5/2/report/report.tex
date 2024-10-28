@@ -71,6 +71,84 @@ Indian Institute of Technology Bombay \\}
 
 \section*{Question 2}
 \begin{solution}{Solution}
+We have the following two equations:
+\begin{equation}
+    g_1 = f_1 + h_2*f_2
+\end{equation}
+\begin{equation}
+    g_2 = f_2 + h_1*f_1
+\end{equation}
+where, $f_1$ and $f_2$ are the outside scene and reflection images respectively, $g_1$ and $g_2$ are the observed images and $h_1$ and $h_2$ are the blurring kernels.
+
+It is difficult to solve equations involving convolution operation directly. Since, we know that fourier transforms can transform convolution operation into multiplication, we will take fourier transform of the above equations.
+
+Taking fourier transform of equation (1) and (2) we get:
+\begin{equation}
+    G_1(\mu) = F_1(\mu) + H_2(\mu)F_2(\mu)
+\end{equation}
+\begin{equation}
+    G_2(\mu) = F_2(\mu) + H_1(\mu)F_1(\mu)
+\end{equation}
+
+Multiplying equation (3) by $H_1(\mu)$ and equation (4) by $H_2(\mu)$ we get:
+
+\begin{equation}
+    H_1(\mu)G_1(\mu) = H_1(\mu)F_1(\mu) + H_1(\mu)H_2(\mu)F_2(\mu)
+\end{equation}
+\begin{equation}
+    H_2(\mu)G_2(\mu) = H_2(\mu)F_2(\mu) + H_2(\mu)H_1(\mu)F_1(\mu)
+\end{equation}
+
+Subtracting equation (5) from equation (4) we get:
+\begin{equation}
+    G_2(\mu) - H_1(\mu)G_1(\mu) = F_2(\mu)(1 - H_1(\mu)H_2(\mu))
+\end{equation}
+
+Similarly, subtracting equation (6) from equation (3) we get:
+\begin{equation}
+    G_1(\mu) - H_2(\mu)G_2(\mu) = F_1(\mu)(1 - H_1(\mu)H_2(\mu))
+\end{equation}
+
+From equation (7) and (8) we can solve for $F_1(\mu)$ and $F_2(\mu)$ as:
+
+\begin{equation}
+    F_1(\mu) = \frac{G_1(\mu) - H_2(\mu)G_2(\mu)}{1 - H_1(\mu)H_2(\mu)}
+\end{equation}
+
+\begin{equation}
+    F_2(\mu) = \frac{G_2(\mu) - H_1(\mu)G_1(\mu)}{1 - H_1(\mu)H_2(\mu)}
+\end{equation}
+
+Now, we can take inverse fourier transform of $F_1(\mu)$ and $F_2(\mu)$ to get the outside scene and reflection images respectively.
+
+
+The solution is well defined for all values of $\mu$ except where $H_1(\mu)H_2(\mu) = 1$. These are blurring kernels (they are defocussing the images). So, essentially they are removing the high frequency components from the images. Therefore, these are low pass filters.
+
+
+Also, these blurring kernels integrate to 1:
+
+\begin{equation}
+  \int_{-\infty}^{\infty} h_1 (x) dx = 1
+\end{equation}
+
+(Because they can't increase or decrease the intensity levels of the images, they can only redistribute the intensity levels.)
+
+Also, 
+
+\begin{equation}
+  H_1(0) = \int_{-\infty}^{\infty} h_1 (x) e^{-j0x} dx = 1
+\end{equation}
+
+Similarly, $H_2(0) = 1$.
+
+For all other values of $\mu$, $H_1(\mu)$ and $H_2(\mu)$ are $\leq$ 1. So, $H_1(\mu)H_2(\mu) \leq 1$ (because these are low pass filters).
+
+(These fourier transforms can also be defined over $[a, b]$ instead of $(-\infty, \infty)$.)
+
+
+
+
+
 
 \end{solution}
 
