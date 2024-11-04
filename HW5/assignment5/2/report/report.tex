@@ -146,7 +146,23 @@ For all other values of $\mu$, $H_1(\mu)$ and $H_2(\mu)$ are $\leq$ 1. So, $H_1(
 (These fourier transforms can also be defined over $[a, b]$ instead of $(-\infty, \infty)$.)
 
 
+Therefore our solution is undefined for low frequencies where $H_1(\mu)H_2(\mu) = 1$ (such as $\mu = 0$). 
 
+
+Let us also consider the case where there is an image noise $\eta_1$ and $\eta_2$ in the observed images $g_1$ and $g_2$ respectively. The equations will now be:
+
+\begin{equation}
+    g_1 = f_1 + h_2*f_2 + \eta_1
+\end{equation}
+
+\begin{equation}
+    g_2 = f_2 + h_1*f_1 + \eta_2
+\end{equation}
+
+We will incur losses (by solving similarly as above): $\frac{N_1(\mu)-H_2(\mu)N_2(\mu)}{1-H_1(\mu)H_2(\mu)}$ and $\frac{N_2(\mu)-H_1(\mu)N_1(\mu)}{1-H_1(\mu)H_2(\mu)}$.
+
+The noise errors will get amplified for lower frequencies where $H_1(\mu)H_2(\mu) \approx 1$.
+This is a bit different from the case of inverse filter.
 
 
 
