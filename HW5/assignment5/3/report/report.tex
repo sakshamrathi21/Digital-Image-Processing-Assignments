@@ -1,4 +1,4 @@
-\documentclass[a4paper,14pt]{article}
+\documentclass[a4paper,12pt]{article}
 \usepackage{xcolor}
 \usepackage{amsmath,amsfonts,amssymb}
 \usepackage{geometry}
@@ -16,6 +16,8 @@
 \usepackage{pagecolor}
 \usepackage{mathpazo}   % Palatino font (serif)
 \usepackage{microtype}  % Better typography
+\usepackage{url}
+\usepackage{hyperref}
 
 \setlength{\parindent}{0pt}
 
@@ -71,7 +73,32 @@ Indian Institute of Technology Bombay \\}
 
 \section*{Question 3}
 \begin{solution}{Solution}
+	\textbf{Title:} "An Improved GAN-Based Image Restoration Method for Imaging Logging Images."
 
+	\textbf{Authors:} Maojun Cao, Hao Feng and Hong Xiao
+
+	\textbf{Venue:} Journal "Applied Sciences"
+
+	\textbf{Publication Year:} 2023
+
+	\textbf{Link:} \url{https://www.mdpi.com/2076-3417/13/16/9249}
+
+	\textbf{Problem:} The image restoration problem addressed in this research paper focuses on repairing \textit{partially missing micro-resistivity imaging logging images}. These images, often used in the exploration and analysis of complex geological formations such as oil and gas reservoirs, can be distorted or partially lost due to downhole conditions and equipment limitations. The proposed method leverages an improved GAN (Generative Adversarial Network) architecture to fill in missing areas and improve the overall semantic and textural coherence of these images, enabling more accurate geological interpretation.
+
+	\textbf{Cost Function optimised here:}
+	\[
+		L = \lambda_{1}L_{\text{v}} + \lambda_{2}L_{\text{h}} + \lambda_{3}L_{\text{prec}} + \lambda_{4}L_{\text{s}} + \lambda_{5}L_{\text{adv}}
+	\]
+
+	\textbf{Terms:}
+	\begin{itemize}
+		\item $L_{\text{v}}$: Vertical loss term, which measures the difference between the restored image and the ground truth in the vertical direction.
+		\item $L_{\text{h}}$: Horizontal loss term, which measures the difference between the restored image and the ground truth in the horizontal direction.
+		\item $L_{\text{prec}}$: Perceptual loss term, which captures the difference between the restored image and the ground truth in terms of high-level features extracted from a pre-trained VGG network.
+		\item $L_{\text{s}}$: Style loss term, which measures the difference between the restored image and the ground truth in terms of style features extracted from the pre-trained VGG network.
+		\item $L_{\text{adv}}$: Adversarial loss term, which encourages the generator to produce realistic images by fooling the discriminator.
+		\item $\lambda_{1}, \lambda_{2}, \lambda_{3}, \lambda_{4}, \lambda_{5}$: Hyperparameters that control the relative importance of each loss term in the overall objective function.
+	\end{itemize}
 \end{solution}
 
 \end{document}
