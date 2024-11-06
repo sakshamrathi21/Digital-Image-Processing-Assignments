@@ -1,4 +1,4 @@
-\documentclass[a4paper,14pt]{article}
+\documentclass[a4paper,12pt]{article}
 \usepackage{xcolor}
 \usepackage{amsmath,amsfonts,amssymb}
 \usepackage{geometry}
@@ -28,7 +28,7 @@
 \fancyhf{}
 
 % Fancy header and footer
-\fancyhead[C]{\textbf{\color{blue!80}CS663 Assignment-4}}
+\fancyhead[C]{\textbf{\color{blue!80}CS663 Assignment-5}}
 % \fancyhead[R]{\color{blue!80}Saksham Rathi}
 \fancyfoot[C]{\thepage}
 
@@ -44,19 +44,19 @@
 
 % Stylish Title with TikZ (Enhanced with gradient)
 \newcommand{\cooltitle}[1]{%
-  \begin{tikzpicture}
-    \node[fill=blue!20,rounded corners=10pt,inner sep=12pt, drop shadow, top color=blue!50, bottom color=blue!30] (box)
-    {\Huge \bfseries \color{black} #1};
-  \end{tikzpicture}
+\begin{tikzpicture}
+\node[fill=blue!20,rounded corners=10pt,inner sep=12pt, drop shadow, top color=blue!50, bottom color=blue!30] (box)
+{\Huge \bfseries \color{black} #1};
+\end{tikzpicture}
 }
 \usepackage{float} % Add this package
 
 \newenvironment{solution}[2][]{%
-    \begin{mdframed}[linecolor=blue!70!black, linewidth=2pt, roundcorner=10pt, backgroundcolor=yellow!10!white, skipabove=12pt, skipbelow=12pt]%
-        \textbf{\large #2}
-        \par\noindent\rule{\textwidth}{0.4pt}
+\begin{mdframed}[linecolor=blue!70!black, linewidth=2pt, roundcorner=10pt, backgroundcolor=yellow!10!white, skipabove=12pt, skipbelow=12pt]%
+	\textbf{\large #2}
+	\par\noindent\rule{\textwidth}{0.4pt}
 }{
-    \end{mdframed}
+\end{mdframed}
 }
 
 % Document title
@@ -70,8 +70,120 @@ Indian Institute of Technology Bombay \\}
 \maketitle
 
 \section*{Question 1}
+\subsection*{(a) part}
 \begin{solution}{Solution}
+\textbf{\Large Procedure:-}
 
+Let the translation operation for a $(x_0, y_0)$ displacement on an image $f_1$ be defined as $f_2(x, y) = f_1(x - x_0, y - y_0)$. Given images $f_1, f_2$ have size $N \times N$, their (Discrete) Fourier Transforms are related as $F_2(\mu, \nu) = F_1(\mu, \nu) e^{-j2\pi (\mu x_0 + \nu y_0)/N}$ (due to 2D-DFT Translation property).
+
+As per Equation (3) of Section I of the paper, cross spectrum of $f_1$ and $f_2$ is:-
+\begin{equation}
+	C(\mu, \nu) = \frac{F_1(\mu, \nu) \, F_2^{*}(\mu, \nu)}{|F_1(\mu, \nu)||F_2(\mu, \nu)|} = e^{j2\pi (\mu x_0 + \nu y_0)/N}
+	\label{eq:cross-spectrum}
+\end{equation}
+
+\hrule
+\vspace{5pt}
+\textbf{Proof for Equation \ref{eq:cross-spectrum} above:-}
+
+Given $F_2(\mu, \nu) = F_1(\mu, \nu) e^{-j2\pi (\mu x_0 + \nu y_0)/N}$, we can write $F_2^{*}(\mu, \nu) = F_1^{*}(\mu, \nu) e^{j2\pi (\mu x_0 + \nu y_0)/N}$.
+\begin{align*}
+	\text{Now }|F_2(\mu, \nu)|^2 &= F_2^{*}(\mu, \nu) . F_2(\mu, \nu) \\
+	&= F_1(\mu, \nu) e^{-j2\pi (\mu x_0 + \nu y_0)/N} . F_1^{*}(\mu, \nu) e^{j2\pi (\mu x_0 + \nu y_0)/N} \\
+	&= F_1(\mu, \nu) . F_1^{*}(\mu, \nu) = |F_1(\mu, \nu)|^2
+\end{align*}
+Hence $|F_2(\mu, \nu)| = |F_1(\mu, \nu)|$. Substituting these values in Equation \ref{eq:cross-spectrum}, we get:-
+\[C(\mu, \nu) = \frac{F_1(\mu, \nu) \, F_1^{*}(\mu, \nu) e^{j2\pi (\mu x_0 + \nu y_0)/N}}{|F_1(\mu, \nu)|^2} = e^{j2\pi (\mu x_0 + \nu y_0)/N}\]
+\hrule
+\vspace{5pt}
+Let's take the Inverse (Discrete) Fourier Transform of $C(\mu, \nu)$ to get the autocorrelation function $c(x, y)$:-
+\begin{align*}
+	c(x, y) &= \mathcal{F}^{-1}\{C(\mu, \nu)\} = \mathcal{F}^{-1}\{e^{j2\pi (\mu x_0 + \nu y_0)/N}\} \\
+	&= \frac{1}{N} \sum_{\mu=0}^{N-1} \sum_{\nu=0}^{N-1} e^{j2\pi (\mu x_0 + \nu y_0)/N} e^{j2\pi (\mu x + \nu y)/N} = \frac{1}{N} \sum_{\mu=0}^{N-1} \sum_{\nu=0}^{N-1} e^{j2\pi (\mu (x_0 + x) + \nu (y_0 + y))/N} \\
+	&= \delta(x_0 + x, y_0 + y)
+\end{align*}
+See that $c(x,y)$ attains a non-zero value only at $(-x_0, -y_0)$, which is the displacement between the two images. Hence, the autocorrelation function of the cross spectrum is a delta function at the displacement $(-x_0, -y_0)$, hence helping us find value of $(x_0, y_0)$.
+
+Hence the steps are:-
+\begin{enumerate}
+	\item Obtain 2D-DFT of $f_1$ and $f_2$. $f_2$'s can be found using the Fourier Shift Theorem.
+	\item Compute the cross spectrum $C(\mu, \nu)$ using Equation \ref{eq:cross-spectrum}.
+	\item Determine Inverse DFT of $C(\mu, \nu)$ and find its non-zero point. If it is at $(a, b)$, then the displacement vector is $(-a, -b)$.
+\end{enumerate}
+
+\textbf{\Large Time Complexity:-}
+
+2D-DFT (IDFT) of an image of size $M \times N$ can be found using FFT efficiently in $O(MN \log MN)$ time. Hence for a $N \times N$ image, 2D-DFT (IDFT) takes $O(NN \log NN) = O(N^2 \log N)$ time.
+\begin{itemize}
+	\item Step 1 is 2D-DFT hence takes $O(N^2 \log N)$ time.
+	\item Step 2 is a pointwise multiplication and division, hence takes $O(N^2)$ time.
+	\item Step 3 is 2D-IDFT, hence takes $O(N^2 \log N)$ time.
+\end{itemize}
+Hence the total time complexity is $O(N^2 \log N)$. \\ \\
+\textbf{\Large Comparison with Pixel-wise image comparison procedure:-}
+
+Say there are $W_x$ values of x-axis translation shift to be checked and so is $W_y$ for y-axis. For each translation shift vector, we do this:-
+\begin{enumerate}
+	\item Create a new image by translating $f_1$ by $(x_0, y_0)$. This takes $O(N^2)$ time.
+	\item Compare each pixel of the new image with $f_2$'s pixels (or take min squares difference). This takes $O(N^2)$ time.
+\end{enumerate}
+Hence the total time complexity is $O(W_x W_y N^2)$. This is much larger than $O(N^2 \log N)$ for $W_x, W_y \gg \log N$.
 \end{solution}
 
+\subsection*{(b) part}
+\begin{solution}{Solution}
+	As said in Section II of the paper, $f_2(x, y) = f_1(x \cos \theta_0 + y \sin \theta_0 - x_0, \, - x \sin \theta_0 + y \cos \theta_0 - y_0)$ ($f_2$ is rotated-then-translated version of $f_1$). We have to find rotation $\theta_0$ and shift $(x_0, y_0)$ values.
+	\vspace{5pt}
+	\hrule
+	\vspace{5pt}
+	\textbf{Lemma:} If 2D-FT of $f$ is $F(\mu, \nu)$, then 2D-FT of $f(x \cos \theta_0 + y \sin \theta_0, \, - x \sin \theta_0 + y \cos \theta_0)$ is $F(\mu \cos \theta_0 + \nu \sin \theta_0, \, - \mu \sin \theta_0 + \nu \cos \theta_0)$.
+
+	\textbf{Proof:}
+	\[
+		F'(\mu, \nu) =\int_{\infty}^{\infty} \int_{\infty}^{\infty} f(x \cos \theta_0 + y \sin \theta_0, \, - x \sin \theta_0 + y \cos \theta_0) e^{-j2\pi (\mu x + \nu y)} \, dx \, dy
+	\]
+	Substitute $x' = x \cos \theta_0 + y \sin \theta_0$ and $y' = - x \sin \theta_0 + y \cos \theta_0$. We will get $x = x' \cos \theta_0 - y' \sin \theta_0$ and $y = x' \sin \theta_0 + y' \cos \theta_0$. Also,
+	\[
+		dx \, dy = |J| \, dx' \, dy' = \begin{vmatrix}
+			\frac{\partial x}{\partial x'} & \frac{\partial x}{\partial y'} \\
+			\frac{\partial y}{\partial x'} & \frac{\partial y}{\partial y'}
+		\end{vmatrix} \, dx' \, dy' = \begin{vmatrix}
+			\cos \theta_0 & -\sin \theta_0 \\
+			\sin \theta_0 & \cos \theta_0
+		\end{vmatrix} \, dx' \, dy' = dx' \, dy'
+	\]
+	Thus,
+	\begin{align*}
+		F'(\mu, \nu) &= \int_{\infty}^{\infty} \int_{\infty}^{\infty} f(x', y') e^{-j2\pi (\mu (x' \cos \theta_0 - y' \sin \theta_0) + \nu (x' \sin \theta_0 + y' \cos \theta_0))} \, dx' \, dy' \\
+		&= F(\mu \cos \theta_0 + \nu \sin \theta_0, \, - \mu \sin \theta_0 + \nu \cos \theta_0)
+	\end{align*}
+	Hence proved.
+	\vspace{5pt}
+	\hrule
+	\vspace{5pt}
+	If $F_1(\mu, \nu)$ is the 2D-FT of $f_1$ and so is $F_2(\mu, \nu)$ of $f_2$, then:-
+	\begin{align*}
+		F_2(\mu, \nu) &= \mathbf{F} [f_1(x \cos \theta_0 + y \sin \theta_0 - x_0, \, - x \sin \theta_0 + y \cos \theta_0 - y_0)] \\
+		&= e^{-j2\pi (\mu x_0 + \nu y_0)} \mathbf{F} [f_1(x \cos \theta_0 + y \sin \theta_0, \, - x \sin \theta_0 + y \cos \theta_0)] &\text{ (Fourier Shift Theorem)}\\
+		&= e^{-j2\pi (\mu x_0 + \nu y_0)} F_1(\mu \cos \theta_0 + \nu \sin \theta_0, \, - \mu \sin \theta_0 + \nu \cos \theta_0) &\text{ (Lemma)}
+	\end{align*}
+	Observe that magnitudes of the FTs are equal (Say $M_1, \, M_2$ are magnitudes of $F_1, \, F_2$):-
+	\begin{align*}
+		M_2(\mu, \nu) = |F_2(\mu, \nu)| &= |e^{-j2\pi (\mu x_0 + \nu y_0)} F_1(\mu \cos \theta_0 + \nu \sin \theta_0, \, - \mu \sin \theta_0 + \nu \cos \theta_0)| \\
+		&= |F_1(\mu \cos \theta_0 + \nu \sin \theta_0, \, - \mu \sin \theta_0 + \nu \cos \theta_0)| \\
+		&= M_1(\mu \cos \theta_0 + \nu \sin \theta_0, \, - \mu \sin \theta_0 + \nu \cos \theta_0)
+	\end{align*}
+	Convert to polar coordinate system: $(\mu, \nu) \rightarrow (\rho, \theta)$, $\rho = \sqrt{\mu^2 + \nu^2}$, $\theta = \tan^{-1}(\nu/\mu)$. Then $M_2(\rho, \theta) = M_1(\rho, \theta - \theta_0)$. Hence this becomes like the problem in (a) part (but in 1D). Using the method in (a) part, we can find $\theta_0$.
+
+	After the rotation angle $\theta_0$ is found, rotate $f_1$ by $\theta_0$ to get $f_3$. Now $f_3$ is related to $f_2$ by pure translation. Use the method in (a) part to find the translation vector $(x_0, y_0)$.
+
+	Hence the steps are:-
+	\begin{enumerate}
+		\item Find 2D-FT of $f_1$ and $f_2$.
+		\item Find the magnitudes of the FTs and convert to polar coordinates.
+		\item Find the rotation angle $\theta_0$ using the method in (a) part (just in 1D).
+		\item Rotate $f_1$ by $\theta_0$ to get $f_3$.
+		\item Find the translation vector $(x_0, y_0)$ using the method in (a) part on $f_3$ and $f_2$.
+	\end{enumerate}
+\end{solution}
 \end{document}
