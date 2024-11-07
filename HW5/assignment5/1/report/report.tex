@@ -70,8 +70,7 @@ Indian Institute of Technology Bombay \\}
 \maketitle
 
 \section*{Question 1}
-\subsection*{(a) part}
-\begin{solution}{Solution}
+\begin{solution}{Part (a)}
 \textbf{\Large Procedure:-}
 
 Let the translation operation for a $(x_0, y_0)$ displacement on an image $f_1$ be defined as $f_2(x, y) = f_1(x - x_0, y - y_0)$. Given images $f_1, f_2$ have size $N \times N$, their (Discrete) Fourier Transforms are related as $F_2(\mu, \nu) = F_1(\mu, \nu) e^{-j2\pi (\mu x_0 + \nu y_0)/N}$ (due to 2D-DFT Translation property).
@@ -130,8 +129,7 @@ Say there are $W_x$ values of x-axis translation shift to be checked and so is $
 Hence the total time complexity is $O(W_x W_y N^2)$. This is much larger than $O(N^2 \log N)$ for $W_x, W_y \gg \log N$.
 \end{solution}
 
-\subsection*{(b) part}
-\begin{solution}{Solution}
+\begin{solution}{Part (b)}
 	As said in Section II of the paper, $f_2(x, y) = f_1(x \cos \theta_0 + y \sin \theta_0 - x_0, \, - x \sin \theta_0 + y \cos \theta_0 - y_0)$ ($f_2$ is rotated-then-translated version of $f_1$). We have to find rotation $\theta_0$ and shift $(x_0, y_0)$ values.
 	\vspace{5pt}
 	\hrule
