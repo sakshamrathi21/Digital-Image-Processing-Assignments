@@ -71,10 +71,9 @@ Indian Institute of Technology Bombay \\}
 \maketitle
 
 \section*{Question 5}
-\begin{solution}{Solution}
-  
-  \section{Part a}
-    We prove this via a contradiction. Consider an example where $N = 2$ and both $P_{1}$ and $P_{2}$ are square matrices.
+
+\begin{solution}{Part (a)}
+  We prove this via a contradiction. Consider an example where $N = 2$ and both $P_{1}$ and $P_{2}$ are square matrices.
     
     Let 
     $P_{2} = \begin{pmatrix}
@@ -96,8 +95,10 @@ Indian Institute of Technology Bombay \\}
     It was given that $R$ is an orthonormal matrix. Clearly $P_{1}$ is not orthonormal and hence $R = P_{1}$ is not a valid 
     solution. Therefore using the least squares method does not give the right answer as it does not always give a solution 
     which is orthonormal. 
-  \section{Part b}
-    The objective is to find the orthonormal matrix $R$ that minimises the sqaure of the Frobenius norm of the error matrix $E$ which equals 
+\end{solution}
+
+\begin{solution}{Part (b)}
+  The objective is to find the orthonormal matrix $R$ that minimises the sqaure of the Frobenius norm of the error matrix $E$ which equals 
     $P_{1} - R P_{2}$. 
     
     \begin{align*}
@@ -113,14 +114,17 @@ Indian Institute of Technology Bombay \\}
       &= \text{Trace}(P_{1}^{T}P_{1} + P_{2}^{T}P_{2}) - 2\text{Trace}(P_{1}^{T}RP_{2})
     \end{align*}
 
-    \section{Part c}
-    As shown in the previous part $E(R) = \text{Trace}(P_{1}^{T}P_{1} + P_{2}^{T}P_{2}) - 2\text{Trace}(P_{1}^{T}RP_{2})$. Clearly
+\end{solution}
+
+\begin{solution}{Part (c)}
+  As shown in the previous part $E(R) = \text{Trace}(P_{1}^{T}P_{1} + P_{2}^{T}P_{2}) - 2\text{Trace}(P_{1}^{T}RP_{2})$. Clearly
     for given $P_{1}$ and $P_{2}$, the first term is fixed. Therefore to minimise $E(R)$ wrt $R$, the term 
     $-2\text{Trace}(P_{1}^{T}RP_{2})$ should be minimised ie, $\text{Trace}(P_{1}^{T}RP_{2})$ should be maximised wrt $R$.
 
-    \section{Part d}
+\end{solution}
 
-    Now the goal is to maximise $\text{Trace}(P_{1}^{T}RP_{2})$ wrt $R$.
+\begin{solution}{Part (d)}
+  Now the goal is to maximise $\text{Trace}(P_{1}^{T}RP_{2})$ wrt $R$.
     We will first show that for any two matrices $A \in \mathbb{R}^{m \times n},B \in \mathbb{R}^{n \times m}$, 
     $\text{Trace}(AB) = \text{Trace}(BA)$.
     \begin{align}
@@ -149,10 +153,10 @@ Indian Institute of Technology Bombay \\}
                                     &= \text{Trace}(S^{'} V^{'T} R U^{'}) \, \text{ (again using the result from equation \@\ref{Proof})} \\
                                     &= \text{Trace}(S^{'} X) \, \text{ (where $X = V^{'T} R U^{'}$ and $S^{'}$ is a diagonal matrix)}
     \end{align*}
+\end{solution}
 
-    \section{Part e}
-
-    Since maximising $\text{Trace}(P_{1}^{T}RP_{2})$ is the same as maximising $\text{Trace}(S^{'}X)$ where $S^{'}$ is a 
+\begin{solution}{Part (e)}
+  Since maximising $\text{Trace}(P_{1}^{T}RP_{2})$ is the same as maximising $\text{Trace}(S^{'}X)$ where $S^{'}$ is a 
     diagonal matrix and $X = V^{'T} R U^{'}$, we only need to determine the matrix $X$ such that 
     $S^{'}_{11}X_{11} + S^{'}_{22}X_{22}$ is maximised where $S^{'}_{11}$ and $S^{'}_{22}$ are the singular values of 
     $P_{2}P_{1}^{T}$. 
@@ -189,8 +193,11 @@ Indian Institute of Technology Bombay \\}
     since $x_{11}^{2} + X_{12}^{2} = 1 \text{ and } X_{11} = 1 \Rightarrow X_{12} = 0$, similarly $X_{21} = 0$. Hence we get 
     $X = I_{2}$ for maximum value of $\text{Trace}S^{'}X$
 
-    \section{Part f}
-      Since $X = I_{2}$ and $X = V^{'T}RU^{'}$, we get 
+
+\end{solution}
+
+\begin{solution}{Part (f)}
+  Since $X = I_{2}$ and $X = V^{'T}RU^{'}$, we get 
       \begin{align*}
         V^{'T}RU^{'} &= I \\
         \Rightarrow V^{'}V^{'T}RU^{'}U^{'T} &= V^{'}IU^{'T} \\
@@ -199,14 +206,16 @@ Indian Institute of Technology Bombay \\}
       \end{align*}
 
       If $X$ is the identity matrix $R = V^{'}U^{'T}$.
-    \section{Part g}
-      If $R$ is also a rotation matrix then $R = \begin{pmatrix}
-        \cos \theta & - \sin \theta \\
-        \sin \theta & \cos \theta \\
-      \end{pmatrix}$
-      for some $\theta \in \mathbb{R}$. This gives $\text{det}(R) = \cos^{2} \theta + \sin^{2} \theta = 1$. However if $R$
-      is not a rotation matrix then $\text{det}(R) = 1,-1$. So the additional constraint imposed is $\text{det}(R) = 1$.
+\end{solution}
 
+
+\begin{solution}{Part (g)}
+  If $R$ is also a rotation matrix then $R = \begin{pmatrix}
+    \cos \theta & - \sin \theta \\
+    \sin \theta & \cos \theta \\
+  \end{pmatrix}$
+  for some $\theta \in \mathbb{R}$. This gives $\text{det}(R) = \cos^{2} \theta + \sin^{2} \theta = 1$. However if $R$
+  is not a rotation matrix then $\text{det}(R) = 1,-1$. So the additional constraint imposed is $\text{det}(R) = 1$.
 \end{solution}
 
 \end{document}
