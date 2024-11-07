@@ -131,54 +131,36 @@ Hence the total time complexity is $O(W_x W_y N^2)$. This is much larger than $O
 
 \begin{solution}{Part (b)}
 	As said in Section II of the paper, $f_2(x, y) = f_1(x \cos \theta_0 + y \sin \theta_0 - x_0, \, - x \sin \theta_0 + y \cos \theta_0 - y_0)$ ($f_2$ is rotated-then-translated version of $f_1$). We have to find rotation $\theta_0$ and shift $(x_0, y_0)$ values.
-	\vspace{5pt}
-	\hrule
-	\vspace{5pt}
-	\textbf{Lemma:} If 2D-FT of $f$ is $F(\mu, \nu)$, then 2D-FT of $f(x \cos \theta_0 + y \sin \theta_0, \, - x \sin \theta_0 + y \cos \theta_0)$ is $F(\mu \cos \theta_0 + \nu \sin \theta_0, \, - \mu \sin \theta_0 + \nu \cos \theta_0)$.
-
-	\textbf{Proof:}
-	\[
-		F'(\mu, \nu) =\int_{\infty}^{\infty} \int_{\infty}^{\infty} f(x \cos \theta_0 + y \sin \theta_0, \, - x \sin \theta_0 + y \cos \theta_0) e^{-j2\pi (\mu x + \nu y)} \, dx \, dy
-	\]
-	Substitute $x' = x \cos \theta_0 + y \sin \theta_0$ and $y' = - x \sin \theta_0 + y \cos \theta_0$. We will get $x = x' \cos \theta_0 - y' \sin \theta_0$ and $y = x' \sin \theta_0 + y' \cos \theta_0$. Also,
-	\[
-		dx \, dy = |J| \, dx' \, dy' = \begin{vmatrix}
-			\frac{\partial x}{\partial x'} & \frac{\partial x}{\partial y'} \\
-			\frac{\partial y}{\partial x'} & \frac{\partial y}{\partial y'}
-		\end{vmatrix} \, dx' \, dy' = \begin{vmatrix}
-			\cos \theta_0 & -\sin \theta_0 \\
-			\sin \theta_0 & \cos \theta_0
-		\end{vmatrix} \, dx' \, dy' = dx' \, dy'
-	\]
-	Thus,
-	\begin{align*}
-		F'(\mu, \nu) &= \int_{\infty}^{\infty} \int_{\infty}^{\infty} f(x', y') e^{-j2\pi (\mu (x' \cos \theta_0 - y' \sin \theta_0) + \nu (x' \sin \theta_0 + y' \cos \theta_0))} \, dx' \, dy' \\
-		&= F(\mu \cos \theta_0 + \nu \sin \theta_0, \, - \mu \sin \theta_0 + \nu \cos \theta_0)
-	\end{align*}
-	Hence proved.
-	\vspace{5pt}
-	\hrule
-	\vspace{5pt}
-	If $F_1(\mu, \nu)$ is the 2D-FT of $f_1$ and so is $F_2(\mu, \nu)$ of $f_2$, then:-
+	
+	If $F_1(\mu, \nu)$ is the 2D-DFT of $f_1$ and so is $F_2(\mu, \nu)$ of $f_2$, then:-
 	\begin{align*}
 		F_2(\mu, \nu) &= \mathbf{F} [f_1(x \cos \theta_0 + y \sin \theta_0 - x_0, \, - x \sin \theta_0 + y \cos \theta_0 - y_0)] \\
-		&= e^{-j2\pi (\mu x_0 + \nu y_0)} \mathbf{F} [f_1(x \cos \theta_0 + y \sin \theta_0, \, - x \sin \theta_0 + y \cos \theta_0)] &\text{ (Fourier Shift Theorem)}\\
-		&= e^{-j2\pi (\mu x_0 + \nu y_0)} F_1(\mu \cos \theta_0 + \nu \sin \theta_0, \, - \mu \sin \theta_0 + \nu \cos \theta_0) &\text{ (Lemma)}
+		&= e^{-j2\pi (\mu x_0 + \nu y_0)/N} \mathbf{F} [f_1(x \cos \theta_0 + y \sin \theta_0, \, - x \sin \theta_0 + y \cos \theta_0)] \text{ (Fourier Shift Theorem)}\\
+		&= e^{-j2\pi (\mu x_0 + \nu y_0)/N} F_1(\mu \cos \theta_0 + \nu \sin \theta_0, \, - \mu \sin \theta_0 + \nu \cos \theta_0) \text{ (Rotation property)}
 	\end{align*}
+	Note that the Rotation property is mentioned in the lecture slides and also in Gonzales book (pg. 241). Hence not proved here.
+
 	Observe that magnitudes of the FTs are equal (Say $M_1, \, M_2$ are magnitudes of $F_1, \, F_2$):-
 	\begin{align*}
-		M_2(\mu, \nu) = |F_2(\mu, \nu)| &= |e^{-j2\pi (\mu x_0 + \nu y_0)} F_1(\mu \cos \theta_0 + \nu \sin \theta_0, \, - \mu \sin \theta_0 + \nu \cos \theta_0)| \\
+		M_2(\mu, \nu) = |F_2(\mu, \nu)| &= |e^{-j2\pi (\mu x_0 + \nu y_0)/N} F_1(\mu \cos \theta_0 + \nu \sin \theta_0, \, - \mu \sin \theta_0 + \nu \cos \theta_0)| \\
 		&= |F_1(\mu \cos \theta_0 + \nu \sin \theta_0, \, - \mu \sin \theta_0 + \nu \cos \theta_0)| \\
 		&= M_1(\mu \cos \theta_0 + \nu \sin \theta_0, \, - \mu \sin \theta_0 + \nu \cos \theta_0)
 	\end{align*}
-	Convert to polar coordinate system: $(\mu, \nu) \rightarrow (\rho, \theta)$, $\rho = \sqrt{\mu^2 + \nu^2}$, $\theta = \tan^{-1}(\nu/\mu)$. Then $M_2(\rho, \theta) = M_1(\rho, \theta - \theta_0)$. Hence this becomes like the problem in (a) part (but in 1D). Using the method in (a) part, we can find $\theta_0$.
+	Convert to polar coordinate system: $(\mu, \nu) \rightarrow (\rho, \theta)$, $\rho = \sqrt{\mu^2 + \nu^2}$, $\theta = \tan^{-1}(\nu/\mu)$, $\mu = \rho \cos \theta, \, \nu = \rho \sin \theta$, so:-
+	\begin{align*}
+		\mu \cos \theta_0 + \nu \sin \theta_0 &= \rho \cos \theta \cos \theta_0 + \rho \sin \theta \sin \theta_0 = \rho (\cos \theta \cos \theta_0 + \sin \theta \sin \theta_0) = \rho \cos (\theta - \theta_0) \\
+		\nu \cos \theta_0 - \mu \sin \theta_0 &= \rho \sin \theta \cos \theta_0 - \rho \cos \theta \sin \theta_0 = \rho (\sin \theta \cos \theta_0 - \cos \theta \sin \theta_0) = \rho \sin (\theta - \theta_0)
+	\end{align*}
+	Hence, $M_1(\mu \cos \theta_0 + \nu \sin \theta_0, \, - \mu \sin \theta_0 + \nu \cos \theta_0) = M_1(\rho, \, \theta - \theta_0)$.
+	
+	Then $M_2(\rho, \theta) = M_1(\rho, \theta - \theta_0)$. Hence this becomes like the problem in (a) part (but in 1D). Using the method in (a) part, we can find $\theta_0$.
 
 	After the rotation angle $\theta_0$ is found, rotate $f_1$ by $\theta_0$ to get $f_3$. Now $f_3$ is related to $f_2$ by pure translation. Use the method in (a) part to find the translation vector $(x_0, y_0)$.
 
 	Hence the steps are:-
 	\begin{enumerate}
-		\item Find 2D-FT of $f_1$ and $f_2$.
-		\item Find the magnitudes of the FTs and convert to polar coordinates.
+		\item Find 2D-DFT of $f_1$ and $f_2$.
+		\item Find the magnitudes of the DFTs and convert to polar coordinates.
 		\item Find the rotation angle $\theta_0$ using the method in (a) part (just in 1D).
 		\item Rotate $f_1$ by $\theta_0$ to get $f_3$.
 		\item Find the translation vector $(x_0, y_0)$ using the method in (a) part on $f_3$ and $f_2$.
