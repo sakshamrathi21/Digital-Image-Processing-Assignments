@@ -72,9 +72,30 @@ Indian Institute of Technology Bombay \\}
 
 \section*{Question 5}
 \begin{solution}{Solution}
-  efege
+  
   \section{Part a}
-dwefw
+    We prove this via a contradiction. Consider an example where $N = 2$ and both $P_{1}$ and $P_{2}$ are square matrices.
+    
+    Let 
+    $P_{2} = \begin{pmatrix}
+      1 & 0 \\
+      0 & 1 \\
+    \end{pmatrix}$ 
+    and $P_{1} = \begin{pmatrix}
+      1 & 2 \\
+      3 & 4 \\
+    \end{pmatrix}$. 
+
+    The least square solution gives
+    \begin{align*}
+      R &= P_{1}P_{2}^{T}{(P_{2}P_{2}^{T})}^{-1} \\
+        &= P_{1}I^{T} {(II^{T})}^{-1} \\
+        &= P_{1}    
+    \end{align*}
+
+    It was given that $R$ is an orthonormal matrix. Clearly $P_{1}$ is not orthonormal and hence $R = P_{1}$ is not a valid 
+    solution. Therefore using the least squares method does not give the right answer as it does not always give a solution 
+    which is orthonormal. 
   \section{Part b}
     The objective is to find the orthonormal matrix $R$ that minimises the sqaure of the Frobenius norm of the error matrix $E$ which equals 
     $P_{1} - R P_{2}$. 
@@ -185,20 +206,6 @@ dwefw
       \end{pmatrix}$
       for some $\theta \in \mathbb{R}$. This gives $\text{det}(R) = \cos^{2} \theta + \sin^{2} \theta = 1$. However if $R$
       is not a rotation matrix then $\text{det}(R) = 1,-1$. So the additional constraint imposed is $\text{det}(R) = 1$.
-    % We can set $X_{11} = \cos{\theta}, X_{12} = \sin{\theta}$ and $X_{21} = \cos{\phi}, X_{22} = \sin{\phi}$ since $X_{11},X_{12},X_{21},X_{22} \in \mathbb{R}$
-    % and satisfy $X_{11}^{2} + X_{12}^{2} = 1$ and $X_{21}^{2} + X_{22}^{2} = 1$. Now the third equation gives 
-    % \begin{align*}
-    %   \cos{\theta}\cos{\phi} + \sin{\theta}\sin{\phi} &= 0 \\
-    %   \Rightarrow  \cos{(\phi - \theta)}  &= 0 \\
-    %   \Rightarrow \phi - \theta &= \frac{(2n + 1)}{2}\pi \text{ where $n \in \mathbb{Z}$} \\
-    %   \Rightarrow \phi &= \frac{(2n + 1)}{2}\pi + \theta 
-    % \end{align*}
-    
-    % Substituting the value of $\phi$ in the equations for $X_{21},X_{22}$ we get $X_{21} = \cos(\frac{(2n + 1)}{2}\pi + \theta) = \cos(n\pi + )$
-    % and $X_{12} = \sin(2n\pi + \phi) = \sin \phi$. Therefore
-    % \[ X = \begin{pmatrix}
-    %       \cos \phi & \sin
-    % \end{pmatrix}\]
 
 \end{solution}
 
