@@ -73,32 +73,63 @@ Indian Institute of Technology Bombay \\}
 
 \section*{Question 3}
 \begin{solution}{Solution}
-	\textbf{Title:} "An Improved GAN-Based Image Restoration Method for Imaging Logging Images."
+	The paper titled \textit{Towards Real-World Blind Face Restoration with Generative Facial Prior} addresses the problem of \textbf{real-world blind face restoration} in images with unknown and complex degradation, such as low resolution, noise, blur, and compression artifacts. Blind restoration approaches aim to handle complex real-world images that have mixed degradation types.
 
-	\textbf{Authors:} Maojun Cao, Hao Feng and Hong Xiao
+\textbf{Venue and Publication Year:} Presented on arXiv, 2021.
 
-	\textbf{Venue:} Journal "Applied Sciences"
+\textbf{Cost Function Optimized:} The GFP-GAN model optimizes a multi-term loss function to balance restoration fidelity, realism, and perceptual quality. The total loss \( L_{\text{total}} \) is given by:
 
-	\textbf{Publication Year:} 2023
+\[
+L_{\text{total}} = L_{\text{rec}} + L_{\text{adv}} + L_{\text{comp}} + L_{\text{id}}
+\]
 
-	\textbf{Link:} \url{https://www.mdpi.com/2076-3417/13/16/9249}
+where each term is detailed below.
 
-	\textbf{Problem:} The image restoration problem addressed in this research paper focuses on repairing \textit{partially missing micro-resistivity imaging logging images}. These images, often used in the exploration and analysis of complex geological formations such as oil and gas reservoirs, can be distorted or partially lost due to downhole conditions and equipment limitations. The proposed method leverages an improved GAN (Generative Adversarial Network) architecture to fill in missing areas and improve the overall semantic and textural coherence of these images, enabling more accurate geological interpretation.
+1. \textit{Reconstruction Loss} \( L_{\text{rec}} \): This loss encourages the restored image \( \hat{y} \) to match the ground-truth image \( y \), using both an \( L_1 \)-norm loss and a perceptual loss to maintain pixel-level and feature-level similarity:
 
-	\textbf{Cost Function optimised here:}
-	\[
-		L = \lambda_{1}L_{\text{v}} + \lambda_{2}L_{\text{h}} + \lambda_{3}L_{\text{prec}} + \lambda_{4}L_{\text{s}} + \lambda_{5}L_{\text{adv}}
-	\]
+   \[
+   L_{\text{rec}} = \lambda_{\text{L1}} \| \hat{y} - y \|_1 + \lambda_{\text{per}} \| \phi(\hat{y}) - \phi(y) \|_1
+   \]
 
-	\textbf{Terms:}
-	\begin{itemize}
-		\item $L_{\text{v}}$: Vertical loss term, which measures the difference between the restored image and the ground truth in the vertical direction.
-		\item $L_{\text{h}}$: Horizontal loss term, which measures the difference between the restored image and the ground truth in the horizontal direction.
-		\item $L_{\text{prec}}$: Perceptual loss term, which captures the difference between the restored image and the ground truth in terms of high-level features extracted from a pre-trained VGG network.
-		\item $L_{\text{s}}$: Style loss term, which measures the difference between the restored image and the ground truth in terms of style features extracted from the pre-trained VGG network.
-		\item $L_{\text{adv}}$: Adversarial loss term, which encourages the generator to produce realistic images by fooling the discriminator.
-		\item $\lambda_{1}, \lambda_{2}, \lambda_{3}, \lambda_{4}, \lambda_{5}$: Hyperparameters that control the relative importance of each loss term in the overall objective function.
-	\end{itemize}
+   where: \\
+   - \( \| \hat{y} - y \|_1 \) is the pixel-wise \( L_1 \) loss. \\
+   - \( \phi \) represents a pretrained feature extractor (e.g., VGG-19) for computing perceptual similarity. \\
+   - \( \lambda_{\text{L1}} \) and \( \lambda_{\text{per}} \) are weights for the \( L_1 \) and perceptual losses, respectively. \\
+
+2. \textit{Adversarial Loss} \( L_{\text{adv}} \): This loss encourages the restored image to appear realistic by guiding it towards the natural image distribution using a discriminator:
+
+   \[
+   L_{\text{adv}} = -\lambda_{\text{adv}} \mathbb{E}_{\hat{y}} \left[ \text{softplus}(D(\hat{y})) \right]
+   \]
+
+   where:\\
+   - \( D \) is the discriminator function.\\
+   - \( \lambda_{\text{adv}} \) is the adversarial loss weight.\\
+
+3. \textit{Facial Component Loss} \( L_{\text{comp}} \): To enhance perceptually significant facial components (e.g., eyes, mouth), this loss incorporates local discriminators and a feature style loss based on the Gram matrix:
+
+   \[
+   L_{\text{comp}} = \sum_{\text{ROI}} \left( \lambda_{\text{local}} \mathbb{E}_{\hat{y}_{\text{ROI}}} \left[ \log (1 - D_{\text{ROI}}(\hat{y}_{\text{ROI}})) \right] + \lambda_{\text{fs}} \| \text{Gram}(\psi(\hat{y}_{\text{ROI}})) - \text{Gram}(\psi(y_{\text{ROI}})) \|_1 \right)
+   \]
+
+   where: \\
+   - \( \text{ROI} \) denotes regions of interest (e.g., left eye, right eye, mouth). \\
+   - \( D_{\text{ROI}} \) is the local discriminator for each region.\\
+   - \( \psi \) represents multi-resolution features from the local discriminators.\\
+   - \( \text{Gram}(\cdot) \) computes Gram matrix statistics, capturing texture information.\\
+   - \( \lambda_{\text{local}} \) and \( \lambda_{\text{fs}} \) are weights for the local discriminative and feature style losses, respectively.\\
+
+4. \textit{Identity Preserving Loss} \( L_{\text{id}} \): This loss helps maintain the identity of the face in the restored image by measuring the similarity between the restored image \( \hat{y} \) and the ground-truth \( y \) in a feature space:
+
+   \[
+   L_{\text{id}} = \lambda_{\text{id}} \| \eta(\hat{y}) - \eta(y) \|_1
+   \]
+
+   where:\\
+   - \( \eta \) is a face feature extractor (e.g., ArcFace) that captures identity-relevant features.\\
+   - \( \lambda_{\text{id}} \) is the weight for the identity preserving loss.\\
+
+Each term in the total loss function \( L_{\text{total}} \) thus contributes to the balance of high fidelity, perceptual quality, and realistic facial restoration in degraded images.
 \end{solution}
 
 \end{document}
