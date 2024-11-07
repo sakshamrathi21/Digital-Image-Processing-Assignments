@@ -13,6 +13,7 @@
 \usepackage{float}
 \usepackage{lipsum}
 \usepackage{mdframed}
+\usepackage{hyperref}
 \usepackage{pagecolor}
 \usepackage{mathpazo}   % Palatino font (serif)
 \usepackage{microtype}  % Better typography
@@ -71,6 +72,133 @@ Indian Institute of Technology Bombay \\}
 
 \section*{Question 5}
 \begin{solution}{Solution}
+  efege
+  \section{Part a}
+dwefw
+  \section{Part b}
+    The objective is to find the orthonormal matrix $R$ that minimises the sqaure of the Frobenius norm of the error matrix $E$ which equals 
+    $P_{1} - R P_{2}$. 
+    
+    \begin{align*}
+      E(R) &= \lvert\lvert P_{1} - R P_{2}\rvert\rvert_{F}^{2} \\
+      \Rightarrow E(R) &= \text{Trace}({(P_{1} - R P_{2})}^{T}(P_{1} - R P_{2})) \\
+      &= \text{Trace}({P_{1}^{T}P_{1}} - {(RP_{2})}^{T}P_{1} - P_{1}^{T}(R P_{2}) + {(RP_{2})}^{T}(RP_{2})) \\
+      &= \text{Trace}({P_{1}^{T}P_{1}} - P_{2}^{T}R^{T}P_{1} - P_{1}^{T}R P_{2} + P_{2}^{T}R^{T}(RP_{2})) \\
+      &= \text{Trace}(P_{1}^{T}P_{1} + P_{2}^{T}R^{T} R P_{2} - P_{2}^{T}R^{T}P_{1} - P_{1}^{T}RP_{2}) \\
+      &= \text{Trace}(P_{1}^{T}P_{1} + P_{2}^{T}P_{2} - P_{2}^{T}R_{T}P_{1} - P_{1}^{T}RP_{2}) \, \text{ ($R^{T}R = RR^{T} = I$ because $R$ is orthonormal)} \\
+      &= \text{Trace}(P_{1}^{T}P_{1} + P_{2}^{T}P_{2}) - \text{Trace}(P_{2}^{T}R^{T}P_{1}) - \text{Trace}(P_{1}^{T}RP_{2}) \, \text{ (Because Trace is a linear operator)}\\
+      &= \text{Trace}(P_{1}^{T}P_{1} + P_{2}^{T}P_{2}) - \text{Trace}({(P_{2}^{T}R^{T}P_{1})}^{T}) - \text{Trace}(P_{1}^{T}RP_{2}) \, \text{ (Trace$(A)$ = Trace$(A^{T})$ for any square matrix $A$)}\\
+      &= \text{Trace}(P_{1}^{T}P_{1} + P_{2}^{T}P_{2}) - \text{Trace}(P_{1}^{T}RP_{2}) - \text{Trace}(P_{1}^{T}RP_{2}) \\
+      &= \text{Trace}(P_{1}^{T}P_{1} + P_{2}^{T}P_{2}) - 2\text{Trace}(P_{1}^{T}RP_{2})
+    \end{align*}
+
+    \section{Part c}
+    As shown in the previous part $E(R) = \text{Trace}(P_{1}^{T}P_{1} + P_{2}^{T}P_{2}) - 2\text{Trace}(P_{1}^{T}RP_{2})$. Clearly
+    for given $P_{1}$ and $P_{2}$, the first term is fixed. Therefore to minimise $E(R)$ wrt $R$, the term 
+    $-2\text{Trace}(P_{1}^{T}RP_{2})$ should be minimised ie, $\text{Trace}(P_{1}^{T}RP_{2})$ should be maximised wrt $R$.
+
+    \section{Part d}
+
+    Now the goal is to maximise $\text{Trace}(P_{1}^{T}RP_{2})$ wrt $R$.
+    We will first show that for any two matrices $A \in \mathbb{R}^{m \times n},B \in \mathbb{R}^{n \times m}$, 
+    $\text{Trace}(AB) = \text{Trace}(BA)$.
+    \begin{align}
+      \text{Trace}(AB) &= \sum\limits_{i = 1}^{m} C_{ii} \, \text{ (where $C = AB$)} \nonumber \\
+      \Rightarrow \label{AB} \text{Trace}(AB) &= \sum\limits_{i = 1}^{m} \left(\sum\limits_{j = 1}^{n} A_{ij} B_{ji}\right) 
+    \end{align}
+
+    Similarly, 
+    \begin{align}
+      \text{Trace}(BA) &= \sum\limits_{j = 1}^{n} D_{jj} \, \text{ (where $D = BA$)} \nonumber\\
+      \Rightarrow \label{BA}  \text{Trace}(BA) &= \sum\limits_{j = 1}^{n} \left( \sum\limits_{i = 1}^{m} B_{ji} A_{ij}\right)
+    \end{align}
+
+    Clearly, the two double summations in the RHS of equation \@\ref{AB} and equaion \@\ref{BA} are equal
+    and can be obtained by simply reordering the summations. Therefore we have 
+    \begin{align}
+      \label{Proof}\text{Trace}(AB) = \text{Trace}(BA)
+    \end{align}
+
+    We will also use the fact that the SVD of a square matrix $M = USV^{T}$ exists with $U,V$ being orthonormal matrices 
+    and $S$ being a diagonal matrix.
+
+    \begin{align*}
+      \text{Trace}(P_{1}^{T}RP_{2}) &= \text{Trace}(RP_{2}P_{1}^{T}) \, \text{ (from equation \@\ref{Proof})} \\
+                                    &= \text{Trace}(R U^{'} S^{'} V^{'T}) \, \text{ (where $P_{2}P_{1}^{T} = U^{'} S^{'} V^{'T}$ is the SVD of $P_{2}P_{1}^{T}$)} \\
+                                    &= \text{Trace}(S^{'} V^{'T} R U^{'}) \, \text{ (again using the result from equation \@\ref{Proof})} \\
+                                    &= \text{Trace}(S^{'} X) \, \text{ (where $X = V^{'T} R U^{'}$ and $S^{'}$ is a diagonal matrix)}
+    \end{align*}
+
+    \section{Part e}
+
+    Since maximising $\text{Trace}(P_{1}^{T}RP_{2})$ is the same as maximising $\text{Trace}(S^{'}X)$ where $S^{'}$ is a 
+    diagonal matrix and $X = V^{'T} R U^{'}$, we only need to determine the matrix $X$ such that 
+    $S^{'}_{11}X_{11} + S^{'}_{22}X_{22}$ is maximised where $S^{'}_{11}$ and $S^{'}_{22}$ are the singular values of 
+    $P_{2}P_{1}^{T}$. 
+
+    We will now show that $X$ is also orthonormal.
+    \begin{align*}
+      X X^{T} &= (V^{'T} R U^{'}) \cdot {(V^{'T} R U^{'})}^{T} \\
+              &= (V^{'T} R U^{'}) \cdot (U^{'T} R^{T} V^{'}) \\
+              &= V^{'T} R (U^{'} \cdot U^{'T}) R^{T} V^{'} \\
+              &= V^{'T} R I R^{T} V^{'} ,\ \text{ (since $U,V$ are orthonormal)}\\
+              &= V^{'T} RR^{T} V^{'} \\
+              &= V^{'T} I V^{'} \, \text{ (since $R$ is orthonormal)}\\
+              &= V^{'T} V^{'} \\
+              &= I \\
+      \Rightarrow X X^{T} &= X^{T} X = I \\
+      \Rightarrow X_{11}X_{11} + X_{12}X_{12} = 1 \, &\text{\&} \, X_{11}X_{21} + X_{12}X_{22} = 0 \\
+      \Rightarrow X_{21}X_{11} + X_{22}X_{12} = 0 \, &\text{\&} \, X_{21}X_{21} + X_{22}X_{22} = 1 \\
+      \Rightarrow X_{11}^{2} + X_{12}^{2} &= 1  \\
+      \Rightarrow X_{21}^{2} + X_{22}^{2} &= 1 \\
+      \Rightarrow X_{11}X_{21} + X_{12}X_{22} &= 0
+    \end{align*}
+
+    Since all entries of $X$ are real numbers, $0 \leqslant X_{ij} \leqslant 1$ $\forall i,j \in [1,2]$. We need to maximise
+    $S^{'}_{11}X_{11} + S^{'}_{22}X_{22}$ and since $S^{'}_{11}$ and $S^{'}_{22}$ are positive values, we only need to maximise
+    the values of $X_{11}$ and $X_{22}$. Since $X_{11} \leqslant 1$ and $X_{22} \leqslant 1$ the maximum values $X_{11}$ and 
+    $X_{22}$ can take are 1. Hence,
+    \[\text{Trace}(S^{'}X) = X_{11}S^{'}_{11} + X_{22}S^{'}_{22} \leqslant ((1)S^{'}_{11} + (1)S^{'}_{22}) =  S^{'}_{11} + S^{'}_{22}\]
+ 
+    Therefore the matrix $X$ is,
+    \[ X = \begin{pmatrix}
+      1 & 0 \\
+      0 & 1
+    \end{pmatrix}\]
+    since $x_{11}^{2} + X_{12}^{2} = 1 \text{ and } X_{11} = 1 \Rightarrow X_{12} = 0$, similarly $X_{21} = 0$. Hence we get 
+    $X = I_{2}$ for maximum value of $\text{Trace}S^{'}X$
+
+    \section{Part f}
+      Since $X = I_{2}$ and $X = V^{'T}RU^{'}$, we get 
+      \begin{align*}
+        V^{'T}RU^{'} &= I \\
+        \Rightarrow V^{'}V^{'T}RU^{'}U^{'T} &= V^{'}IU^{'T} \\
+        \Rightarrow I R I &= V^{'}U^{'T} \text{ (since $V^{'}$ and $U^{'}$ are orthogonal matrices)}\\
+        \Rightarrow R &= V^{'}U^{'T}
+      \end{align*}
+
+      If $X$ is the identity matrix $R = V^{'}U^{'T}$.
+    \section{Part g}
+      If $R$ is also a rotation matrix then $R = \begin{pmatrix}
+        \cos \theta & - \sin \theta \\
+        \sin \theta & \cos \theta \\
+      \end{pmatrix}$
+      for some $\theta \in \mathbb{R}$. This gives $\text{det}(R) = \cos^{2} \theta + \sin^{2} \theta = 1$. However if $R$
+      is not a rotation matrix then $\text{det}(R) = 1,-1$. So the additional constraint imposed is $\text{det}(R) = 1$.
+    % We can set $X_{11} = \cos{\theta}, X_{12} = \sin{\theta}$ and $X_{21} = \cos{\phi}, X_{22} = \sin{\phi}$ since $X_{11},X_{12},X_{21},X_{22} \in \mathbb{R}$
+    % and satisfy $X_{11}^{2} + X_{12}^{2} = 1$ and $X_{21}^{2} + X_{22}^{2} = 1$. Now the third equation gives 
+    % \begin{align*}
+    %   \cos{\theta}\cos{\phi} + \sin{\theta}\sin{\phi} &= 0 \\
+    %   \Rightarrow  \cos{(\phi - \theta)}  &= 0 \\
+    %   \Rightarrow \phi - \theta &= \frac{(2n + 1)}{2}\pi \text{ where $n \in \mathbb{Z}$} \\
+    %   \Rightarrow \phi &= \frac{(2n + 1)}{2}\pi + \theta 
+    % \end{align*}
+    
+    % Substituting the value of $\phi$ in the equations for $X_{21},X_{22}$ we get $X_{21} = \cos(\frac{(2n + 1)}{2}\pi + \theta) = \cos(n\pi + )$
+    % and $X_{12} = \sin(2n\pi + \phi) = \sin \phi$. Therefore
+    % \[ X = \begin{pmatrix}
+    %       \cos \phi & \sin
+    % \end{pmatrix}\]
 
 \end{solution}
 
